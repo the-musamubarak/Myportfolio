@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Time Intelligence in DAX — The Power BI Dispatch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0e0d0b;
+    --paper: #faf8f3;
+    --paper-tint: #f2efe8;
+    --rule: #d8d3c8;
+    --rule-dark: #b8b0a0;
+    --accent: #c0392b;
+    --accent-muted: #e8cfc9;
+    --gold: #b8860b;
+    --muted: #6b6560;
+    --code-bg: #1a1917;
+    --code-fg: #e8e2d9;
+    --code-green: #7ec699;
+    --code-yellow: #e5c07b;
+    --code-blue: #6db3f2;
+    --code-purple: #c792ea;
+    --code-comment: #7a7268;
+    --result-bg: #f0f7ee;
+    --result-border: #4a9a5a;
+    --error-bg: #fdf0f0;
+    --error-border: #c0392b;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    border-bottom: 3px double var(--ink);
+    padding: 1.2rem 0 1rem;
+    text-align: center;
+    position: relative;
+    background: var(--paper);
+  }
+  .masthead-rule {
+    height: 1px;
+    background: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .masthead-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+  .masthead-subtitle {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.4rem;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 400;
+  }
+  .masthead-nav {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 0.8rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .masthead-nav span { cursor: pointer; }
+  .masthead-nav span:hover { color: var(--ink); }
+  .masthead-line-bottom {
+    margin-top: 0.8rem;
+    height: 1px;
+    background: var(--ink);
+  }
+
+  /* ── LAYOUT ── */
+  .page-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  /* ── HERO ARTICLE HEADER ── */
+  .article-header {
+    padding: 3rem 0 2rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 2.5rem;
+  }
+  .article-section-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    display: inline-block;
+    border-bottom: 1.5px solid var(--accent);
+    padding-bottom: 0.1rem;
+    margin-bottom: 1.2rem;
+  }
+  .article-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.2rem;
+    max-width: 680px;
+  }
+  .article-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .article-deck {
+    font-size: 1.15rem;
+    color: var(--muted);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-bottom: 1.8rem;
+  }
+  .article-byline {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.82rem;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 400;
+  }
+  .byline-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .byline-info { color: var(--muted); }
+  .byline-name { color: var(--ink); font-weight: 600; display: block; font-size: 0.9rem; }
+  .byline-meta { display: flex; gap: 1rem; margin-top: 0.1rem; align-items: center; }
+  .byline-sep { color: var(--rule-dark); }
+  .read-time {
+    background: var(--paper-tint);
+    border: 1px solid var(--rule);
+    padding: 0.15rem 0.6rem;
+    border-radius: 2px;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── ARTICLE BODY ── */
+  .article-body { padding-top: 0.5rem; }
+
+  .article-body p {
+    margin-bottom: 1.6rem;
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.85;
+    color: #1a1917;
+  }
+
+  .article-body h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 3rem 0 1.2rem;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .article-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    font-style: italic;
+    margin: 2.2rem 0 0.8rem;
+    color: var(--ink);
+  }
+
+  .article-body strong { font-weight: 600; }
+
+  .article-body em { font-style: italic; color: #3a3632; }
+
+  /* ── PULL QUOTE ── */
+  .pull-quote {
+    border-left: 4px solid var(--accent);
+    margin: 2.5rem 0;
+    padding: 1.2rem 2rem;
+    background: var(--paper-tint);
+  }
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem !important;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.5 !important;
+    color: var(--ink) !important;
+    margin: 0 !important;
+  }
+  .pull-quote cite {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-style: normal;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 0.7rem;
+    font-family: 'Source Serif 4', serif;
+  }
+
+  /* ── DROP CAP ── */
+  .drop-cap::first-letter {
+    float: left;
+    font-family: 'Playfair Display', serif;
+    font-size: 4.8rem;
+    font-weight: 900;
+    line-height: 0.82;
+    margin-right: 0.1em;
+    margin-top: 0.05em;
+    color: var(--accent);
+  }
+
+  /* ── CODE BLOCK ── */
+  .code-block {
+    margin: 2rem 0;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #2d2b28;
+    font-size: 0.88rem;
+  }
+  .code-header {
+    background: #111;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #2d2b28;
+  }
+  .code-lang {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #666;
+  }
+  .code-label {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.72rem;
+    color: #888;
+  }
+  .code-pre {
+    background: var(--code-bg);
+    color: var(--code-fg);
+    padding: 1.2rem 1.4rem;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    margin: 0;
+    white-space: pre;
+  }
+  .kw { color: var(--code-purple); }
+  .fn { color: var(--code-blue); }
+  .str { color: var(--code-green); }
+  .num { color: var(--code-yellow); }
+  .cm { color: var(--code-comment); font-style: italic; }
+  .op { color: #e06c75; }
+  .tbl { color: #e5c07b; }
+  .col { color: #abb2bf; }
+
+  /* ── CONCEPT BOX ── */
+  .concept-box {
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--ink);
+    padding: 1.4rem 1.6rem;
+    margin: 2.2rem 0;
+    background: var(--paper-tint);
+  }
+  .concept-box-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .concept-box-title::before {
+    content: '▪';
+    color: var(--accent);
+    font-size: 0.6rem;
+  }
+  .concept-box p {
+    font-size: 0.92rem !important;
+    margin-bottom: 0.6rem !important;
+    color: #2a2824 !important;
+  }
+  .concept-box p:last-child { margin-bottom: 0 !important; }
+
+  /* ── FUNCTION TABLE ── */
+  .fn-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.88rem;
+    font-family: 'Source Serif 4', serif;
+  }
+  .fn-table th {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0.5rem 0.9rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .fn-table td {
+    padding: 0.55rem 0.9rem;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .fn-table tr:nth-child(even) td { background: var(--paper-tint); }
+  .fn-table .fn-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--code-blue);
+    background: var(--code-bg);
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  /* ── ✦ LIVE DAX PLAYGROUND ✦ ── */
+  .playground {
+    margin: 3rem 0;
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    position: relative;
+  }
+  .playground::before {
+    content: '✦ LIVE DAX PLAYGROUND ✦';
+    position: absolute;
+    top: -0.65rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--paper);
+    padding: 0 1rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .playground-header {
+    background: var(--code-bg);
+    padding: 1rem 1.4rem 0.8rem;
+    border-bottom: 1px solid #2d2b28;
+  }
+  .playground-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--paper);
+    margin-bottom: 0.25rem;
+  }
+  .playground-desc {
+    font-size: 0.78rem;
+    color: #888;
+    font-family: 'Source Serif 4', serif;
+    line-height: 1.5;
+  }
+  .playground-body { padding: 1.4rem; }
+
+  .dataset-preview {
+    margin-bottom: 1.4rem;
+  }
+  .dataset-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--muted);
+    font-family: 'Source Serif 4', serif;
+    margin-bottom: 0.6rem;
+  }
+  .dataset-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+  }
+  .dataset-table th {
+    background: #eae5dc;
+    padding: 0.35rem 0.7rem;
+    text-align: left;
+    font-weight: 500;
+    color: var(--ink);
+    border: 1px solid var(--rule);
+    letter-spacing: 0.08em;
+  }
+  .dataset-table td {
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--rule);
+    color: #2a2824;
+  }
+  .dataset-table tr:nth-child(even) td { background: var(--paper-tint); }
+  .num-cell { text-align: right; color: #185fa5; }
+
+  .editor-area {
+    background: var(--code-bg);
+    border-radius: 3px;
+    border: 1px solid #2d2b28;
+    overflow: hidden;
+    margin-bottom: 0.8rem;
+  }
+  .editor-topbar {
+    background: #111;
+    padding: 0.4rem 0.9rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    border-bottom: 1px solid #222;
+  }
+  .editor-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+  .editor-dot:nth-child(1) { background: #e74c3c; }
+  .editor-dot:nth-child(2) { background: #f39c12; }
+  .editor-dot:nth-child(3) { background: #2ecc71; }
+  .editor-dot-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    color: #555;
+    margin-left: auto;
+    letter-spacing: 0.1em;
+  }
+  .dax-editor {
+    width: 100%;
+    background: var(--code-bg);
+    color: var(--code-fg);
+    border: none;
+    outline: none;
+    padding: 1rem 1.2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    resize: vertical;
+    min-height: 90px;
+    caret-color: #e8e2d9;
+  }
+  .dax-editor::placeholder { color: #4a4844; }
+
+  .playground-controls {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 0.8rem;
+  }
+  .run-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.55rem 1.4rem;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    border-radius: 2px;
+  }
+  .run-btn:hover { background: #a93226; }
+  .run-btn:active { transform: scale(0.97); }
+  .run-btn:disabled { background: #999; cursor: not-allowed; }
+
+  .clear-btn {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--rule);
+    padding: 0.5rem 1rem;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.8rem;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.15s;
+  }
+  .clear-btn:hover { color: var(--ink); border-color: var(--rule-dark); }
+
+  .snippet-btns {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .snippet-btn {
+    background: var(--paper-tint);
+    border: 1px solid var(--rule);
+    color: #185fa5;
+    padding: 0.28rem 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .snippet-btn:hover {
+    background: #e6f1fb;
+    border-color: #185fa5;
+    color: #0c447c;
+  }
+  .snippet-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .result-panel {
+    border-radius: 3px;
+    padding: 1rem 1.2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88rem;
+    min-height: 56px;
+    display: none;
+    line-height: 1.6;
+  }
+  .result-panel.success {
+    display: block;
+    background: var(--result-bg);
+    border: 1px solid var(--result-border);
+    color: #1a4a25;
+  }
+  .result-panel.error {
+    display: block;
+    background: var(--error-bg);
+    border: 1px solid var(--error-border);
+    color: #7a1515;
+  }
+  .result-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    font-family: 'Source Serif 4', serif;
+    opacity: 0.7;
+  }
+  .result-value {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+  .result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.5rem;
+  }
+  .result-table th {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-align: left;
+    padding: 0.3rem 0.6rem;
+    border-bottom: 1px solid rgba(74,154,90,0.4);
+    color: #1a5c22;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .result-table td {
+    padding: 0.28rem 0.6rem;
+    font-size: 0.82rem;
+    border-bottom: 1px solid rgba(74,154,90,0.15);
+  }
+  .result-table tr:last-child td { border-bottom: none; }
+
+  .thinking-indicator {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-family: 'Source Serif 4', serif;
+    padding: 0.6rem 0;
+  }
+  .thinking-indicator.active { display: flex; }
+  .spinner {
+    width: 14px; height: 14px;
+    border: 2px solid var(--rule);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── DIVIDER ── */
+  .ornamental-divider {
+    text-align: center;
+    margin: 2.5rem 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+    letter-spacing: 0.8em;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar { padding-top: 3rem; }
+  .sidebar-section {
+    border-top: 3px double var(--ink);
+    padding-top: 1rem;
+    margin-bottom: 2.2rem;
+  }
+  .sidebar-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--ink);
+  }
+  .sidebar-author-avatar {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+  }
+  .sidebar-author-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+  .sidebar-author-bio {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+  .toc-list { list-style: none; }
+  .toc-list li {
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.82rem;
+  }
+  .toc-list li:last-child { border-bottom: none; }
+  .toc-list a {
+    text-decoration: none;
+    color: var(--muted);
+    transition: color 0.15s;
+    display: flex;
+    gap: 0.6rem;
+    align-items: baseline;
+  }
+  .toc-list a:hover { color: var(--accent); }
+  .toc-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.7rem;
+    color: var(--rule-dark);
+    min-width: 1.2em;
+  }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid var(--rule-dark);
+    padding: 0.25rem 0.6rem;
+    color: var(--muted);
+    border-radius: 2px;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+  }
+  .tag:hover { background: var(--paper-tint); color: var(--ink); cursor: default; }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 3px double var(--ink);
+    margin-top: 4rem;
+    padding: 2rem 0;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-family: 'Source Serif 4', serif;
+    letter-spacing: 0.08em;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 1.2rem;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  /* ── INLINE CODE ── */
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82em;
+    background: #ede9e0;
+    padding: 0.1em 0.35em;
+    border-radius: 2px;
+    color: #1a1917;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 820px) {
+    .page-wrapper {
+      grid-template-columns: 1fr;
+      gap: 0;
+      padding: 0 1.2rem;
+    }
+    .sidebar { display: none; }
+    .masthead-title { font-size: 2rem; }
+    .article-title { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div style="max-width:1100px; margin:0 auto; padding:0 2rem;">
+    <div class="masthead-rule"></div>
+    <div class="masthead-title">The Power BI Dispatch</div>
+    <div class="masthead-subtitle">Data Intelligence &middot; Analytical Thinking &middot; Field Notes from the Query Editor</div>
+    <nav class="masthead-nav">
+      <span>DAX</span>
+      <span>Visualizations</span>
+      <span>Modeling</span>
+      <span>Power Query</span>
+      <span>Tutorials</span>
+    </nav>
+    <div class="masthead-line-bottom"></div>
+  </div>
+</header>
+
+<div class="page-wrapper">
+
+  <!-- MAIN ARTICLE -->
+  <main>
+    <header class="article-header">
+      <div class="article-section-tag">DAX Deep Dive</div>
+      <h1 class="article-title">
+        Mastering <em>Time Intelligence</em> in DAX: A Developer's Field Notes
+      </h1>
+      <p class="article-deck">
+        After months of fighting with CALCULATE and date tables, here's everything I wish someone had told me about writing time-aware DAX measures — with a live sandbox so you can feel the logic for yourself.
+      </p>
+      <div class="article-byline">
+        <div class="byline-avatar">MA</div>
+        <div class="byline-info">
+          <span class="byline-name">Musa Mubarak Abdulaziz</span>
+          <div class="byline-meta">
+            <span>May 26, 2026</span>
+            <span class="byline-sep">&middot;</span>
+            <span class="read-time">12 min read</span>
+            <span class="byline-sep">&middot;</span>
+            <span>Power BI, DAX</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ARTICLE BODY -->
+    <article class="article-body">
+
+      <p class="drop-cap" id="intro">
+        There's a moment every Power BI developer experiences — usually at 11pm before a board presentation — when a simple "sales this month vs last month" calculation refuses to behave. The numbers look wrong. The filter context is misbehaving. You're not sure if the problem is your date table, your measure logic, or a cosmic misalignment. I've been there. Many times.
+      </p>
+
+      <p>
+        Time intelligence in DAX is one of those topics that <strong>looks simple on the surface</strong> — there are a handful of functions with intuitive names like <code>PREVIOUSMONTH</code> and <code>SAMEPERIODLASTYEAR</code> — but the moment you start composing them inside <code>CALCULATE</code>, the filter context starts doing things you didn't expect. This article is my attempt to document what actually happens under the hood.
+      </p>
+
+      <div class="pull-quote">
+        <p>"DAX doesn't have time — it has filter context. Time intelligence functions are simply shortcuts for reshaping that context around dates."</p>
+        <cite>— A useful mental model I had to build the hard way</cite>
+      </div>
+
+      <h2 id="foundation">The Foundation: Why Your Date Table Matters More Than You Think</h2>
+
+      <p>
+        Before a single time intelligence function will work, you need a proper <strong>marked date table</strong>. This isn't optional, and it's the source of most beginner frustration. Power BI needs a contiguous, gap-free calendar table with a single date column marked as the date table in the model.
+      </p>
+
+      <p>
+        The requirements are strict: every date in your fact table's date column must exist in this calendar table, the date range must be complete with no missing days, and you must right-click the table in the model view and hit <em>Mark as date table</em>. Miss any of these, and functions like <code>TOTALYTD</code> will silently return wrong results with no error — which is somehow worse.
+      </p>
+
+      <div class="concept-box">
+        <div class="concept-box-title">The Minimum Viable Date Table</div>
+        <p>Your date table must contain: one column of unique, contiguous dates — no gaps — covering the full range of your data plus a few years forward. Mark it via <em>Model view → Table tools → Mark as date table</em>. Everything else (Year, Month, Quarter columns) is enrichment on top of that core.</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">DAX</span>
+          <span class="code-label">Try these in the playground below ↓</span>
+        </div>
+        <pre class="code-pre"><span class="cm">-- Total Annual Revenue</span>
+<span class="fn">SUM</span>(Sales[Revenue])
+
+<span class="cm">-- Average Transaction Value</span>
+<span class="fn">DIVIDE</span>(<span class="fn">SUM</span>(Sales[Revenue]), <span class="fn">SUM</span>(Sales[Units]))
+
+<span class="cm">-- Profit Margin %</span>
+<span class="fn">DIVIDE</span>(<span class="fn">SUM</span>(Sales[Revenue]) <span class="op">-</span> <span class="fn">SUM</span>(Sales[Cost]), <span class="fn">SUM</span>(Sales[Revenue]))
+
+<span class="cm">-- Highest Month Revenue</span>
+<span class="fn">MAX</span>(Sales[Revenue])</pre>
+      </div>
+
+      <h2 id="calculate">CALCULATE: The Engine Behind Everything</h2>
+
+      <p>
+        You cannot understand time intelligence without first understanding <code>CALCULATE</code>. It is, without exaggeration, the most important function in DAX. Every time intelligence function is built on top of it. The mental model is this: <code>CALCULATE</code> evaluates an expression, but first it modifies the current filter context.
+      </p>
+
+      <p>
+        When you write <code>CALCULATE(SUM(Sales[Revenue]), PREVIOUSMONTH(DateTable[Date]))</code>, what's actually happening is: <code>PREVIOUSMONTH</code> generates a table of dates (all dates in the previous month), and <code>CALCULATE</code> uses that table to replace the current date filter. The sales measure then evaluates against <em>that new context</em> — not the original one.
+      </p>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">DAX</span>
+          <span class="code-label">Business Metrics (Playground Ready)</span>
+        </div>
+        <pre class="code-pre"><span class="cm">-- Total Sales Volume</span>
+<span class="fn">SUM</span>(Sales[Units])
+
+<span class="cm">-- Average Monthly Revenue</span>
+<span class="fn">AVERAGE</span>(Sales[Revenue])
+
+<span class="cm">-- Total Cost of Goods Sold</span>
+<span class="fn">SUM</span>(Sales[Cost])
+
+<span class="cm">-- Profit (Revenue - Cost)</span>
+<span class="fn">SUM</span>(Sales[Revenue]) <span class="op">-</span> <span class="fn">SUM</span>(Sales[Cost])
+
+<span class="cm">-- Number of Months with Data</span>
+<span class="fn">COUNTROWS</span>(Sales)</pre>
+      </div>
+
+      <h2 id="functions">The Core Functions, Demystified</h2>
+
+      <p>
+        The DAX time intelligence library is substantial, but in practice you'll use a focused subset. Here's the map of what each function actually does to the filter context:
+      </p>
+
+      <table class="fn-table">
+        <thead>
+          <tr>
+            <th>Function</th>
+            <th>What it Returns</th>
+            <th>Common Use</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="fn-name">PREVIOUSMONTH</span></td>
+            <td>All dates in the previous complete month</td>
+            <td>MoM comparison</td>
+          </tr>
+          <tr>
+            <td><span class="fn-name">PREVIOUSQUARTER</span></td>
+            <td>All dates in the previous quarter</td>
+            <td>QoQ comparison</td>
+          </tr>
+          <tr>
+            <td><span class="fn-name">PREVIOUSYEAR</span></td>
+            <td>All dates in the previous year</td>
+            <td>YoY comparison</td>
+          </tr>
+          <tr>
+            <td><span class="fn-name">SAMEPERIODLASTYEAR</span></td>
+            <td>Same dates shifted back 1 year</td>
+            <td>YoY for partial periods</td>
+          </tr>
+          <tr>
+            <td><span class="fn-name">TOTALYTD</span></td>
+            <td>Dates from start of year to max visible date</td>
+            <td>Running YTD totals</td>
+          </tr>
+          <tr>
+            <td><span class="fn-name">TOTALQTD</span></td>
+            <td>Dates from start of quarter to max visible date</td>
+            <td>Running QTD totals</td>
+          </tr>
+          <tr>
+            <td><span class="fn-name">DATEADD</span></td>
+            <td>Dates shifted by N intervals</td>
+            <td>Flexible period shifts</td>
+          </tr>
+          <tr>
+            <td><span class="fn-name">DATESBETWEEN</span></td>
+            <td>All dates in an explicit range</td>
+            <td>Rolling windows</td>
+          </tr>
+          <tr>
+            <td><span class="fn-name">DATESMTD</span></td>
+            <td>Dates from start of month to selected date</td>
+            <td>MTD aggregation</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 id="advanced">Advanced Pattern: Rolling 3-Month Average</h2>
+
+      <p>
+        Once you're comfortable with the basics, you can build complex metrics from simple blocks. Here are some advanced calculations you can test in the playground below:
+      </p>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">DAX</span>
+          <span class="code-label">Advanced Metrics (Playground Ready)</span>
+        </div>
+        <pre class="code-pre"><span class="cm">-- Cost as % of Revenue</span>
+<span class="fn">DIVIDE</span>(<span class="fn">SUM</span>(Sales[Cost]), <span class="fn">SUM</span>(Sales[Revenue])) <span class="op">*</span> <span class="num">100</span>
+
+<span class="cm">-- Revenue Growth Ratio (high/low months)</span>
+<span class="fn">DIVIDE</span>(<span class="fn">MAX</span>(Sales[Revenue]), <span class="fn">MIN</span>(Sales[Revenue]))
+
+<span class="cm">-- Average Cost per Unit</span>
+<span class="fn">DIVIDE</span>(<span class="fn">SUM</span>(Sales[Cost]), <span class="fn">SUM</span>(Sales[Units]))
+
+<span class="cm">-- Total Distinct Regions</span>
+<span class="fn">DISTINCTCOUNT</span>(Sales[Region])</pre>
+      </div>
+
+      <div class="ornamental-divider">&diams; &diams; &diams;</div>
+
+      <!-- ============================
+           LIVE DAX PLAYGROUND
+           ============================ -->
+      <h2 id="playground">Try It Yourself: The Live DAX Playground</h2>
+
+      <p>
+        The best way to learn DAX is by experimenting. Below is a working dataset of monthly sales figures. Copy any of the expressions from the code blocks above, or try writing your own — click <strong>Run</strong> to see the result instantly. The playground supports aggregations, arithmetic, and common DAX functions.
+      </p>
+
+      <div class="playground">
+        <div class="playground-header">
+          <div class="playground-title">DAX Expression Evaluator</div>
+          <div class="playground-desc">Write an expression against the Sales dataset below &rarr; click <strong>Run</strong> to evaluate. Try the quick snippets to get started.</div>
+        </div>
+        <div class="playground-body">
+
+          <!-- Dataset Preview -->
+          <div class="dataset-preview">
+            <div class="dataset-label">Dataset: Sales[Monthly] — 12 rows</div>
+            <table class="dataset-table">
+              <thead>
+                <tr>
+                  <th>Month</th>
+                  <th>Region</th>
+                  <th class="num-cell">Revenue</th>
+                  <th class="num-cell">Units</th>
+                  <th class="num-cell">Cost</th>
+                </tr>
+              </thead>
+              <tbody id="dataset-body"></tbody>
+            </table>
+          </div>
+
+          <!-- Quick Snippets -->
+          <div>
+            <div class="snippet-label">Quick snippets — click to load:</div>
+            <div class="snippet-btns" id="snippet-btns"></div>
+          </div>
+
+          <!-- Editor -->
+          <div class="editor-area">
+            <div class="editor-topbar">
+              <div class="editor-dot"></div>
+              <div class="editor-dot"></div>
+              <div class="editor-dot"></div>
+              <span class="editor-dot-label">measure.dax</span>
+            </div>
+            <textarea class="dax-editor" id="dax-editor" placeholder="Type a DAX expression, e.g.: SUM(Sales[Revenue])" spellcheck="false" rows="3"></textarea>
+          </div>
+
+          <div class="playground-controls">
+            <button class="run-btn" id="run-btn" onclick="runDAX()">&#9654; Run</button>
+            <button class="clear-btn" onclick="clearEditor()">Clear</button>
+            <div class="thinking-indicator" id="thinking">
+              <div class="spinner"></div>
+              <span>Evaluating expression…</span>
+            </div>
+          </div>
+
+          <div class="result-panel" id="result-panel">
+            <div class="result-label" id="result-label">Result</div>
+            <div class="result-value" id="result-value"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <h2 id="mistakes">Common Mistakes I Still See (Including My Own)</h2>
+
+      <p>
+        <strong>Forgetting DIVIDE.</strong> Using a plain division operator (<code>Revenue / PrevRevenue</code>) will cause errors when the denominator is zero or blank — which happens constantly at the boundaries of your date range. Always use <code>DIVIDE(numerator, denominator, alternate_result)</code>.
+      </p>
+      <p>
+        <strong>Using ALL instead of ALLSELECTED.</strong> If your report has slicers, <code>ALL</code> will ignore them when calculating totals, which breaks percentage-of-total calculations. <code>ALLSELECTED</code> respects user selections while still removing row context filters.
+      </p>
+      <p>
+        <strong>Applying time intelligence to non-date columns.</strong> These functions strictly require a column marked as a date data type from a marked date table. Passing a text column formatted as "2024-01" will fail silently or error.
+      </p>
+
+      <div class="ornamental-divider">&diams; &diams; &diams;</div>
+
+      <p>
+        Time intelligence in DAX rewards patience. The logic is internally consistent once you see it as filter context manipulation rather than "magic date functions." Start with a solid date table, understand <code>CALCULATE</code> deeply, and the rest follows naturally. The playground above exists precisely for those 11pm moments — try something, see what happens, build the intuition.
+      </p>
+
+      <p style="font-style:italic; color: var(--muted); font-size: 0.95rem;">
+        Got a DAX pattern you're struggling with? The comments are open. I reply to every question.
+      </p>
+
+    </article>
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="sidebar-section">
+      <div class="sidebar-heading">About the Author</div>
+      <div class="sidebar-author-avatar">MA</div>
+      <div class="sidebar-author-name">Musa Mubarak Abdulaziz</div>
+      <div class="sidebar-author-bio">
+        Data analyst and full stack developer specializing in Power BI, DAX, and data visualization. I share insights from my experience building analytical solutions and writing clean code.
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-heading">In This Article</div>
+      <ul class="toc-list">
+        <li><a href="#foundation"><span class="toc-num">01</span> Date Table Foundation</a></li>
+        <li><a href="#calculate"><span class="toc-num">02</span> CALCULATE Explained</a></li>
+        <li><a href="#functions"><span class="toc-num">03</span> Core Functions</a></li>
+        <li><a href="#advanced"><span class="toc-num">04</span> Rolling Averages</a></li>
+        <li><a href="#playground"><span class="toc-num">05</span> Live Playground</a></li>
+        <li><a href="#mistakes"><span class="toc-num">06</span> Common Mistakes</a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-heading">Topics</div>
+      <div class="tag-list">
+        <span class="tag">DAX</span>
+        <span class="tag">Power BI</span>
+        <span class="tag">Time Intelligence</span>
+        <span class="tag">CALCULATE</span>
+        <span class="tag">Data Modeling</span>
+        <span class="tag">Analytics</span>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-heading">Related Reading</div>
+      <div style="font-size:0.82rem; line-height:1.9; color: var(--muted);">
+        <div style="border-bottom:1px solid var(--rule); padding-bottom:0.6rem; margin-bottom:0.6rem;">
+          <div style="color:var(--ink); font-weight:600; font-family:'Playfair Display',serif;">Context Transition in DAX</div>
+          <div>Why row context and filter context behave differently</div>
+        </div>
+        <div style="border-bottom:1px solid var(--rule); padding-bottom:0.6rem; margin-bottom:0.6rem;">
+          <div style="color:var(--ink); font-weight:600; font-family:'Playfair Display',serif;">Building Star Schemas</div>
+          <div>The model structure that makes every measure simpler</div>
+        </div>
+        <div>
+          <div style="color:var(--ink); font-weight:600; font-family:'Playfair Display',serif;">Power Query M vs DAX</div>
+          <div>When to transform data vs when to calculate it</div>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div style="max-width:1100px; margin:0 auto; padding:0 2rem;">
+    <span class="footer-logo">The Power BI Dispatch</span>
+    Written with intention &middot; Published independently &middot; &copy; 2026 Musa Mubarak Abdulaziz
+  </div>
+</footer>
+
+<script>
+// ── DATASET ──
+const data = [
+  { month: "Jan 2024", region: "North",  revenue: 42500, units: 312, cost: 28000 },
+  { month: "Feb 2024", region: "North",  revenue: 38200, units: 289, cost: 25100 },
+  { month: "Mar 2024", region: "South",  revenue: 51800, units: 401, cost: 33200 },
+  { month: "Apr 2024", region: "South",  revenue: 47300, units: 358, cost: 30500 },
+  { month: "May 2024", region: "East",   revenue: 63100, units: 490, cost: 40200 },
+  { month: "Jun 2024", region: "East",   revenue: 70400, units: 541, cost: 44800 },
+  { month: "Jul 2024", region: "West",   revenue: 58900, units: 453, cost: 37100 },
+  { month: "Aug 2024", region: "West",   revenue: 55200, units: 421, cost: 35000 },
+  { month: "Sep 2024", region: "North",  revenue: 66700, units: 512, cost: 42300 },
+  { month: "Oct 2024", region: "South",  revenue: 72100, units: 558, cost: 45900 },
+  { month: "Nov 2024", region: "East",   revenue: 81300, units: 621, cost: 51600 },
+  { month: "Dec 2024", region: "West",   revenue: 91200, units: 704, cost: 57800 },
+];
+
+// Render dataset table
+const tbody = document.getElementById('dataset-body');
+data.forEach(r => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td>${r.month}</td><td>${r.region}</td><td class="num-cell">$${r.revenue.toLocaleString()}</td><td class="num-cell">${r.units}</td><td class="num-cell">$${r.cost.toLocaleString()}</td>`;
+  tbody.appendChild(tr);
+});
+
+// ── SNIPPETS ──
+const snippets = [
+  { label: "Total Revenue", code: "SUM(Sales[Revenue])" },
+  { label: "Avg Monthly Revenue", code: "AVERAGE(Sales[Revenue])" },
+  { label: "Revenue per Unit", code: "DIVIDE(SUM(Sales[Revenue]), SUM(Sales[Units]))" },
+  { label: "Profit Margin %", code: "DIVIDE(SUM(Sales[Revenue]) - SUM(Sales[Cost]), SUM(Sales[Revenue]))" },
+  { label: "Total Profit", code: "SUM(Sales[Revenue]) - SUM(Sales[Cost])" },
+  { label: "Cost per Unit", code: "DIVIDE(SUM(Sales[Cost]), SUM(Sales[Units]))" },
+  { label: "Highest Month", code: "MAX(Sales[Revenue])" },
+  { label: "Month Count", code: "COUNTROWS(Sales)" },
+];
+
+const snippetContainer = document.getElementById('snippet-btns');
+snippets.forEach(s => {
+  const btn = document.createElement('button');
+  btn.className = 'snippet-btn';
+  btn.textContent = s.label;
+  btn.onclick = () => {
+    document.getElementById('dax-editor').value = s.code;
+    document.getElementById('dax-editor').focus();
+  };
+  snippetContainer.appendChild(btn);
+});
+
+// ── DAX EVALUATOR ──
+function fmt(n) {
+  if (typeof n !== 'number') return n;
+  if (Math.abs(n) < 1 && n !== 0) return (n * 100).toFixed(2) + '%';
+  return n % 1 === 0 ? n.toLocaleString() : n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function evalDAX(expr) {
+  const e = expr.trim();
+  const col = {
+    revenue: data.map(r => r.revenue),
+    units: data.map(r => r.units),
+    cost: data.map(r => r.cost),
+    month: data.map(r => r.month),
+    region: data.map(r => r.region),
+  };
+
+  function resolveCol(name) {
+    const n = name.toLowerCase();
+    if (n.includes('revenue')) return col.revenue;
+    if (n.includes('unit')) return col.units;
+    if (n.includes('cost')) return col.cost;
+    if (n.includes('month')) return col.month;
+    if (n.includes('region')) return col.region;
+    return null;
+  }
+
+  const stripped = e.replace(/Sales\[/gi, '[');
+
+  // DIVIDE - handle first
+  const divM = stripped.match(/^DIVIDE\((.+),\s*(.+?)(?:,\s*.+)?\)$/i);
+  if (divM) {
+    const num = evalDAX(divM[1]);
+    const den = evalDAX(divM[2]);
+    if (typeof num === 'number' && typeof den === 'number') {
+      return den === 0 ? 0 : num / den;
+    }
+  }
+
+  // SUM
+  const sumM = stripped.match(/^SUM\(\[?(\w+)\]?\)$/i);
+  if (sumM) {
+    const col2 = resolveCol(sumM[1]);
+    if (col2) return col2.reduce((a, b) => a + b, 0);
+  }
+
+  // AVERAGE
+  const avgM = stripped.match(/^AVERAGE\(\[?(\w+)\]?\)$/i);
+  if (avgM) {
+    const col2 = resolveCol(avgM[1]);
+    if (col2) return col2.reduce((a, b) => a + b, 0) / col2.length;
+  }
+
+  // MAX
+  const maxM = stripped.match(/^MAX\(\[?(\w+)\]?\)$/i);
+  if (maxM) {
+    const col2 = resolveCol(maxM[1]);
+    if (col2) return Math.max(...col2);
+  }
+
+  // MIN
+  const minM = stripped.match(/^MIN\(\[?(\w+)\]?\)$/i);
+  if (minM) {
+    const col2 = resolveCol(minM[1]);
+    if (col2) return Math.min(...col2);
+  }
+
+  // COUNTROWS
+  const crM = stripped.match(/^COUNTROWS\(\w*\)$/i);
+  if (crM) return data.length;
+
+  // DISTINCTCOUNT
+  const dcM = stripped.match(/^DISTINCTCOUNT\(\[?(\w+)\]?\)$/i);
+  if (dcM) {
+    const col2 = resolveCol(dcM[1]);
+    if (col2) return new Set(col2).size;
+  }
+
+  // Handle multiplication/division first (order of operations)
+  const multDivM = stripped.match(/^(.+?)\s*([\*\/])\s*(.+)$/);
+  if (multDivM) {
+    const left = evalDAX(multDivM[1]);
+    const right = evalDAX(multDivM[3]);
+    const op = multDivM[2];
+    if (typeof left === 'number' && typeof right === 'number') {
+      if (op === '*') return left * right;
+      if (op === '/') return right === 0 ? null : left / right;
+    }
+  }
+
+  // Handle addition/subtraction
+  const addSubM = stripped.match(/^(.+?)\s*([\+\-])\s*(.+)$/);
+  if (addSubM) {
+    const left = evalDAX(addSubM[1]);
+    const right = evalDAX(addSubM[3]);
+    const op = addSubM[2];
+    if (typeof left === 'number' && typeof right === 'number') {
+      if (op === '+') return left + right;
+      if (op === '-') return left - right;
+    }
+  }
+
+  // Plain number
+  if (!isNaN(stripped)) return parseFloat(stripped);
+
+  return null;
+}
+
+function clearEditor() {
+  document.getElementById('dax-editor').value = '';
+  const panel = document.getElementById('result-panel');
+  panel.className = 'result-panel';
+  panel.style.display = 'none';
+}
+
+function showResult(type, label, value) {
+  const panel = document.getElementById('result-panel');
+  panel.className = 'result-panel ' + type;
+  panel.style.display = 'block';
+  document.getElementById('result-label').textContent = label;
+  document.getElementById('result-value').innerHTML = value;
+}
+
+function runDAX() {
+  const expr = document.getElementById('dax-editor').value.trim();
+  if (!expr) return;
+
+  const runBtn = document.getElementById('run-btn');
+  const thinking = document.getElementById('thinking');
+
+  runBtn.disabled = true;
+  thinking.classList.add('active');
+
+  setTimeout(() => {
+    runBtn.disabled = false;
+    thinking.classList.remove('active');
+
+    try {
+      const result = evalDAX(expr);
+      if (result === null || result === undefined) {
+        showResult('error', 'Parse Error',
+          `<span style="font-size:0.9rem">Could not evaluate: <code style="background:rgba(200,0,0,0.1); color:#7a1515">${expr}</code><br><br>` +
+          `<span style="font-size:0.78rem; opacity:0.8">Try: <code>SUM(Sales[Revenue])</code>, <code>AVERAGE(Sales[Units])</code>, or <code>SUM(Sales[Revenue]) - SUM(Sales[Cost])</code></span></span>`
+        );
+      } else if (typeof result === 'number') {
+        const isPercent = Math.abs(result) < 1 && result !== 0;
+        const display = isPercent
+          ? `<span style="font-size:2rem; font-weight:500;">${(result * 100).toFixed(2)}%</span><span style="font-size:0.75rem; margin-left:0.6rem; opacity:0.6">percentage</span>`
+          : `<span style="font-size:2rem; font-weight:500;">${result.toLocaleString(undefined, {maximumFractionDigits: 2})}</span>`;
+        showResult('success', '✓ Result', display);
+      } else {
+        showResult('success', '✓ Result', `<span style="font-size:1.5rem">${result}</span>`);
+      }
+    } catch(err) {
+      showResult('error', 'Error', err.message);
+    }
+  }, 420);
+}
+
+// Ctrl+Enter to run
+document.getElementById('dax-editor').addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); runDAX(); }
+});
+</script>
+</body>
+</html>

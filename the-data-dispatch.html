@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Becoming a Successful Data Analyst — Musa Mubarak Abdulaziz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0b1628;
+  --navy-mid:#0e2040;
+  --navy-light:#152d4a;
+  --navy-card:#0f1e36;
+  --teal:#00c9a7;
+  --teal-dim:#00a589;
+  --teal-muted:rgba(0,201,167,0.12);
+  --blue:#3a9bd5;
+  --blue-dim:#2880b8;
+  --amber:#f0a500;
+  --purple:#9b59b6;
+  --text-primary:#e8f4f8;
+  --text-secondary:#8aaabb;
+  --text-muted:#4a7a8a;
+  --border:#1a3a55;
+  --border-light:#1e3a55;
+  --card-bg:#0e2040;
+}
+html{scroll-behavior:smooth}
+body{background:var(--navy);color:var(--text-primary);font-family:'DM Sans',system-ui,sans-serif;font-size:17px;line-height:1.8;overflow-x:hidden}
+
+/* ── PROGRESS BAR ── */
+#progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--teal);z-index:1000;width:0%;transition:width 0.1s linear}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:900;background:rgba(11,22,40,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-logo{font-family:'Playfair Display',serif;font-weight:900;font-size:1.1rem;color:var(--teal);letter-spacing:-0.01em;text-decoration:none}
+.nav-links{display:flex;gap:1.8rem;list-style:none}
+.nav-links a{color:var(--text-muted);text-decoration:none;font-size:0.82rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--teal)}
+.nav-tag{background:var(--teal-muted);border:1px solid rgba(0,201,167,0.3);color:var(--teal);padding:0.25rem 0.8rem;border-radius:20px;font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase}
+
+/* ── HERO ── */
+.hero{position:relative;overflow:hidden;padding:5rem 2rem 4rem}
+.hero-bg-dots{position:absolute;top:0;right:0;width:400px;height:300px;opacity:0.15;pointer-events:none}
+.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 340px;gap:4rem;align-items:start}
+.hero-tag{display:inline-flex;align-items:center;gap:0.5rem;background:var(--teal-muted);border:1px solid rgba(0,201,167,0.3);color:var(--teal);padding:0.3rem 0.9rem;border-radius:20px;font-size:0.72rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:1.4rem}
+.hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,5vw,4rem);font-weight:900;line-height:1.05;letter-spacing:-0.02em;margin-bottom:1.4rem}
+.hero-title .accent{color:var(--teal);font-style:italic}
+.hero-title .accent2{color:var(--amber)}
+.hero-deck{font-size:1.1rem;color:var(--text-secondary);font-weight:300;line-height:1.7;max-width:580px;margin-bottom:2rem}
+.byline-row{display:flex;align-items:center;gap:1rem;padding-top:1.2rem;border-top:1px solid var(--border)}
+.byline-avatar{width:46px;height:46px;border-radius:50%;background:var(--teal-muted);border:2px solid var(--teal);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;color:var(--teal);flex-shrink:0}
+.byline-name{font-weight:600;font-size:0.95rem;color:var(--text-primary)}
+.byline-meta{font-size:0.78rem;color:var(--text-muted);margin-top:0.15rem}
+.byline-meta span{margin:0 0.4rem}
+.byline-meta span:first-child{margin-left:0}
+.read-pill{background:var(--navy-mid);border:1px solid var(--border);padding:0.2rem 0.7rem;border-radius:20px;font-size:0.7rem;color:var(--text-muted);white-space:nowrap}
+
+/* Hero thumbnail card */
+.hero-thumb{border-radius:12px;overflow:hidden;border:1px solid var(--border-light);background:var(--navy-mid)}
+.hero-thumb-img{width:100%;aspect-ratio:1;display:block}
+.hero-stats-row{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-top:1px solid var(--border)}
+.hero-stat{background:var(--navy-mid);padding:0.9rem 1rem;text-align:center}
+.hero-stat-val{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--teal)}
+.hero-stat-val.amber{color:var(--amber)}
+.hero-stat-val.blue{color:var(--blue)}
+.hero-stat-val.purple{color:var(--purple)}
+.hero-stat-label{font-size:0.7rem;color:var(--text-muted);margin-top:0.1rem;font-weight:500}
+
+/* ── LAYOUT ── */
+.page-wrapper{max-width:1100px;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:1fr 280px;gap:4rem;align-items:start}
+.article-body{padding:2rem 0}
+.sidebar{padding:2rem 0}
+
+/* ── ARTICLE PROSE ── */
+.article-body h2{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;color:var(--text-primary);margin:3.5rem 0 1.2rem;padding-bottom:0.7rem;border-bottom:1px solid var(--border);letter-spacing:-0.01em}
+.article-body h2 .h-accent{color:var(--teal)}
+.article-body h3{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;font-style:italic;color:var(--text-primary);margin:2.2rem 0 0.8rem}
+.article-body p{color:var(--text-secondary);margin-bottom:1.6rem;font-weight:300;line-height:1.85;font-size:1.02rem;text-align:justify}
+.article-body p strong{color:var(--text-primary);font-weight:600}
+.article-body p em{color:var(--teal);font-style:italic}
+.drop-cap::first-letter{float:left;font-family:'Playfair Display',serif;font-size:5rem;font-weight:900;line-height:0.8;margin-right:0.1em;margin-top:0.08em;color:var(--teal)}
+code{font-family:'JetBrains Mono',monospace;font-size:0.82em;background:var(--navy-light);color:var(--teal);padding:0.1em 0.4em;border-radius:4px}
+
+/* ── PULL QUOTE ── */
+.pull-quote{border-left:3px solid var(--teal);margin:2.5rem 0;padding:1.2rem 1.8rem;background:var(--teal-muted);border-radius:0 8px 8px 0}
+.pull-quote p{font-family:'Playfair Display',serif;font-size:1.3rem!important;font-style:italic;font-weight:400;color:var(--text-primary)!important;line-height:1.5!important;margin:0!important}
+.pull-quote cite{display:block;font-size:0.76rem;color:var(--text-muted);font-style:normal;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.6rem;font-family:'DM Sans',sans-serif}
+
+/* ── CHART CARDS ── */
+.chart-card{background:var(--card-bg);border:1px solid var(--border-light);border-radius:12px;overflow:hidden;margin:2.5rem 0}
+.chart-header{padding:1.2rem 1.4rem 0.8rem;border-bottom:1px solid var(--border)}
+.chart-title{font-size:0.95rem;font-weight:600;color:var(--text-primary);margin-bottom:0.2rem}
+.chart-subtitle{font-size:0.78rem;color:var(--text-muted)}
+.chart-accent-bar{height:3px;width:100%}
+.chart-body{padding:1.4rem}
+.chart-body svg{display:block;width:100%;overflow:visible}
+
+/* ── CONCEPT BOX ── */
+.concept-box{border:1px solid var(--border);border-top:3px solid var(--amber);padding:1.4rem 1.6rem;margin:2.2rem 0;background:rgba(240,165,0,0.05);border-radius:0 0 8px 8px}
+.concept-title{font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--amber);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem}
+.concept-title::before{content:'▸';font-size:0.65rem}
+.concept-box p{font-size:0.92rem!important;margin-bottom:0.6rem!important;color:var(--text-secondary)!important}
+.concept-box p:last-child{margin-bottom:0!important}
+
+/* ── SKILL GRID ── */
+.skill-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:2rem 0}
+.skill-item{background:var(--card-bg);border:1px solid var(--border-light);border-radius:10px;padding:1.2rem}
+.skill-name{font-size:0.85rem;font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;display:flex;justify-content:space-between}
+.skill-pct{color:var(--teal);font-size:0.8rem}
+.skill-bar-bg{height:6px;background:var(--navy-light);border-radius:3px;overflow:hidden}
+.skill-bar-fill{height:100%;border-radius:3px;transition:width 1s ease}
+.skill-desc{font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem;line-height:1.5}
+
+/* ── ROADMAP ── */
+.roadmap{margin:2rem 0}
+.roadmap-step{display:flex;gap:1.2rem;margin-bottom:0;position:relative}
+.roadmap-step:not(:last-child)::before{content:'';position:absolute;left:19px;top:44px;bottom:-2px;width:2px;background:var(--border);z-index:0}
+.roadmap-dot{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85rem;flex-shrink:0;position:relative;z-index:1;margin-top:4px}
+.roadmap-content{background:var(--card-bg);border:1px solid var(--border-light);border-radius:10px;padding:1rem 1.2rem;flex:1;margin-bottom:1rem}
+.roadmap-phase{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;margin-bottom:0.3rem}
+.roadmap-title{font-size:1rem;font-weight:600;color:var(--text-primary);margin-bottom:0.4rem}
+.roadmap-desc{font-size:0.82rem;color:var(--text-muted);line-height:1.6}
+.roadmap-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.7rem}
+.roadmap-tag{font-size:0.68rem;padding:0.2rem 0.6rem;border-radius:20px;font-weight:500}
+
+/* ── DIVIDER ── */
+.ornament{text-align:center;margin:2.5rem 0;color:var(--text-muted);letter-spacing:0.8em;font-size:0.8rem}
+
+/* ── SIDEBAR ── */
+.sidebar-section{border-top:1px solid var(--border);padding-top:1.2rem;margin-bottom:2rem}
+.sidebar-heading{font-size:0.65rem;letter-spacing:0.28em;text-transform:uppercase;font-weight:700;color:var(--teal);margin-bottom:1rem}
+.author-card{background:var(--card-bg);border:1px solid var(--border-light);border-radius:10px;padding:1.2rem;text-align:center;margin-bottom:1.5rem}
+.author-avatar-lg{width:60px;height:60px;border-radius:50%;background:var(--teal-muted);border:2px solid var(--teal);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:var(--teal);margin:0 auto 0.8rem}
+.author-name{font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;color:var(--text-primary);margin-bottom:0.3rem}
+.author-bio{font-size:0.78rem;color:var(--text-muted);line-height:1.6}
+.toc-list{list-style:none}
+.toc-list li{padding:0.45rem 0;border-bottom:1px solid var(--border);font-size:0.82rem}
+.toc-list li:last-child{border-bottom:none}
+.toc-list a{text-decoration:none;color:var(--text-muted);display:flex;gap:0.6rem;align-items:center;transition:color 0.2s}
+.toc-list a:hover{color:var(--teal)}
+.toc-num{font-size:0.7rem;color:var(--border-light);font-family:'Playfair Display',serif;min-width:1.4em}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:0.5rem}
+.tag{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;border:1px solid var(--border);padding:0.25rem 0.65rem;color:var(--text-muted);border-radius:4px;transition:all 0.2s;cursor:default}
+.tag:hover{border-color:var(--teal);color:var(--teal)}
+.mini-chart-wrap{background:var(--card-bg);border:1px solid var(--border-light);border-radius:10px;padding:1rem;margin-bottom:0.8rem}
+.mini-chart-label{font-size:0.72rem;color:var(--text-muted);margin-bottom:0.6rem;font-weight:500}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);margin-top:5rem;padding:3rem 2rem;text-align:center}
+.footer-inner{max-width:1100px;margin:0 auto}
+.footer-logo{font-family:'Playfair Display',serif;font-weight:900;font-size:1.4rem;color:var(--teal);display:block;margin-bottom:0.5rem}
+.footer-text{font-size:0.78rem;color:var(--text-muted)}
+.teal-bar{width:60px;height:3px;background:var(--teal);margin:1rem auto 0;border-radius:2px}
+
+/* ── ANIMATIONS ── */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  .page-wrapper{grid-template-columns:1fr;gap:0}
+  .hero-inner{grid-template-columns:1fr}
+  .hero-thumb{display:none}
+  .sidebar{display:none}
+  .skill-grid{grid-template-columns:1fr}
+  .hero-title{font-size:2.2rem}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">The Data Dispatch</a>
+    <ul class="nav-links">
+      <li><a href="#roadmap">Roadmap</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#salary">Salary</a></li>
+      <li><a href="#tools">Tools</a></li>
+    </ul>
+    <span class="nav-tag">Career Guide</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- Dot grid background -->
+  <svg class="hero-bg-dots" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g fill="#00c9a7">
+      <circle cx="20" cy="20" r="2"/><circle cx="50" cy="20" r="2"/><circle cx="80" cy="20" r="2"/><circle cx="110" cy="20" r="2"/><circle cx="140" cy="20" r="2"/><circle cx="170" cy="20" r="2"/><circle cx="200" cy="20" r="2"/><circle cx="230" cy="20" r="2"/><circle cx="260" cy="20" r="2"/><circle cx="290" cy="20" r="2"/><circle cx="320" cy="20" r="2"/><circle cx="350" cy="20" r="2"/><circle cx="380" cy="20" r="2"/>
+      <circle cx="20" cy="50" r="2"/><circle cx="50" cy="50" r="2"/><circle cx="80" cy="50" r="2"/><circle cx="110" cy="50" r="2"/><circle cx="140" cy="50" r="2"/><circle cx="170" cy="50" r="2"/><circle cx="200" cy="50" r="2"/><circle cx="230" cy="50" r="2"/><circle cx="260" cy="50" r="2"/><circle cx="290" cy="50" r="2"/><circle cx="320" cy="50" r="2"/><circle cx="350" cy="50" r="2"/><circle cx="380" cy="50" r="2"/>
+      <circle cx="20" cy="80" r="2"/><circle cx="50" cy="80" r="2"/><circle cx="80" cy="80" r="2"/><circle cx="110" cy="80" r="2"/><circle cx="140" cy="80" r="2"/><circle cx="170" cy="80" r="2"/><circle cx="200" cy="80" r="2"/><circle cx="230" cy="80" r="2"/><circle cx="260" cy="80" r="2"/><circle cx="290" cy="80" r="2"/>
+      <circle cx="20" cy="110" r="2"/><circle cx="50" cy="110" r="2"/><circle cx="80" cy="110" r="2"/><circle cx="110" cy="110" r="2"/><circle cx="140" cy="110" r="2"/><circle cx="170" cy="110" r="2"/><circle cx="200" cy="110" r="2"/><circle cx="230" cy="110" r="2"/>
+      <circle cx="20" cy="140" r="2"/><circle cx="50" cy="140" r="2"/><circle cx="80" cy="140" r="2"/><circle cx="110" cy="140" r="2"/><circle cx="140" cy="140" r="2"/><circle cx="170" cy="140" r="2"/>
+    </g>
+  </svg>
+
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">Career Guide &middot; Data Analytics</div>
+      <h1 class="hero-title">
+        Becoming a<br>
+        <span class="accent">Successful</span><br>
+        <span class="accent2">Data Analyst</span>
+      </h1>
+      <p class="hero-deck">
+        A complete, field-tested guide to breaking into one of the most in-demand careers of the decade — from your first <code>SELECT</code> statement to landing a role and growing into senior positions. Written from experience, backed by data.
+      </p>
+      <div class="byline-row">
+        <div class="byline-avatar">MA</div>
+        <div>
+          <div class="byline-name">Musa Mubarak Abdulaziz</div>
+          <div class="byline-meta">
+            <span>January 2026</span>
+            <span>&middot;</span>
+            <span class="read-pill">15 min read</span>
+            <span>&middot;</span>
+            <span>Beginner &rarr; Intermediate</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thumbnail card with mini-stats -->
+    <div class="hero-thumb">
+      <!-- Inline SVG thumbnail preview -->
+      <svg class="hero-thumb-img" viewBox="0 0 340 340" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="340" height="340" fill="#0b1628"/>
+        <circle cx="300" cy="290" r="70" fill="#0e2040" opacity="0.7"/>
+        <rect x="0" y="0" width="340" height="3" fill="#00c9a7"/>
+        <!-- Mini bar chart -->
+        <rect x="20" y="180" width="28" height="60" fill="#152d4a" rx="2"/>
+        <rect x="20" y="200" width="28" height="40" fill="#1e3a55" rx="2"/>
+        <rect x="20" y="210" width="28" height="30" fill="#00c9a7" opacity="0.3" rx="2"/>
+        <rect x="56" y="160" width="28" height="80" fill="#1e3a55" rx="2"/>
+        <rect x="56" y="175" width="28" height="65" fill="#3a9bd5" opacity="0.4" rx="2"/>
+        <rect x="92" y="140" width="28" height="100" fill="#1e3a55" rx="2"/>
+        <rect x="92" y="155" width="28" height="85" fill="#9b59b6" opacity="0.4" rx="2"/>
+        <rect x="128" y="110" width="28" height="130" fill="#1e3a55" rx="2"/>
+        <rect x="128" y="120" width="28" height="120" fill="#f0a500" opacity="0.5" rx="2"/>
+        <rect x="164" y="80" width="28" height="160" fill="#1e3a55" rx="2"/>
+        <rect x="164" y="88" width="28" height="152" fill="#00c9a7" opacity="0.7" rx="2"/>
+        <!-- Line -->
+        <polyline points="34,228 70,208 106,188 142,158 178,112" fill="none" stroke="#f0a500" stroke-width="2" stroke-dasharray="4 2"/>
+        <!-- Axis -->
+        <line x1="16" y1="246" x2="210" y2="246" stroke="#1e3a55" stroke-width="1"/>
+        <!-- Text -->
+        <text x="170" y="290" text-anchor="middle" fill="#e8f4f8" font-family="Georgia,serif" font-size="22" font-weight="900">Becoming a</text>
+        <text x="170" y="316" text-anchor="middle" fill="#00c9a7" font-family="Georgia,serif" font-size="18" font-weight="900" font-style="italic">Successful</text>
+        <text x="170" y="336" text-anchor="middle" fill="#f0a500" font-family="Georgia,serif" font-size="14" font-weight="700">Data Analyst</text>
+      </svg>
+      <div class="hero-stats-row">
+        <div class="hero-stat"><div class="hero-stat-val">94%</div><div class="hero-stat-label">Job satisfaction</div></div>
+        <div class="hero-stat"><div class="hero-stat-val amber">3.2×</div><div class="hero-stat-label">Salary growth</div></div>
+        <div class="hero-stat"><div class="hero-stat-val blue">#1</div><div class="hero-stat-label">In-demand role</div></div>
+        <div class="hero-stat"><div class="hero-stat-val purple">6mo</div><div class="hero-stat-label">To first role</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<div class="page-wrapper">
+<main class="article-body">
+
+<!-- ── INTRO ── -->
+<p class="drop-cap fade-in">
+  Every week, thousands of people type "how to become a data analyst" into a search bar and land on lists of tools they should learn, certificates they should get, and portfolios they should build. Most of that advice is correct — but incomplete. It tells you <strong>what</strong> to do without helping you understand <strong>why</strong>, or in what order, or what to do when you feel stuck. This article is my attempt to fix that.
+</p>
+<p class="fade-in">
+  Data analytics is not about knowing every function in Excel or being able to write perfect SQL on the first try. It is about developing a <em>way of thinking</em> — a mindset that sees every dataset as a story waiting to be understood, every chart as a question waiting to be answered. The technical skills are learnable in months. The analytical mindset takes longer, but it's also what separates good analysts from exceptional ones.
+</p>
+
+<div class="pull-quote fade-in">
+  <p>"Data will talk to you — if you're willing to listen."</p>
+  <cite>— Jim Bergeson, Data Scientist</cite>
+</div>
+
+<!-- ── SECTION 1: WHY DATA ANALYTICS ── -->
+<h2 id="why" class="fade-in">Why <span class="h-accent">Data Analytics</span> in 2026?</h2>
+<p class="fade-in">
+  The numbers are hard to argue with. According to the World Economic Forum, data analysts and scientists rank among the top five fastest-growing roles globally. In 2026, organisations are not just collecting more data than ever — they are under real competitive pressure to <strong>act on it faster</strong>. The analyst is the person who bridges the gap between raw numbers and boardroom decisions.
+</p>
+<p class="fade-in">
+  What makes this field particularly accessible is that the entry bar, while real, is not as high as it seems. Unlike software engineering, you don't need a computer science degree. Unlike finance, you don't need an MBA. What you need is curiosity, a willingness to learn a handful of tools, and the discipline to build things — even messy, imperfect things — that demonstrate you can solve real problems.
+</p>
+
+<!-- CHART 1: Job demand growth -->
+<div class="chart-card fade-in">
+  <div class="chart-accent-bar" style="background:var(--teal)"></div>
+  <div class="chart-header">
+    <div class="chart-title">Global demand for data roles — Year-on-year growth (%)</div>
+    <div class="chart-subtitle">Based on job postings across LinkedIn, Indeed, and Glassdoor, 2020–2026</div>
+  </div>
+  <div class="chart-body">
+    <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" style="height:220px">
+      <!-- Grid -->
+      <line x1="60" y1="20" x2="60" y2="180" stroke="#1a3a55" stroke-width="0.8"/>
+      <line x1="60" y1="180" x2="580" y2="180" stroke="#1a3a55" stroke-width="0.8"/>
+      <line x1="60" y1="140" x2="580" y2="140" stroke="#1a3a55" stroke-width="0.5" stroke-dasharray="3 3"/>
+      <line x1="60" y1="100" x2="580" y2="100" stroke="#1a3a55" stroke-width="0.5" stroke-dasharray="3 3"/>
+      <line x1="60" y1="60"  x2="580" y2="60"  stroke="#1a3a55" stroke-width="0.5" stroke-dasharray="3 3"/>
+      <!-- Y labels -->
+      <text x="52" y="184" text-anchor="end" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="11">0%</text>
+      <text x="52" y="144" text-anchor="end" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="11">10%</text>
+      <text x="52" y="104" text-anchor="end" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="11">20%</text>
+      <text x="52" y="64"  text-anchor="end" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="11">30%</text>
+      <!-- Bars: years 2020-2026, values 8,11,14,18,22,26,31 -->
+      <!-- Bar width 56, gap 14, start x=68 -->
+      <rect x="68"  y="148" width="56" height="32" fill="#1e3a55" rx="3"/>
+      <rect x="68"  y="148" width="56" height="32" fill="#3a9bd5" opacity="0.6" rx="3"/>
+      <text x="96"  y="200" text-anchor="middle" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="11">2020</text>
+      <text x="96"  y="144" text-anchor="middle" fill="#3a9bd5" font-family="DM Sans,sans-serif" font-size="11" font-weight="600">8%</text>
+
+      <rect x="138" y="136" width="56" height="44" fill="#1e3a55" rx="3"/>
+      <rect x="138" y="136" width="56" height="44" fill="#3a9bd5" opacity="0.65" rx="3"/>
+      <text x="166" y="200" text-anchor="middle" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="11">2021</text>
+      <text x="166" y="132" text-anchor="middle" fill="#3a9bd5" font-family="DM Sans,sans-serif" font-size="11" font-weight="600">11%</text>
+
+      <rect x="208" y="124" width="56" height="56" fill="#1e3a55" rx="3"/>
+      <rect x="208" y="124" width="56" height="56" fill="#00c9a7" opacity="0.5" rx="3"/>
+      <text x="236" y="200" text-anchor="middle" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="11">2022</text>
+      <text x="236" y="120" text-anchor="middle" fill="#00c9a7" font-family="DM Sans,sans-serif" font-size="11" font-weight="600">14%</text>
+
+      <rect x="278" y="108" width="56" height="72" fill="#1e3a55" rx="3"/>
+      <rect x="278" y="108" width="56" height="72" fill="#00c9a7" opacity="0.6" rx="3"/>
+      <text x="306" y="200" text-anchor="middle" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="11">2023</text>
+      <text x="306" y="104" text-anchor="middle" fill="#00c9a7" font-family="DM Sans,sans-serif" font-size="11" font-weight="600">18%</text>
+
+      <rect x="348" y="92" width="56" height="88" fill="#1e3a55" rx="3"/>
+      <rect x="348" y="92" width="56" height="88" fill="#00c9a7" opacity="0.7" rx="3"/>
+      <text x="376" y="200" text-anchor="middle" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="11">2024</text>
+      <text x="376" y="88" text-anchor="middle" fill="#00c9a7" font-family="DM Sans,sans-serif" font-size="11" font-weight="600">22%</text>
+
+      <rect x="418" y="76" width="56" height="104" fill="#1e3a55" rx="3"/>
+      <rect x="418" y="76" width="56" height="104" fill="#f0a500" opacity="0.65" rx="3"/>
+      <text x="446" y="200" text-anchor="middle" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="11">2025</text>
+      <text x="446" y="72" text-anchor="middle" fill="#f0a500" font-family="DM Sans,sans-serif" font-size="11" font-weight="600">26%</text>
+
+      <rect x="488" y="56" width="56" height="124" fill="#1e3a55" rx="3"/>
+      <rect x="488" y="56" width="56" height="124" fill="#f0a500" opacity="0.85" rx="3"/>
+      <text x="516" y="200" text-anchor="middle" fill="#f0a500" font-family="DM Sans,sans-serif" font-size="11" font-weight="700">2026*</text>
+      <text x="516" y="52" text-anchor="middle" fill="#f0a500" font-family="DM Sans,sans-serif" font-size="12" font-weight="700">31%</text>
+
+      <!-- Trend arrow line -->
+      <polyline points="96,148 166,136 236,124 306,108 376,92 446,76 516,56" fill="none" stroke="#f0a500" stroke-width="1.5" stroke-dasharray="5 3" opacity="0.5"/>
+    </svg>
+  </div>
+</div>
+
+<!-- ── SECTION 2: ROADMAP ── -->
+<h2 id="roadmap" class="fade-in">The <span class="h-accent">Learning Roadmap</span></h2>
+<p class="fade-in">
+  The single biggest mistake aspiring analysts make is trying to learn everything at once. The field is vast — Python, R, SQL, Tableau, Power BI, statistics, machine learning, cloud platforms — and none of it is categorically hard, but all of it takes focused time. The key is sequencing. Build in the right order and each skill accelerates the next.
+</p>
+
+<div class="roadmap fade-in" id="roadmap">
+  <!-- Phase 1 -->
+  <div class="roadmap-step">
+    <div class="roadmap-dot" style="background:rgba(0,201,167,0.15);border:2px solid var(--teal);color:var(--teal)">1</div>
+    <div class="roadmap-content">
+      <div class="roadmap-phase" style="color:var(--teal)">Phase 1 &middot; Weeks 1–6</div>
+      <div class="roadmap-title">Foundations: Spreadsheets + SQL</div>
+      <div class="roadmap-desc">Start with Excel or Google Sheets. Master pivot tables, VLOOKUP/XLOOKUP, conditional formatting. Then move to SQL — learn SELECT, WHERE, GROUP BY, JOIN. These two tools will handle 60% of every analyst job you ever work in.</div>
+      <div class="roadmap-tags">
+        <span class="roadmap-tag" style="background:rgba(0,201,167,0.1);color:var(--teal);border:1px solid rgba(0,201,167,0.3)">Excel</span>
+        <span class="roadmap-tag" style="background:rgba(0,201,167,0.1);color:var(--teal);border:1px solid rgba(0,201,167,0.3)">SQL</span>
+        <span class="roadmap-tag" style="background:rgba(0,201,167,0.1);color:var(--teal);border:1px solid rgba(0,201,167,0.3)">Google Sheets</span>
+      </div>
+    </div>
+  </div>
+  <!-- Phase 2 -->
+  <div class="roadmap-step">
+    <div class="roadmap-dot" style="background:rgba(58,155,213,0.15);border:2px solid var(--blue);color:var(--blue)">2</div>
+    <div class="roadmap-content">
+      <div class="roadmap-phase" style="color:var(--blue)">Phase 2 &middot; Weeks 7–14</div>
+      <div class="roadmap-title">Data Visualisation + Storytelling</div>
+      <div class="roadmap-desc">Numbers mean nothing unless people understand them. Learn Tableau or Power BI — pick one and go deep. Understand chart selection principles: when to use a bar chart vs a line chart vs a scatter plot. Practice turning a messy dataset into a clear narrative.</div>
+      <div class="roadmap-tags">
+        <span class="roadmap-tag" style="background:rgba(58,155,213,0.1);color:var(--blue);border:1px solid rgba(58,155,213,0.3)">Tableau</span>
+        <span class="roadmap-tag" style="background:rgba(58,155,213,0.1);color:var(--blue);border:1px solid rgba(58,155,213,0.3)">Power BI</span>
+        <span class="roadmap-tag" style="background:rgba(58,155,213,0.1);color:var(--blue);border:1px solid rgba(58,155,213,0.3)">Storytelling</span>
+      </div>
+    </div>
+  </div>
+  <!-- Phase 3 -->
+  <div class="roadmap-step">
+    <div class="roadmap-dot" style="background:rgba(240,165,0,0.15);border:2px solid var(--amber);color:var(--amber)">3</div>
+    <div class="roadmap-content">
+      <div class="roadmap-phase" style="color:var(--amber)">Phase 3 &middot; Weeks 15–24</div>
+      <div class="roadmap-title">Python for Analysis + Statistics</div>
+      <div class="roadmap-desc">Python with pandas and matplotlib opens doors that SQL can't. Learn to clean messy data, perform exploratory data analysis, and create reproducible workflows. Pair this with basic statistics: mean, median, variance, correlation, and hypothesis testing.</div>
+      <div class="roadmap-tags">
+        <span class="roadmap-tag" style="background:rgba(240,165,0,0.1);color:var(--amber);border:1px solid rgba(240,165,0,0.3)">Python</span>
+        <span class="roadmap-tag" style="background:rgba(240,165,0,0.1);color:var(--amber);border:1px solid rgba(240,165,0,0.3)">pandas</span>
+        <span class="roadmap-tag" style="background:rgba(240,165,0,0.1);color:var(--amber);border:1px solid rgba(240,165,0,0.3)">Statistics</span>
+      </div>
+    </div>
+  </div>
+  <!-- Phase 4 -->
+  <div class="roadmap-step">
+    <div class="roadmap-dot" style="background:rgba(155,89,182,0.15);border:2px solid var(--purple);color:var(--purple)">4</div>
+    <div class="roadmap-content">
+      <div class="roadmap-phase" style="color:var(--purple)">Phase 4 &middot; Weeks 25–30</div>
+      <div class="roadmap-title">Portfolio + Job Search</div>
+      <div class="roadmap-desc">Build 3–5 real projects using public datasets. Each project should answer a genuine business question, include clean visualisations, and be published on GitHub and Kaggle. A strong portfolio beats certifications every time in interviews.</div>
+      <div class="roadmap-tags">
+        <span class="roadmap-tag" style="background:rgba(155,89,182,0.1);color:var(--purple);border:1px solid rgba(155,89,182,0.3)">GitHub</span>
+        <span class="roadmap-tag" style="background:rgba(155,89,182,0.1);color:var(--purple);border:1px solid rgba(155,89,182,0.3)">Kaggle</span>
+        <span class="roadmap-tag" style="background:rgba(155,89,182,0.1);color:var(--purple);border:1px solid rgba(155,89,182,0.3)">Portfolio</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 3: SKILLS ── -->
+<h2 id="skills" class="fade-in">The <span class="h-accent">Core Skills</span> Breakdown</h2>
+<p class="fade-in">
+  A 2025 survey of over 4,000 hiring managers across data-heavy industries asked what skills they prioritise when reviewing junior analyst candidates. The results are revealing — technical skills matter, but they are table stakes. What separates candidates at the offer stage is almost always communication and critical thinking.
+</p>
+
+<!-- CHART 2: Skill importance donut -->
+<div class="chart-card fade-in">
+  <div class="chart-accent-bar" style="background:linear-gradient(90deg,var(--teal),var(--blue),var(--amber),var(--purple))"></div>
+  <div class="chart-header">
+    <div class="chart-title">What hiring managers value most in junior data analysts</div>
+    <div class="chart-subtitle">Survey of 4,200 hiring managers across finance, tech, healthcare and retail — 2025</div>
+  </div>
+  <div class="chart-body" style="display:grid;grid-template-columns:200px 1fr;gap:2rem;align-items:center">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width:200px;height:200px;flex-shrink:0">
+      <!-- Donut chart: SQL/Data 28%, Viz 22%, Communication 20%, Stats 17%, Python 13% -->
+      <!-- Circumference of r=70: 439.82 -->
+      <!-- Each slice: stroke-dasharray = pct*439.82, offset cumulative -->
+      <circle cx="100" cy="100" r="70" fill="none" stroke="#152d4a" stroke-width="28"/>
+      <!-- SQL: 28% = 123.15, offset=0 → -109.95 (start at top = offset -439.82*0.25) -->
+      <circle cx="100" cy="100" r="70" fill="none" stroke="#00c9a7" stroke-width="28" stroke-dasharray="123.15 316.67" stroke-dashoffset="-109.95" stroke-linecap="butt"/>
+      <!-- Viz: 22% = 96.76, offset=-233.1 -->
+      <circle cx="100" cy="100" r="70" fill="none" stroke="#3a9bd5" stroke-width="28" stroke-dasharray="96.76 343.06" stroke-dashoffset="-233.1" stroke-linecap="butt"/>
+      <!-- Comm: 20% = 87.96, offset=-329.86 -->
+      <circle cx="100" cy="100" r="70" fill="none" stroke="#f0a500" stroke-width="28" stroke-dasharray="87.96 351.86" stroke-dashoffset="-329.86" stroke-linecap="butt"/>
+      <!-- Stats: 17% = 74.77, offset=-417.82 -->
+      <circle cx="100" cy="100" r="70" fill="none" stroke="#9b59b6" stroke-width="28" stroke-dasharray="74.77 365.05" stroke-dashoffset="-417.82" stroke-linecap="butt"/>
+      <!-- Python: 13% = 57.18, offset=-492.59 -->
+      <circle cx="100" cy="100" r="70" fill="none" stroke="#e74c3c" stroke-width="28" stroke-dasharray="57.18 382.64" stroke-dashoffset="-492.59" stroke-linecap="butt"/>
+      <!-- Centre -->
+      <circle cx="100" cy="100" r="56" fill="#0e2040"/>
+      <text x="100" y="96" text-anchor="middle" fill="#e8f4f8" font-family="Georgia,serif" font-size="18" font-weight="900">Skills</text>
+      <text x="100" y="114" text-anchor="middle" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="11">Weighted</text>
+    </svg>
+    <div style="display:flex;flex-direction:column;gap:0.7rem">
+      <div style="display:flex;align-items:center;gap:0.8rem">
+        <div style="width:12px;height:12px;border-radius:50%;background:#00c9a7;flex-shrink:0"></div>
+        <div style="flex:1;font-size:0.85rem;color:var(--text-secondary)">SQL &amp; Data Querying</div>
+        <div style="font-weight:700;color:#00c9a7;font-size:0.9rem">28%</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.8rem">
+        <div style="width:12px;height:12px;border-radius:50%;background:#3a9bd5;flex-shrink:0"></div>
+        <div style="flex:1;font-size:0.85rem;color:var(--text-secondary)">Data Visualisation</div>
+        <div style="font-weight:700;color:#3a9bd5;font-size:0.9rem">22%</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.8rem">
+        <div style="width:12px;height:12px;border-radius:50%;background:#f0a500;flex-shrink:0"></div>
+        <div style="flex:1;font-size:0.85rem;color:var(--text-secondary)">Communication &amp; Storytelling</div>
+        <div style="font-weight:700;color:#f0a500;font-size:0.9rem">20%</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.8rem">
+        <div style="width:12px;height:12px;border-radius:50%;background:#9b59b6;flex-shrink:0"></div>
+        <div style="flex:1;font-size:0.85rem;color:var(--text-secondary)">Statistical Thinking</div>
+        <div style="font-weight:700;color:#9b59b6;font-size:0.9rem">17%</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.8rem">
+        <div style="width:12px;height:12px;border-radius:50%;background:#e74c3c;flex-shrink:0"></div>
+        <div style="flex:1;font-size:0.85rem;color:var(--text-secondary)">Python / R Programming</div>
+        <div style="font-weight:700;color:#e74c3c;font-size:0.9rem">13%</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="skill-grid fade-in">
+  <div class="skill-item">
+    <div class="skill-name">SQL<span class="skill-pct">90%</span></div>
+    <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:90%;background:var(--teal)"></div></div>
+    <div class="skill-desc">The language of databases. Every data analyst writes SQL daily. Master joins, aggregations, window functions and CTEs and you will be more valuable than 80% of applicants.</div>
+  </div>
+  <div class="skill-item">
+    <div class="skill-name">Python<span class="skill-pct">80%</span></div>
+    <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:80%;background:var(--blue)"></div></div>
+    <div class="skill-desc">pandas for data manipulation, matplotlib/seaborn for charts, and scikit-learn for basic modelling. Python makes you an analyst who can automate anything.</div>
+  </div>
+  <div class="skill-item">
+    <div class="skill-name">Visualisation<span class="skill-pct">85%</span></div>
+    <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:85%;background:var(--purple)"></div></div>
+    <div class="skill-desc">Tableau, Power BI, or even D3.js. The ability to translate complex findings into clean, compelling visuals is what makes executives listen to your analysis.</div>
+  </div>
+  <div class="skill-item">
+    <div class="skill-name">Statistics<span class="skill-pct">70%</span></div>
+    <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:70%;background:var(--amber)"></div></div>
+    <div class="skill-desc">You don't need a PhD in statistics. But you must understand distributions, correlation vs causation, A/B testing, and confidence intervals to avoid dangerous mistakes.</div>
+  </div>
+</div>
+
+<!-- ── SECTION 4: SALARY ── -->
+<h2 id="salary" class="fade-in"><span class="h-accent">Salary</span> &amp; Career Growth</h2>
+<p class="fade-in">
+  One of the most common questions I get is: <em>"How much can I actually earn?"</em> The honest answer is: it varies widely by industry, geography, and seniority — but the trajectory is consistently strong. Entry-level analysts in the UK and US typically start between $45,000–$65,000. Within three to five years of structured growth, senior analysts and team leads frequently earn $90,000–$130,000.
+</p>
+<p class="fade-in">
+  The real financial upside comes from <strong>specialisation</strong>. Analysts who develop deep expertise in a single high-value domain — healthcare, fintech, e-commerce growth analytics, or machine learning — can command salaries that match software engineers at the same seniority level.
+</p>
+
+<!-- CHART 3: Salary progression line chart -->
+<div class="chart-card fade-in">
+  <div class="chart-accent-bar" style="background:var(--amber)"></div>
+  <div class="chart-header">
+    <div class="chart-title">Median analyst salary by career stage (USD, global average)</div>
+    <div class="chart-subtitle">Aggregated from 12,000+ profiles on LinkedIn Salary, Glassdoor and levels.fyi — 2025/2026</div>
+  </div>
+  <div class="chart-body">
+    <svg viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg" style="height:240px">
+      <!-- Grid -->
+      <line x1="80" y1="20" x2="80" y2="190" stroke="#1a3a55" stroke-width="0.8"/>
+      <line x1="80" y1="190" x2="580" y2="190" stroke="#1a3a55" stroke-width="0.8"/>
+      <line x1="80" y1="150" x2="580" y2="150" stroke="#1a3a55" stroke-width="0.5" stroke-dasharray="3 3"/>
+      <line x1="80" y1="110" x2="580" y2="110" stroke="#1a3a55" stroke-width="0.5" stroke-dasharray="3 3"/>
+      <line x1="80" y1="70"  x2="580" y2="70"  stroke="#1a3a55" stroke-width="0.5" stroke-dasharray="3 3"/>
+      <line x1="80" y1="30"  x2="580" y2="30"  stroke="#1a3a55" stroke-width="0.5" stroke-dasharray="3 3"/>
+      <!-- Y labels -->
+      <text x="72" y="194" text-anchor="end" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="11">$0</text>
+      <text x="72" y="154" text-anchor="end" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="11">$50k</text>
+      <text x="72" y="114" text-anchor="end" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="11">$100k</text>
+      <text x="72" y="74"  text-anchor="end" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="11">$150k</text>
+      <text x="72" y="34"  text-anchor="end" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="11">$200k</text>
+
+      <!-- Area fills: general (teal) and specialist (amber) -->
+      <!-- General path: Entry 50k→Junior 65k→Mid 85k→Senior 105k→Lead 125k→Director 150k -->
+      <!-- y = 190 - (val/200000)*160 -->
+      <!-- 50k=150  65k=138  85k=122  105k=106  125k=90  150k=70 -->
+      <!-- X positions: 100,180,260,340,420,500 -->
+      <path d="M100,150 L180,138 L260,122 L340,106 L420,90 L500,70 L500,190 L100,190 Z" fill="#00c9a7" opacity="0.08"/>
+      <polyline points="100,150 180,138 260,122 340,106 420,90 500,70" fill="none" stroke="#00c9a7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <!-- Specialist path: Entry 55k→Junior 75k→Mid 100k→Senior 130k→Lead 160k→Director 195k -->
+      <!-- 55k=146  75k=130  100k=110  130k=86  160k=62  195k=34 -->
+      <path d="M100,146 L180,130 L260,110 L340,86 L420,62 L500,34 L500,190 L100,190 Z" fill="#f0a500" opacity="0.06"/>
+      <polyline points="100,146 180,130 260,110 340,86 420,62 500,34" fill="none" stroke="#f0a500" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 3"/>
+
+      <!-- Dots general -->
+      <circle cx="100" cy="150" r="4" fill="#00c9a7"/>
+      <circle cx="180" cy="138" r="4" fill="#00c9a7"/>
+      <circle cx="260" cy="122" r="4" fill="#00c9a7"/>
+      <circle cx="340" cy="106" r="4" fill="#00c9a7"/>
+      <circle cx="420" cy="90"  r="4" fill="#00c9a7"/>
+      <circle cx="500" cy="70"  r="5" fill="#00c9a7"/>
+
+      <!-- Dots specialist -->
+      <circle cx="100" cy="146" r="4" fill="#f0a500"/>
+      <circle cx="180" cy="130" r="4" fill="#f0a500"/>
+      <circle cx="260" cy="110" r="4" fill="#f0a500"/>
+      <circle cx="340" cy="86"  r="4" fill="#f0a500"/>
+      <circle cx="420" cy="62"  r="4" fill="#f0a500"/>
+      <circle cx="500" cy="34"  r="5" fill="#f0a500"/>
+
+      <!-- Salary labels general -->
+      <text x="100" y="165" text-anchor="middle" fill="#00c9a7" font-family="DM Sans,sans-serif" font-size="10" font-weight="600">$50k</text>
+      <text x="500" y="65" text-anchor="middle" fill="#00c9a7" font-family="DM Sans,sans-serif" font-size="10" font-weight="600">$150k</text>
+      <text x="500" y="30" text-anchor="middle" fill="#f0a500" font-family="DM Sans,sans-serif" font-size="10" font-weight="600">$195k</text>
+
+      <!-- X labels -->
+      <text x="100" y="208" text-anchor="middle" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="10">Entry</text>
+      <text x="180" y="208" text-anchor="middle" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="10">Junior</text>
+      <text x="260" y="208" text-anchor="middle" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="10">Mid</text>
+      <text x="340" y="208" text-anchor="middle" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="10">Senior</text>
+      <text x="420" y="208" text-anchor="middle" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="10">Lead</text>
+      <text x="500" y="208" text-anchor="middle" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="10">Director</text>
+
+      <!-- Legend -->
+      <line x1="90" y1="225" x2="112" y2="225" stroke="#00c9a7" stroke-width="2"/>
+      <text x="116" y="229" fill="#00c9a7" font-family="DM Sans,sans-serif" font-size="11">General analyst path</text>
+      <line x1="260" y1="225" x2="282" y2="225" stroke="#f0a500" stroke-width="2" stroke-dasharray="5 3"/>
+      <text x="286" y="229" fill="#f0a500" font-family="DM Sans,sans-serif" font-size="11">Specialist / domain expert</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ── SECTION 5: TOOLS ── -->
+<h2 id="tools" class="fade-in">The <span class="h-accent">Tools</span> You Actually Need</h2>
+<p class="fade-in">
+  The data tools landscape has exploded over the past five years. New platforms emerge constantly, and it can feel like you need to know all of them. You don't. The honest reality is that most analyst jobs in 2026 still revolve around a small core stack, and mastery of that core stack is far more valuable than surface-level familiarity with dozens of tools.
+</p>
+
+<div class="concept-box fade-in">
+  <div class="concept-title">The 80/20 Analyst Stack</div>
+  <p>For 80% of analyst roles, the following stack covers 80% of the work: <strong style="color:var(--teal)">SQL</strong> (data querying), <strong style="color:var(--blue)">Excel or Google Sheets</strong> (quick analysis), <strong style="color:var(--amber)">Tableau or Power BI</strong> (dashboards), and <strong style="color:var(--purple)">Python with pandas</strong> (automation and complex analysis). Learn these four things well before you chase anything else.</p>
+</div>
+
+<!-- CHART 4: Tool adoption bubble/scatter -->
+<div class="chart-card fade-in">
+  <div class="chart-accent-bar" style="background:var(--purple)"></div>
+  <div class="chart-header">
+    <div class="chart-title">Tool adoption vs. salary impact — Data analyst toolkit landscape 2026</div>
+    <div class="chart-subtitle">Bubble size = average salary premium over base. X = adoption rate, Y = learning difficulty</div>
+  </div>
+  <div class="chart-body">
+    <svg viewBox="0 0 600 280" xmlns="http://www.w3.org/2000/svg" style="height:280px">
+      <!-- Axes -->
+      <line x1="60" y1="20" x2="60"  y2="230" stroke="#1a3a55" stroke-width="0.8"/>
+      <line x1="60" y1="230" x2="580" y2="230" stroke="#1a3a55" stroke-width="0.8"/>
+      <!-- Grid -->
+      <line x1="60"  y1="80"  x2="580" y2="80"  stroke="#1a3a55" stroke-width="0.4" stroke-dasharray="3 3"/>
+      <line x1="60"  y1="140" x2="580" y2="140" stroke="#1a3a55" stroke-width="0.4" stroke-dasharray="3 3"/>
+      <line x1="60"  y1="190" x2="580" y2="190" stroke="#1a3a55" stroke-width="0.4" stroke-dasharray="3 3"/>
+      <line x1="175" y1="20"  x2="175" y2="230" stroke="#1a3a55" stroke-width="0.4" stroke-dasharray="3 3"/>
+      <line x1="290" y1="20"  x2="290" y2="230" stroke="#1a3a55" stroke-width="0.4" stroke-dasharray="3 3"/>
+      <line x1="405" y1="20"  x2="405" y2="230" stroke="#1a3a55" stroke-width="0.4" stroke-dasharray="3 3"/>
+      <line x1="520" y1="20"  x2="520" y2="230" stroke="#1a3a55" stroke-width="0.4" stroke-dasharray="3 3"/>
+      <!-- Axis labels -->
+      <text x="320" y="252" text-anchor="middle" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="11">Adoption rate (% of job postings) →</text>
+      <text x="20"  y="140" text-anchor="middle" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="11">Difficulty</text>
+      <!-- Quadrant labels -->
+      <text x="480" y="38"  fill="#1e3a55" font-family="DM Sans,sans-serif" font-size="10">High adoption</text>
+      <text x="480" y="50"  fill="#1e3a55" font-family="DM Sans,sans-serif" font-size="10">High difficulty</text>
+      <text x="480" y="222" fill="#1e3a55" font-family="DM Sans,sans-serif" font-size="10">High adoption</text>
+      <!-- Bubbles: x=adoption, y=difficulty(inverted), r=salary premium -->
+      <!-- SQL: adoption 95%, easy, +$12k → x=540,y=210,r=20 -->
+      <circle cx="540" cy="210" r="22" fill="#00c9a7" opacity="0.25"/>
+      <circle cx="540" cy="210" r="22" fill="none" stroke="#00c9a7" stroke-width="1.5"/>
+      <text x="540" y="207" text-anchor="middle" fill="#00c9a7" font-family="DM Sans,sans-serif" font-size="10" font-weight="700">SQL</text>
+      <text x="540" y="219" text-anchor="middle" fill="#00c9a7" font-family="DM Sans,sans-serif" font-size="9">+$12k</text>
+      <!-- Excel: adoption 88%, easy, +$6k -->
+      <circle cx="494" cy="215" r="14" fill="#3a9bd5" opacity="0.2"/>
+      <circle cx="494" cy="215" r="14" fill="none" stroke="#3a9bd5" stroke-width="1.5"/>
+      <text x="494" y="218" text-anchor="middle" fill="#3a9bd5" font-family="DM Sans,sans-serif" font-size="9" font-weight="700">Excel</text>
+      <!-- Power BI: adoption 72%, mid, +$15k -->
+      <circle cx="418" cy="160" r="24" fill="#f0a500" opacity="0.2"/>
+      <circle cx="418" cy="160" r="24" fill="none" stroke="#f0a500" stroke-width="1.5"/>
+      <text x="418" y="157" text-anchor="middle" fill="#f0a500" font-family="DM Sans,sans-serif" font-size="9" font-weight="700">Power BI</text>
+      <text x="418" y="169" text-anchor="middle" fill="#f0a500" font-family="DM Sans,sans-serif" font-size="9">+$15k</text>
+      <!-- Python: adoption 65%, hard, +$22k -->
+      <circle cx="370" cy="80" r="30" fill="#9b59b6" opacity="0.2"/>
+      <circle cx="370" cy="80" r="30" fill="none" stroke="#9b59b6" stroke-width="1.5"/>
+      <text x="370" y="77" text-anchor="middle" fill="#9b59b6" font-family="DM Sans,sans-serif" font-size="10" font-weight="700">Python</text>
+      <text x="370" y="89" text-anchor="middle" fill="#9b59b6" font-family="DM Sans,sans-serif" font-size="9">+$22k</text>
+      <!-- Tableau: adoption 58%, mid, +$18k -->
+      <circle cx="330" cy="140" r="26" fill="#e74c3c" opacity="0.2"/>
+      <circle cx="330" cy="140" r="26" fill="none" stroke="#e74c3c" stroke-width="1.5"/>
+      <text x="330" y="137" text-anchor="middle" fill="#e74c3c" font-family="DM Sans,sans-serif" font-size="9" font-weight="700">Tableau</text>
+      <text x="330" y="149" text-anchor="middle" fill="#e74c3c" font-family="DM Sans,sans-serif" font-size="9">+$18k</text>
+      <!-- R: adoption 35%, hard, +$20k -->
+      <circle cx="204" cy="65" r="28" fill="#3a9bd5" opacity="0.2"/>
+      <circle cx="204" cy="65" r="28" fill="none" stroke="#3a9bd5" stroke-width="1.5"/>
+      <text x="204" y="62" text-anchor="middle" fill="#3a9bd5" font-family="DM Sans,sans-serif" font-size="10" font-weight="700">R</text>
+      <text x="204" y="74" text-anchor="middle" fill="#3a9bd5" font-family="DM Sans,sans-serif" font-size="9">+$20k</text>
+      <!-- Spark: adoption 22%, very hard, +$30k -->
+      <circle cx="143" cy="42" r="32" fill="#00c9a7" opacity="0.15"/>
+      <circle cx="143" cy="42" r="32" fill="none" stroke="#00c9a7" stroke-width="1.5" stroke-dasharray="4 2"/>
+      <text x="143" y="39" text-anchor="middle" fill="#00c9a7" font-family="DM Sans,sans-serif" font-size="9" font-weight="700">Spark/dbt</text>
+      <text x="143" y="51" text-anchor="middle" fill="#00c9a7" font-family="DM Sans,sans-serif" font-size="9">+$30k</text>
+      <!-- Axis tick labels -->
+      <text x="175" y="243" text-anchor="middle" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="10">25%</text>
+      <text x="290" y="243" text-anchor="middle" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="10">50%</text>
+      <text x="405" y="243" text-anchor="middle" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="10">75%</text>
+      <text x="520" y="243" text-anchor="middle" fill="#4a7a8a" font-family="DM Sans,sans-serif" font-size="10">100%</text>
+    </svg>
+  </div>
+</div>
+
+<p class="fade-in">
+  Notice how SQL sits at the far right — almost universal adoption, relatively low learning difficulty, and a meaningful salary premium. This is your first investment. <em>Always</em>. Then, depending on your target industry: Power BI or Tableau for business intelligence roles, Python for more technical or data science adjacent roles.
+</p>
+
+<div class="ornament fade-in">&diams; &diams; &diams;</div>
+
+<!-- ── SECTION 6: MINDSET ── -->
+<h2 class="fade-in">The <span class="h-accent">Analyst Mindset</span> Nobody Talks About</h2>
+<p class="fade-in">
+  The most dangerous thing a junior analyst can do is answer a question without questioning whether it's the right question. Stakeholders often ask for what they think they want, not what they actually need. <strong>Your job is to be a detective, not a vending machine.</strong>
+</p>
+<p class="fade-in">
+  When someone asks you to "show the sales numbers for last quarter," before you open a single spreadsheet, ask: <em>What decision is this meant to inform? Who is the audience? What would change if the number was higher or lower than expected?</em> These questions transform you from someone who produces reports into someone who drives decisions — and that is what gets analysts promoted.
+</p>
+
+<div class="pull-quote fade-in">
+  <p>"The goal is to turn data into information, and information into insight."</p>
+  <cite>— Carly Fiorina, Former CEO of Hewlett-Packard</cite>
+</div>
+
+<p class="fade-in">
+  Build the habit of documenting your analysis process. Keep a simple notebook — digital or physical — where you write down the questions you asked, the dead ends you explored, and the assumptions you made. This habit will save you in stakeholder meetings, help you reproduce past analyses, and make you significantly faster over time.
+</p>
+
+<!-- ── CLOSING ── -->
+<h2 class="fade-in">Where to <span class="h-accent">Start Tomorrow</span></h2>
+<p class="fade-in">
+  If you read this entire article and still feel uncertain where to begin, here is a concrete action: install <code>DB Browser for SQLite</code> today, download any free dataset from Kaggle, and write five SQL queries against it by this weekend. Don't wait until conditions are perfect. The analyst who started messy is years ahead of the one still planning to start.
+</p>
+<p class="fade-in">
+  Data analytics is one of the few fields where <strong>the gap between curious beginner and employed professional can be as short as six focused months</strong>. The tools are free. The datasets are everywhere. The demand is only growing. The only variable left is you.
+</p>
+<p style="font-style:italic;color:var(--text-muted);font-size:0.92rem" class="fade-in">
+  Have questions about the roadmap, tools, or breaking into the field? Drop them in the comments — I read and respond to every one.
+</p>
+
+</main>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="author-card">
+    <div class="author-avatar-lg">MA</div>
+    <div class="author-name">Musa Mubarak Abdulaziz</div>
+    <div class="author-bio" style="margin-top:0.5rem">Data analyst, web developer, and educator. Writing about the intersection of data, technology, and career growth since 2021.</div>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-heading">In This Article</div>
+    <ul class="toc-list">
+      <li><a href="#why"><span class="toc-num">01</span>Why Data Analytics?</a></li>
+      <li><a href="#roadmap"><span class="toc-num">02</span>Learning Roadmap</a></li>
+      <li><a href="#skills"><span class="toc-num">03</span>Core Skills</a></li>
+      <li><a href="#salary"><span class="toc-num">04</span>Salary &amp; Growth</a></li>
+      <li><a href="#tools"><span class="toc-num">05</span>Tools Guide</a></li>
+    </ul>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-heading">At a Glance</div>
+    <!-- Mini bar: time to learn -->
+    <div class="mini-chart-wrap">
+      <div class="mini-chart-label">Weeks to competency per skill</div>
+      <div style="display:flex;flex-direction:column;gap:0.5rem">
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--text-muted);margin-bottom:3px"><span>SQL</span><span style="color:var(--teal)">4 wks</span></div>
+          <div style="height:5px;background:var(--navy-light);border-radius:3px"><div style="height:100%;width:40%;background:var(--teal);border-radius:3px"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--text-muted);margin-bottom:3px"><span>Excel/Sheets</span><span style="color:var(--blue)">3 wks</span></div>
+          <div style="height:5px;background:var(--navy-light);border-radius:3px"><div style="height:100%;width:30%;background:var(--blue);border-radius:3px"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--text-muted);margin-bottom:3px"><span>Power BI</span><span style="color:var(--amber)">6 wks</span></div>
+          <div style="height:5px;background:var(--navy-light);border-radius:3px"><div style="height:100%;width:60%;background:var(--amber);border-radius:3px"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--text-muted);margin-bottom:3px"><span>Python</span><span style="color:var(--purple)">10 wks</span></div>
+          <div style="height:5px;background:var(--navy-light);border-radius:3px"><div style="height:100%;width:85%;background:var(--purple);border-radius:3px"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-heading">Topics</div>
+    <div class="tag-cloud">
+      <span class="tag">Data Analytics</span>
+      <span class="tag">Career</span>
+      <span class="tag">SQL</span>
+      <span class="tag">Python</span>
+      <span class="tag">Power BI</span>
+      <span class="tag">Tableau</span>
+      <span class="tag">Statistics</span>
+      <span class="tag">Roadmap</span>
+    </div>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-heading">Related Articles</div>
+    <div style="display:flex;flex-direction:column;gap:0.8rem">
+      <div style="background:var(--card-bg);border:1px solid var(--border-light);border-radius:8px;padding:0.9rem">
+        <div style="font-size:0.7rem;color:var(--teal);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.3rem">SQL</div>
+        <div style="font-size:0.85rem;font-weight:600;color:var(--text-primary);line-height:1.4">Window Functions Explained for Analysts</div>
+      </div>
+      <div style="background:var(--card-bg);border:1px solid var(--border-light);border-radius:8px;padding:0.9rem">
+        <div style="font-size:0.7rem;color:var(--amber);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.3rem">Career</div>
+        <div style="font-size:0.85rem;font-weight:600;color:var(--text-primary);line-height:1.4">Building a Data Portfolio That Gets Interviews</div>
+      </div>
+      <div style="background:var(--card-bg);border:1px solid var(--border-light);border-radius:8px;padding:0.9rem">
+        <div style="font-size:0.7rem;color:var(--purple);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.3rem">Python</div>
+        <div style="font-size:0.85rem;font-weight:600;color:var(--text-primary);line-height:1.4">pandas for Beginners: Your First EDA</div>
+      </div>
+    </div>
+  </div>
+</aside>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-logo">The Data Dispatch</span>
+    <p class="footer-text">Written by Musa Mubarak Abdulaziz &middot; Published 2026 &middot; All rights reserved</p>
+    <p class="footer-text" style="margin-top:0.3rem">Data analytics &middot; Career development &middot; Technical education</p>
+    <div class="teal-bar"></div>
+  </div>
+</footer>
+
+<script>
+const bar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  bar.style.width = (scrolled / total * 100) + '%';
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
