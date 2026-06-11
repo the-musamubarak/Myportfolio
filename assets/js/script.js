@@ -137,6 +137,43 @@ for (let i = 0; i < formInputs.length; i++) {
   });
 }
 
+// Handle form submission
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+  
+  // Disable button and show loading state
+  formBtn.setAttribute("disabled", "");
+  const originalText = formBtn.innerHTML;
+  formBtn.innerHTML = '<span>Sending...</span>';
+  
+  // Create FormData from the form
+  const formData = new FormData(form);
+  
+  // Submit to Netlify
+  fetch("/", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams(formData).toString()
+  })
+  .then(() => {
+    // Success - show confirmation and reset form
+    formBtn.innerHTML = '<ion-icon name="checkmark-circle-outline"></ion-icon><span>Message Sent!</span>';
+    form.reset();
+    
+    // Reset button after 3 seconds
+    setTimeout(() => {
+      formBtn.innerHTML = originalText;
+      formBtn.setAttribute("disabled", "");
+    }, 3000);
+  })
+  .catch(error => {
+    // Error - restore button
+    console.error("Form submission error:", error);
+    formBtn.innerHTML = originalText;
+    alert("There was an error sending your message. Please try again.");
+  });
+});
+
 
 
 // page navigation variables
