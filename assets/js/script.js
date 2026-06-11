@@ -94,6 +94,9 @@ const filterFunc = function (selectedValue) {
 
 }
 
+// initialize filter to show only dashboard items on page load
+filterFunc("dashboard");
+
 // add event in all filter button items for large screen
 let lastClickedBtn = filterBtn[0];
 
@@ -140,20 +143,79 @@ for (let i = 0; i < formInputs.length; i++) {
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
 const pages = document.querySelectorAll("[data-page]");
 
-// add event to all nav link
-for (let i = 0; i < navigationLinks.length; i++) {
-  navigationLinks[i].addEventListener("click", function () {
+// Function to activate a specific page by name
+const activatePage = function (pageName) {
+  // Remove active from all pages and links
+  for (let j = 0; j < pages.length; j++) {
+    pages[j].classList.remove("active");
+    navigationLinks[j].classList.remove("active");
+  }
 
-    for (let i = 0; i < pages.length; i++) {
-      if (this.innerHTML.toLowerCase() === pages[i].dataset.page) {
-        pages[i].classList.add("active");
-        navigationLinks[i].classList.add("active");
-        window.scrollTo(0, 0);
-      } else {
-        pages[i].classList.remove("active");
-        navigationLinks[i].classList.remove("active");
-      }
+  // Add active to matching page and link
+  for (let j = 0; j < pages.length; j++) {
+    if (pageName === pages[j].dataset.page) {
+      pages[j].classList.add("active");
+      navigationLinks[j].classList.add("active");
+      window.scrollTo(0, 0);
+      break;
     }
+  }
+};
 
+// Handle hash change (when browser back/forward or direct URL change)
+const handleHashChange = function () {
+  let pageToActivate = location.hash.slice(1).toLowerCase(); // Remove '#' and lowercase
+  
+  // If no hash or invalid hash, default to 'about'
+  if (!pageToActivate) {
+    pageToActivate = "about";
+    window.location.hash = "#about"; // Update URL to show default
+  }
+  
+  activatePage(pageToActivate);
+};
+
+// Initialize on page load - activate page from URL hash
+handleHashChange();
+
+// Listen for hash changes (back/forward buttons)
+window.addEventListener("hashchange", handleHashChange);
+
+// Add click event to all nav links
+for (let i = 0; i < navigationLinks.length; i++) {
+  navigationLinks[i].addEventListener("click", function (e) {
+    e.preventDefault(); // Prevent default link behavior
+    
+    const pageName = this.innerHTML.toLowerCase();
+    
+    // Update URL hash
+    window.location.hash = "#" + pageName;
+    
+    // Activate the page (this will also be triggered by hashchange event)
+    activatePage(pageName);
   });
 }
+
+// Image Zoom Modal Functionality
+const avatarImg = document.getElementById("avatarImg");
+const imageModal = document.getElementById("imageModal");
+const closeBtn = document.querySelector(".close");
+
+if (avatarImg) {
+  avatarImg.addEventListener("click", function() {
+    imageModal.style.display = "block";
+  });
+}
+
+if (closeBtn) {
+  closeBtn.addEventListener("click", function() {
+    imageModal.style.display = "none";
+  });
+}
+
+// Close modal when clicking outside the image
+window.addEventListener("click", function(e) {
+  if (e.target == imageModal) {
+    imageModal.style.display = "none";
+  }
+});

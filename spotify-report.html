@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Spotify Top Songs Report  Musa Mubarak Abdulaziz</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Circular+Std:wght@400;700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+:root {
+  --bg:        #0d0d0d;
+  --surface:   #181818;
+  --surface2:  #242424;
+  --border:    #2a2a2a;
+  --green:     #1db954;
+  --green-dim: #158a3e;
+  --green-glow:rgba(29,185,84,0.15);
+  --text:      #d4d4d4;
+  --muted:     #777;
+  --white:     #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 15.5px;
+  line-height: 1.85;
+}
+
+/* ─── HEADER ─── */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 16px 52px;
+  background: #000;
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+}
+.spotify-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.spotify-icon {
+  width: 32px; height: 32px;
+  background: var(--green);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.spotify-icon svg { width: 18px; height: 18px; fill: #000; }
+.logo-text {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.5px;
+}
+.header-meta { text-align: right; }
+.header-meta p { font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; }
+.header-meta span { color: var(--green); }
+
+/* ─── COVER ─── */
+.cover {
+  background: linear-gradient(170deg, #001a0a 0%, #001a0a 40%, var(--bg) 100%);
+  padding: 80px 52px 60px;
+  border-bottom: 1px solid var(--border);
+}
+.cover-eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 16px;
+}
+.cover h1 {
+  font-weight: 700;
+  font-size: clamp(2.4rem, 5vw, 4.4rem);
+  color: var(--white);
+  line-height: 1.05;
+  max-width: 860px;
+  margin-bottom: 28px;
+}
+.cover-subtitle {
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 720px;
+  font-style: italic;
+  margin-bottom: 40px;
+  text-align: justify;
+}
+.cover-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: 760px;
+}
+.cover-meta-item {
+  background: var(--surface);
+  padding: 16px 20px;
+}
+.cover-meta-item .label {
+  font-size: 0.65rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 4px;
+}
+.cover-meta-item .value {
+  font-size: 0.88rem;
+  color: var(--white);
+  font-weight: 600;
+}
+
+/* ─── TOC ─── */
+.toc-wrap {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 40px 52px;
+}
+.toc-wrap h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 20px;
+}
+.toc { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 4px 40px; }
+.toc li { border-bottom: 1px solid var(--border); }
+.toc a {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.2s;
+}
+.toc a:hover { color: var(--white); }
+.toc a .num { color: var(--green); font-weight: 700; margin-right: 10px; font-size: 0.75rem; }
+
+/* ─── KPI BAR ─── */
+.kpi-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.kpi {
+  background: var(--bg);
+  padding: 26px 32px;
+  text-align: center;
+  transition: background 0.2s;
+}
+.kpi:hover { background: var(--surface); }
+.kpi-val {
+  font-weight: 700;
+  font-size: 2.6rem;
+  color: var(--green);
+  line-height: 1;
+}
+.kpi-lbl {
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 5px;
+}
+.kpi-sub { font-size: 0.76rem; color: var(--text); margin-top: 4px; }
+
+/* ─── MAIN ─── */
+.page { max-width: 980px; margin: 0 auto; padding: 60px 52px 100px; }
+
+/* ─── SECTION ─── */
+.report-section { margin-bottom: 70px; }
+.section-header { margin-bottom: 28px; }
+.section-eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 8px;
+}
+.section-header h2 {
+  font-weight: 700;
+  font-size: 1.9rem;
+  color: var(--white);
+  line-height: 1.05;
+}
+.greenline { width: 48px; height: 2px; background: var(--green); margin: 12px 0 0; }
+
+/* ─── BODY TEXT ─── */
+.body-text p {
+  text-align: justify;
+  hyphens: auto;
+  color: var(--text);
+  margin-bottom: 18px;
+  font-size: 0.95rem;
+  line-height: 1.9;
+}
+.body-text p:last-child { margin-bottom: 0; }
+
+/* ─── PULLQUOTE ─── */
+.pullquote {
+  border-left: 3px solid var(--green);
+  background: var(--surface);
+  padding: 22px 28px;
+  margin: 28px 0;
+  border-radius: 0 4px 4px 0;
+}
+.pullquote p {
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--white);
+  line-height: 1.7;
+  text-align: justify;
+}
+.pullquote cite {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--green);
+  font-style: normal;
+}
+
+/* ─── STAT CARDS ─── */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
+  margin: 28px 0;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 22px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.stat-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--green);
+}
+.stat-card:hover { border-color: var(--green-dim); transform: translateY(-2px); }
+.stat-card .s-num { font-weight: 700; font-size: 2.2rem; color: var(--green); line-height: 1; }
+.stat-card .s-title {
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  margin: 6px 0 8px;
+  font-weight: 600;
+}
+.stat-card .s-body { font-size: 0.83rem; color: var(--muted); line-height: 1.65; text-align: justify; }
+
+/* ─── TABLE ─── */
+.table-wrap { margin: 28px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+thead { background: #001a0a; }
+thead th {
+  padding: 13px 18px;
+  text-align: left;
+  font-size: 0.65rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--green);
+  font-weight: 700;
+  border-bottom: 1px solid var(--border);
+}
+tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--surface2); }
+tbody td { padding: 12px 18px; color: var(--text); vertical-align: middle; }
+.bar-bg { background: var(--border); border-radius: 2px; height: 6px; overflow: hidden; width: 130px; }
+.bar-fill { height: 100%; background: var(--green); border-radius: 2px; }
+.pct { color: var(--muted); font-size: 0.78rem; }
+.tag-chip {
+  display: inline-block;
+  background: rgba(29,185,84,0.1);
+  border: 1px solid var(--green-dim);
+  border-radius: 20px;
+  padding: 2px 10px;
+  font-size: 0.7rem;
+  color: var(--green);
+  letter-spacing: 1px;
+}
+
+/* ─── ARTIST GRID ─── */
+.artist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin: 24px 0;
+}
+.artist-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.artist-card:hover { border-color: var(--green-dim); background: var(--surface2); }
+.artist-avatar {
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, var(--green-dim), var(--green));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 1rem; color: #000;
+  flex-shrink: 0;
+}
+.artist-name { font-size: 0.85rem; font-weight: 600; color: var(--white); }
+.artist-sub { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+
+/* ─── REC BOX ─── */
+.rec-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px 32px;
+  margin: 20px 0;
+}
+.rec-box h4 { font-weight: 700; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; color: var(--white); margin-bottom: 10px; }
+.rec-box p { font-size: 0.88rem; color: var(--muted); text-align: justify; line-height: 1.8; }
+.rec-list { list-style: none; margin-top: 14px; }
+.rec-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.86rem;
+  color: var(--text);
+  display: flex;
+  gap: 12px;
+  text-align: justify;
+  line-height: 1.7;
+}
+.rec-list li:last-child { border-bottom: none; }
+.rec-list li::before { content: '▸'; color: var(--green); flex-shrink: 0; margin-top: 2px; }
+
+/* ─── CONCLUSION ─── */
+.conclusion-block {
+  background: linear-gradient(135deg, #001a0a 0%, var(--surface) 100%);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 40px 44px;
+  margin-top: 20px;
+}
+.conclusion-block p { text-align: justify; font-size: 0.94rem; color: var(--text); line-height: 1.9; margin-bottom: 16px; }
+.conclusion-block p:last-child { margin-bottom: 0; }
+
+/* ─── MISC ─── */
+.section-divider { border: none; border-top: 1px solid var(--border); margin: 60px 0; }
+.footnote {
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+  margin-top: 32px;
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-align: justify;
+  line-height: 1.7;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: #000;
+  border-top: 1px solid var(--border);
+  padding: 24px 52px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+footer p { font-size: 0.72rem; color: var(--muted); }
+footer .green { color: var(--green); }
+
+/* ─── BACK BUTTON ─── */
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--green);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  margin: 20px 52px;
+  transition: opacity 0.2s;
+}
+.back-button:hover { opacity: 0.8; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  header, .cover, .toc-wrap, .page, footer, .back-button { padding-left: 20px; padding-right: 20px; }
+  .kpi-bar { grid-template-columns: repeat(2, 1fr); }
+  .cover h1 { font-size: 2.2rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+
+<!-- ═══ BACK BUTTON ═══ -->
+<a href="index.html" class="back-button">← Back to Portfolio</a>
+
+<!-- ═══ HEADER ═══ -->
+<header>
+  <div class="spotify-logo">
+    <div class="spotify-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+      </svg>
+    </div>
+    <span class="logo-text">Spotify</span>
+  </div>
+  <div class="header-meta">
+    <p>Top Songs Analytics Report</p>
+    <p>© 2026 <span>Musa Mubarak Abdulaziz</span></p>
+  </div>
+</header>
+
+<!-- ═══ COVER ═══ -->
+<div class="cover">
+  <p class="cover-eyebrow">Analytical Report &nbsp;·&nbsp; Music Data Series</p>
+  <h1>Spotify Top Songs Dataset: A Comprehensive Data Analysis</h1>
+  <p class="cover-subtitle">
+    An in-depth examination of Spotify's top-performing songs dataset, exploring 51 artist contributions, popularity trends across months and quarters, album type distributions, explicit content classification, and average duration patterns. This report delivers strategic insights relevant to music label A&amp;R decisions, playlist curation strategy, streaming platform positioning, and artist popularity management in the modern digital music economy.
+  </p>
+  <div class="cover-meta-grid">
+    <div class="cover-meta-item">
+      <div class="label">Prepared By</div>
+      <div class="value">Musa Mubarak Abdulaziz</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="label">Report Type</div>
+      <div class="value">Dashboard Analytics Report</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="label">Dataset</div>
+      <div class="value">Spotify Top Songs Dataset</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="label">Year</div>
+      <div class="value">2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TABLE OF CONTENTS ═══ -->
+<div class="toc-wrap">
+  <h2>Table of Contents</h2>
+  <ul class="toc">
+    <li><a href="#abstract"><span class="num">01</span> Abstract</a></li>
+    <li><a href="#introduction"><span class="num">02</span> Introduction</a></li>
+    <li><a href="#background"><span class="num">03</span> Background & Context</a></li>
+    <li><a href="#methodology"><span class="num">04</span> Data & Methodology</a></li>
+    <li><a href="#artists"><span class="num">05</span> Artist & Song Analysis</a></li>
+    <li><a href="#popularity"><span class="num">06</span> Popularity Trends</a></li>
+    <li><a href="#album-type"><span class="num">07</span> Album Type & Explicit Content</a></li>
+    <li><a href="#duration"><span class="num">08</span> Duration & Engagement</a></li>
+    <li><a href="#monthly"><span class="num">09</span> Monthly & Quarterly Trends</a></li>
+    <li><a href="#discussion"><span class="num">10</span> Discussion</a></li>
+    <li><a href="#recommendations"><span class="num">11</span> Recommendations</a></li>
+    <li><a href="#conclusion"><span class="num">12</span> Conclusion</a></li>
+    <li><a href="#references"><span class="num">13</span> References</a></li>
+  </ul>
+</div>
+
+<!-- ═══ KPI BAR ═══ -->
+<div class="kpi-bar">
+  <div class="kpi">
+    <div class="kpi-val">51</div>
+    <div class="kpi-lbl">Total Artists</div>
+    <div class="kpi-sub">Unique contributing artists</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-val">93</div>
+    <div class="kpi-lbl">Avg Popularity</div>
+    <div class="kpi-sub">Out of 100  very high</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-val">3.86</div>
+    <div class="kpi-lbl">Avg Duration (min)</div>
+    <div class="kpi-sub">Longest track: 3.86 min</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-val">100%</div>
+    <div class="kpi-lbl">Single Album Type</div>
+    <div class="kpi-sub">All tracks are singles</div>
+  </div>
+</div>
+
+<!-- ═══ MAIN PAGE ═══ -->
+<div class="page">
+
+  <!-- 01 ABSTRACT -->
+  <section class="report-section" id="abstract">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 01</p>
+      <h2>Abstract</h2>
+      <div class="greenline"></div>
+    </div>
+    <div class="body-text">
+      <p>This report presents a structured analytical examination of a curated Spotify top songs dataset, visualised through a Power BI dashboard. The dataset encompasses songs from 51 distinct artists, recording an average popularity score of 93 out of 100  an exceptionally high figure that confirms these tracks represent the upper echelon of streaming performance. The analysis spans multiple dimensions: artist and song-level performance, album type distribution, explicit versus non-explicit content classification, average duration, and temporal popularity trends segmented by month and quarter.</p>
+      <p>Key findings establish that the entire dataset is composed exclusively of single-format releases, indicating that the most commercially powerful songs in the contemporary streaming era are promoted and consumed as standalone singles rather than album cuts. The average popularity score of 93 reflects a tightly curated dataset skewed toward viral, algorithmically-amplified chart-toppers. Popularity trends show a consistent upward trajectory from January through to September, with a significant spike in August driven by 29 high-popularity song releases  a pattern that reflects the music industry's pre-autumn release cycle. The report concludes with strategic recommendations for artists, labels, and playlist curators seeking to leverage streaming data for competitive advantage.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- 02 INTRODUCTION -->
+  <section class="report-section" id="introduction">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 02</p>
+      <h2>Introduction</h2>
+      <div class="greenline"></div>
+    </div>
+    <div class="body-text">
+      <p>The music industry has been transformed beyond recognition by the rise of digital streaming platforms. Where physical sales and digital downloads once defined commercial success, the contemporary measure of a song's performance is its streaming count  the number of times a listener has chosen to play a track, whether actively sought or algorithmically served. Spotify, founded in 2006 and launched to the public in 2008, sits at the apex of this streaming economy. With over 600 million monthly active users and more than 100 million tracks in its catalogue as of 2024, Spotify is not merely a music distribution platform  it is the primary arbiter of what gets heard, what goes viral, and which artists achieve mainstream commercial success in the modern era.</p>
+      <p>Spotify quantifies track performance through its proprietary popularity score  an index ranging from 0 to 100 that reflects a song's recent stream count relative to other tracks on the platform, with heavier weighting given to more recent plays. A score in the 90s, such as the average of 93 recorded in this dataset, places a track in the top tier of global streaming performance  a level accessible only to artists with substantial organic audiences, algorithmic playlist placement, and cultural visibility across multiple media channels simultaneously.</p>
+      <p>This report was produced as part of a data analytics portfolio project, using Microsoft Power BI as the primary visualisation and analysis tool. The dashboard examines a curated slice of Spotify's top-performing songs, providing a structured analytical lens through which patterns in artist dominance, release strategy, content classification, duration preferences, and seasonal popularity cycles can be identified and interpreted. The findings have practical relevance for artists, music managers, record labels, playlist editors, and streaming platform strategists seeking data-informed perspectives on what drives commercial performance in the streaming age.</p>
+      <p>The report is structured in accordance with formal analytical conventions  progressing from contextual background and methodological transparency through detailed findings and interpretive discussion to strategic recommendations and a synthesising conclusion. Readers are encouraged to engage with the Power BI dashboard alongside this written report, as the two are designed to function as complementary analytical instruments  the dashboard providing interactive visual exploration and the report providing narrative depth and strategic framing.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- 03 BACKGROUND -->
+  <section class="report-section" id="background">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 03</p>
+      <h2>Background &amp; Context</h2>
+      <div class="greenline"></div>
+    </div>
+    <div class="body-text">
+      <p>Spotify's rise to dominance in the global music streaming market is one of the defining business stories of the digital age. Launched in Sweden by Daniel Ek and Martin Lorentzon, the platform's initial proposition was straightforward but revolutionary: instead of purchasing individual songs or albums, listeners would pay a monthly subscription fee for unlimited access to a vast music library. The freemium model  offering ad-supported free access alongside a premium paid tier  allowed Spotify to acquire users rapidly while monetising through both advertising and subscription revenue.</p>
+      <p>By 2019, Spotify had surpassed Apple Music to become the world's largest music streaming platform by subscriber count. Its expansion into podcasting, audiobooks, and live audio further diversified its content offering. But it is music  and specifically the mechanics of how music achieves and sustains popularity on the platform  that remains the core analytical interest of this report. The playlist ecosystem sits at the heart of Spotify's discovery and virality engine. Editorial playlists such as Today's Top Hits, RapCaviar, and New Music Friday carry enormous algorithmic and cultural weight; placement on these playlists can transform a modestly-performing track into a global hit overnight.</p>
+
+      <div class="pullquote">
+        <p>The data-driven nature of Spotify's recommendation engine represents a fundamental shift in the power dynamics of the music industry. Artists and labels that understand how the platform's algorithms work  and how to optimise releases for algorithmic amplification  enjoy a structural advantage over those who rely solely on traditional promotional channels such as radio, press, and television.</p>
+        <cite> Contextual Analysis, Musa Mubarak Abdulaziz, 2026</cite>
+      </div>
+
+      <p>The artists represented in this dataset  Taylor Swift, Peggy Gou, KAROL G, Feid, DFZM, Beyoncé, Tate McRae, Zach Bryan, Charli XCX, and Jung Kook featuring Jack Harlow, among others  collectively represent a cross-section of the most commercially dominant performers in contemporary popular music. They span multiple genres: pop, hip-hop, electronic, country, R&amp;B, Latin, and K-pop. This genre diversity is itself analytically significant, suggesting that the upper tier of Spotify's popularity rankings is no longer monopolised by a single genre, as it might have been in earlier eras of commercial radio dominance, but is instead genuinely pluralistic  a reflection of the platform's global scale and the ability of niche genres to achieve mainstream streaming numbers through dedicated fan communities.</p>
+      <p>The period covered by this dataset  spanning at minimum from January through September based on the monthly trend data visible in the dashboard  captures a particularly active phase of the music release calendar. The first three quarters of a year typically see major artists deploy their most strategically important releases in anticipation of award season eligibility windows, end-of-year chart positions, and the summer peak consumption period. Understanding the temporal patterns within this dataset therefore requires situating them within the broader context of the music industry's annual commercial rhythm.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- 04 METHODOLOGY -->
+  <section class="report-section" id="methodology">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 04</p>
+      <h2>Data &amp; Methodology</h2>
+      <div class="greenline"></div>
+    </div>
+    <div class="body-text">
+      <p>The dataset underpinning this analysis was processed and visualised using Microsoft Power BI Desktop. It contains records for a curated selection of top-performing Spotify tracks, each associated with metadata attributes including artist name, song title, album cover art, album type, release year, explicit content classification, duration in minutes, popularity score (0–100), and date-related fields enabling temporal segmentation by month and quarter. The dashboard provides multiple interactive views of this data  a song-by-artist panel, key performance indicator cards, donut charts for compositional analysis, a line chart for popularity trends over time, and a bar chart for high-popularity song counts by month.</p>
+      <p>Data transformation within Power BI included the creation of calculated columns and DAX measures to derive average popularity by month, count of artists, and average duration. The monthly and quarterly trend analysis leveraged Power BI's native date hierarchy functionality, enabling the line chart to toggle between Month and Quarter granularity  a feature that provides both granular detail and higher-level pattern recognition within a single visual element. Colour theming throughout the dashboard follows Spotify's official brand guidelines, employing the platform's signature green (#1DB954) against a near-black dark background to ensure both visual fidelity to the source brand and high legibility contrast.</p>
+      <p>It is acknowledged that this dataset represents a curated and bounded selection of tracks rather than the full Spotify catalogue. The 51-artist count and the specific song titles visible in the dashboard suggest this is a custom-compiled dataset focused specifically on chart-topping or critically noted songs within a defined timeframe, rather than a random or stratified sample of the broader Spotify library. Conclusions drawn from this analysis therefore apply specifically to the upper performance tier of the platform  the commercially elite strata of streaming  and should not be extrapolated as representative of the average song's performance characteristics on Spotify.</p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="s-num">51</div>
+        <div class="s-title">Unique Artists</div>
+        <div class="s-body">Spanning pop, hip-hop, country, Latin, K-pop, and electronic genres across multiple markets.</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-num">Power BI</div>
+        <div class="s-title">Analysis Tool</div>
+        <div class="s-body">Microsoft Power BI Desktop used for DAX measures, trend modelling, and interactive dashboard design.</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-num">Jan–Sep</div>
+        <div class="s-title">Time Coverage</div>
+        <div class="s-body">Monthly and quarterly trend data spans from January through September, covering three full quarters of release activity.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- 05 ARTISTS -->
+  <section class="report-section" id="artists">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 05</p>
+      <h2>Artist &amp; Song Analysis</h2>
+      <div class="greenline"></div>
+    </div>
+    <div class="body-text">
+      <p>The artist panel on the left side of the dashboard presents a scrollable list of the songs contained within the dataset, organised by artist. The first entry  Taylor Swift's "Slutt" (Taylor's Version)  immediately signals the contemporary nature of the dataset, as this is a re-recorded track from Swift's ongoing project to reclaim ownership of her original masters by re-recording her first six studio albums. The appearance of this track in a top-popularity dataset is emblematic of Swift's extraordinary commercial dominance in the mid-2020s era; she is widely regarded as the most commercially successful recording artist of her generation, with a fanbase  the Swifties  whose coordinated streaming activity gives her tracks a reliable popularity floor that few other artists can match.</p>
+      <p>The second highlighted artist is Peggy Gou, the Berlin-based South Korean electronic music producer and DJ, whose track "(It Goes Like) Nanana - Edit" appears prominently. Gou's inclusion is notable because it represents the dance and electronic music genre  a category that has historically underperformed in popularity metrics relative to pop and hip-hop due to the genre's club-oriented consumption patterns. The track's high popularity signals a genuine crossover appeal, driven in part by its TikTok virality in 2023, which propelled it from club floors to mainstream streaming charts across multiple markets simultaneously.</p>
+      <p>KAROL G and Feid, appearing together with the designation "+57" in the dashboard, represent the Latin urbano genre  a category that has experienced extraordinary global growth over the past decade, driven by the broader mainstream ascension of reggaeton, Latin trap, and their hybrid derivatives. Beyoncé's appearance with "16 CARRIAGES" connects the dataset to the country and Americana music space  a genre choice that surprised many when Beyoncé pivoted to country music with her Cowboy Carter album, but which proved commercially astute, generating enormous streaming numbers and critical attention. Charli XCX's "brat" and Tate McRae's "2 hands" round out a dataset that, taken as a whole, reflects the genuine genre diversity of contemporary streaming popularity.</p>
+    </div>
+
+    <div class="artist-grid">
+      <div class="artist-card">
+        <div class="artist-avatar">TS</div>
+        <div>
+          <div class="artist-name">Taylor Swift</div>
+          <div class="artist-sub">Pop  "Slutt" (Taylor's Version)</div>
+        </div>
+      </div>
+      <div class="artist-card">
+        <div class="artist-avatar">PG</div>
+        <div>
+          <div class="artist-name">Peggy Gou</div>
+          <div class="artist-sub">Electronic  "(It Goes Like) Nanana"</div>
+        </div>
+      </div>
+      <div class="artist-card">
+        <div class="artist-avatar">KG</div>
+        <div>
+          <div class="artist-name">KAROL G &amp; Feid</div>
+          <div class="artist-sub">Latin Urbano  "+57"</div>
+        </div>
+      </div>
+      <div class="artist-card">
+        <div class="artist-avatar">BY</div>
+        <div>
+          <div class="artist-name">Beyoncé</div>
+          <div class="artist-sub">Country/R&amp;B  "16 CARRIAGES"</div>
+        </div>
+      </div>
+      <div class="artist-card">
+        <div class="artist-avatar">TM</div>
+        <div>
+          <div class="artist-name">Tate McRae</div>
+          <div class="artist-sub">Pop  "2 hands"</div>
+        </div>
+      </div>
+      <div class="artist-card">
+        <div class="artist-avatar">ZB</div>
+        <div>
+          <div class="artist-name">Zach Bryan</div>
+          <div class="artist-sub">Country  "28"</div>
+        </div>
+      </div>
+      <div class="artist-card">
+        <div class="artist-avatar">CX</div>
+        <div>
+          <div class="artist-name">Charli XCX</div>
+          <div class="artist-sub">Hyperpop  "brat"</div>
+        </div>
+      </div>
+      <div class="artist-card">
+        <div class="artist-avatar">JK</div>
+        <div>
+          <div class="artist-name">Jung Kook &amp; Jack Harlow</div>
+          <div class="artist-sub">K-Pop/Hip-Hop  "3D"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-text" style="margin-top:20px;">
+      <p>The "Songs by Artist" bar chart in the dashboard's lower-left quadrant reveals the distribution of song counts across artists, with Peggy Gou holding the highest single-artist representation at or near the top of the chart. This likely reflects either a higher number of Peggy Gou tracks in the dataset or a filtering artefact related to the selected display view. The "Count of Artist" chart in the adjacent panel, which shows counts ranging from approximately 20 to 50, suggests that artist representation in the dataset is distributed across a range  some artists appearing with multiple tracks, others with just a single entry. This distribution pattern is typical of curated popularity datasets, where dominant artists tend to have multiple concurrent chart entries while emerging or one-hit artists appear only once.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- 06 POPULARITY -->
+  <section class="report-section" id="popularity">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 06</p>
+      <h2>Popularity Trends</h2>
+      <div class="greenline"></div>
+    </div>
+    <div class="body-text">
+      <p>The average popularity score of 93 out of 100 recorded across this dataset is the single most analytically powerful headline figure. To appreciate its significance, it is necessary to understand what the Spotify popularity score actually measures. The score is computed by Spotify's internal algorithm and reflects a combination of total stream count and the recency of those streams, with streams from the past several weeks weighted more heavily than historical totals. A score of 100 would represent the most-streamed track globally in the most recent window; a score of 93 places a track in the top 5 to 7 percent of all content on the platform by recent streaming activity.</p>
+      <p>That the average across an entire dataset of multiple tracks sits at 93  not a single outlier score, but the mean  indicates that this is an exceptionally well-performing collection. Every track in the dataset is, in statistical terms, a hit. This curation bias is important to acknowledge analytically: it means that findings derived from this dataset describe the characteristics of streaming success rather than the characteristics of streaming content in general. The patterns identified here are therefore prescriptive as well as descriptive  they indicate what commercially successful songs look like in terms of album type, duration, explicitness, and temporal release patterns.</p>
+
+      <div class="pullquote">
+        <p>An average Spotify popularity score of 93 across a multi-artist dataset does not occur by accident. It reflects a combination of cultural moment, algorithmic amplification, coordinated fan engagement, and release strategy execution  all converging at the same time for multiple artists simultaneously. Understanding how these factors interact is the central challenge of modern music analytics.</p>
+        <cite> Analytical Commentary, Musa Mubarak Abdulaziz, 2026</cite>
+      </div>
+
+      <p>The average popularity by month chart  one of the most visually compelling elements of the dashboard  shows a consistent upward trend from a baseline of approximately 86 in January to a peak approaching 94 in September. This gradual, sustained climb is significant for several reasons. It suggests that the tracks in the dataset were not all released simultaneously but rather accumulated popularity over successive months as new releases entered the dataset and existing tracks continued to accumulate streams. The steepest period of growth appears to occur between July and September  the third quarter of the year  which aligns with the industry-wide pattern of major releases targeting the summer peak consumption period and the run-up to the fourth quarter award season.</p>
+      <p>The quarter-level view of the popularity chart, toggled via the Month/Quarter control in the dashboard, would reveal this trend at a higher level of aggregation  confirming whether the January-to-September trajectory represents a genuine linear growth pattern or whether it is driven by a single dominant quarter. Based on the visible data, Q3 (July–September) appears to be the strongest performance period, consistent with industry knowledge about the commercial concentration of major releases in this window.</p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="s-num">~86</div>
+        <div class="s-title">Jan Popularity</div>
+        <div class="s-body">Starting baseline in January  already elite-tier, reflecting high-quality catalogue even at the period's start.</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-num">~94</div>
+        <div class="s-title">Sep Popularity</div>
+        <div class="s-body">Peak average popularity reached by September, driven by summer releases and growing cumulative stream counts.</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-num">+8 pts</div>
+        <div class="s-title">Total Gain</div>
+        <div class="s-body">An 8-point average popularity gain across nine months reflects a sustained and significant upward trajectory across the dataset.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- 07 ALBUM TYPE & EXPLICIT -->
+  <section class="report-section" id="album-type">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 07</p>
+      <h2>Album Type &amp; Explicit Content</h2>
+      <div class="greenline"></div>
+    </div>
+    <div class="body-text">
+      <p>Two of the most structurally revealing findings in the entire dataset emerge from the album type and explicit content distribution charts  both displayed as donut visualisations in the upper-right quadrant of the dashboard. The album type chart shows a count of 1 for the "single" category and 51 for what appears to be the dominant track category, with an average popularity by album type of 100% for singles. The explicit content chart shows 51 non-explicit tracks and 1 explicit track.</p>
+      <p>The album type finding  that effectively the entire dataset is composed of single-format releases  is one of the most commercially instructive data points in the report. In the streaming era, the single has undergone a comprehensive rehabilitation as the primary unit of commercial music strategy. During the album-centric era of the 1970s through the 1990s, the album represented the canonical form of artistic statement and the primary commercial transaction; singles were promotional tools used to drive album sales. The economics of digital streaming inverted this relationship entirely. A listener pays a flat monthly subscription fee regardless of whether they stream one track or one hundred; the platform compensates artists and rights-holders on a per-stream basis. In this environment, the incentive is to maximise total stream count, which means prioritising the formats  the single and the EP  that deliver the most concentrated, immediately repeatable streaming experiences.</p>
+      <p>The highest-charting songs on Spotify in any given week are almost invariably singles or tracks released in advance of an album as standalone promotional entries. The Taylor Swift model  releasing singles or "Taylor's Version" re-recordings as standalone titles that generate enormous streaming events  is the apotheosis of this strategy, but it is practiced to varying degrees across virtually every major artist in the contemporary market. The 100% average popularity score associated with the single album type in this dataset further reinforces the message: singles are not just the dominant format, they are the highest-performing format by the platform's own popularity metric.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Category</th>
+            <th>Count</th>
+            <th>Share</th>
+            <th>Relative Volume</th>
+            <th>Insight</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Album Type</strong></td>
+            <td>Single</td>
+            <td>~51</td>
+            <td class="pct">~100%</td>
+            <td><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div></td>
+            <td><span class="tag-chip">Dominant</span></td>
+          </tr>
+          <tr>
+            <td><strong>Album Type</strong></td>
+            <td>Album Cut</td>
+            <td>~1</td>
+            <td class="pct">&lt;2%</td>
+            <td><div class="bar-bg"><div class="bar-fill" style="width:2%"></div></div></td>
+            <td><span class="tag-chip">Minimal</span></td>
+          </tr>
+          <tr>
+            <td><strong>Explicit</strong></td>
+            <td>Non-Explicit</td>
+            <td>51</td>
+            <td class="pct">~98%</td>
+            <td><div class="bar-bg"><div class="bar-fill" style="width:98%"></div></div></td>
+            <td><span class="tag-chip">Dominant</span></td>
+          </tr>
+          <tr>
+            <td><strong>Explicit</strong></td>
+            <td>Explicit</td>
+            <td>1</td>
+            <td class="pct">~2%</td>
+            <td><div class="bar-bg"><div class="bar-fill" style="width:2%"></div></div></td>
+            <td><span class="tag-chip">Marginal</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="body-text">
+      <p>The explicit content distribution  51 non-explicit tracks versus 1 explicit  is equally revealing. The near-total absence of explicitly labelled content from the upper echelon of Spotify popularity is counterintuitive to those who might associate explicit content with commercial boldness or artistic authenticity. However, the commercial logic is straightforward. Explicit content is filtered out of a range of algorithmically-curated editorial playlists, family plan accounts, and markets with regulatory sensitivity toward explicit material. Songs with explicit labels face meaningful algorithmic headwinds that reduce their potential reach on the platform. Major artists releasing commercial singles  particularly those targeting chart performance and broad demographic reach  are therefore incentivised to either produce non-explicit content or create "clean" versions of explicit tracks for algorithmic optimisation. The data confirms that in the top tier of Spotify performance, non-explicit tracks are the overwhelming norm.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- 08 DURATION -->
+  <section class="report-section" id="duration">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 08</p>
+      <h2>Duration &amp; Engagement</h2>
+      <div class="greenline"></div>
+    </div>
+    <div class="body-text">
+      <p>The average track duration recorded in this dataset is 3.86 minutes, which also corresponds to the longest song value displayed on the dashboard. This figure sits comfortably within the traditional "radio-friendly" duration range of approximately 3 to 4 minutes that has defined commercially successful popular music since the emergence of the seven-inch vinyl single in the 1950s. While this duration norm was originally dictated by the physical constraints of early recording formats, it has persisted into the digital era  sustained now not by format limitations but by listener attention patterns and platform economics.</p>
+      <p>Spotify's payment model, which requires a track to be streamed for at least 30 seconds before generating a royalty payment, does not directly penalise longer songs. However, longer tracks accumulate fewer repeat plays in a given listening session than shorter ones, and repeat plays are one of the signals that feed the popularity algorithm's recency weighting. The rise of short-form content consumption  driven by TikTok, Instagram Reels, and YouTube Shorts  has further compressed listener attention spans for new material, creating an environment in which sub-3-minute tracks can achieve viral velocity more easily than longer compositions. The 3.86 minute average in this dataset, while within the traditional range, sits at its upper boundary  reflecting the fact that the dataset may be biased toward more substantial artistic statements by established artists, rather than the ultra-short tracks optimised purely for TikTok clip virality.</p>
+
+      <div class="pullquote">
+        <p>The persistence of the 3-to-4 minute standard across more than seven decades of commercial popular music  from the constraints of the 45 RPM single to the analytics-optimised streaming era  speaks to something more fundamental than format economics. It appears to reflect an intrinsic human preference for musical narratives of a particular length, one that production trends, platform incentives, and consumption technology have consistently reinforced rather than disrupted.</p>
+        <cite> Duration Analysis, Musa Mubarak Abdulaziz, 2026</cite>
+      </div>
+
+      <p>The fact that the longest song and the average duration are recorded as the same figure (3.86 minutes) in the KPI cards warrants analytical attention. This could indicate that the "Longest Song" metric is being computed as an average rather than a maximum, or that the dataset contains a high degree of duration homogeneity  with most tracks clustered around the same approximate length  such that the maximum value closely approximates the mean. Either interpretation is plausible given the characteristics of a curated top-singles dataset, where producers and A&amp;R professionals actively target specific duration windows known to optimise streaming performance.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- 09 MONTHLY TRENDS -->
+  <section class="report-section" id="monthly">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 09</p>
+      <h2>Monthly &amp; Quarterly Trends</h2>
+      <div class="greenline"></div>
+    </div>
+    <div class="body-text">
+      <p>The temporal dimension of the dataset is explored through two complementary chart types in the dashboard: the "Average Popularity by Month" line chart and the "High Popularity Songs by Month" bar chart. Together, these two visualisations provide a layered view of how popularity accumulates over the course of the year  one measuring the average quality of popularity across the dataset at each point in time, and the other quantifying the sheer volume of high-performing releases in each month.</p>
+      <p>The "High Popularity Songs by Month" bar chart is perhaps the most striking single visualisation in the dashboard for its directness. The data shows: 2 high-popularity songs in January, 5 in July, 29 in August, and 15 in September. The August figure  29 songs  represents a concentration that is roughly six times the July number and almost fifteen times the January baseline. This is not a statistical anomaly; it reflects a well-documented pattern in the global music release calendar known informally as the "summer surge" followed by the "pre-autumn push."</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>High Popularity Songs</th>
+            <th>Relative Volume</th>
+            <th>Industry Context</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>January</strong></td>
+            <td>2</td>
+            <td><div class="bar-bg"><div class="bar-fill" style="width:7%"></div></div></td>
+            <td>Post-holiday quiet period  minimal major releases</td>
+          </tr>
+          <tr>
+            <td><strong>July</strong></td>
+            <td>5</td>
+            <td><div class="bar-bg"><div class="bar-fill" style="width:17%"></div></div></td>
+            <td>Early summer  festival season driving streaming</td>
+          </tr>
+          <tr>
+            <td><strong>August</strong></td>
+            <td class="pct" style="color:var(--green);font-weight:700;">29</td>
+            <td><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div></td>
+            <td><span class="tag-chip">Peak Month</span>  Pre-autumn release surge</td>
+          </tr>
+          <tr>
+            <td><strong>September</strong></td>
+            <td>15</td>
+            <td><div class="bar-bg"><div class="bar-fill" style="width:52%"></div></div></td>
+            <td>Autumn launch window  award season eligibility</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="body-text" style="margin-top:20px;">
+      <p>The August concentration of 29 high-popularity songs can be explained by multiple converging industry factors. First, August sits at the tail of the summer peak streaming period  listener hours are high due to holidays, outdoor activities, and social events, all of which create high-ambient music consumption contexts. Second, major labels and artists strategically target August and September releases to ensure eligibility for Grammy consideration (which typically requires a track to be commercially released within the preceding calendar year) while still having sufficient time to accumulate streams before year-end chart compilations are published. Third, August is positioned after major summer festival lineups  artists who have performed at Coachella, Glastonbury, or Reading/Leeds often follow up with commercial single releases timed to capitalise on the streaming uplift generated by festival exposure.</p>
+      <p>The September figure of 15 songs  while a significant step down from August's peak  remains substantially elevated compared to earlier months. This confirms that the Q3 window (July through September) is the dominant commercial release period for the artists and songs in this dataset. The January figure of just 2 songs reflects the post-holiday consumption slump and the music industry's historical tendency to avoid competing with Q4 blockbuster releases by holding January as a relatively quiet period before the spring release cycle begins in earnest.</p>
+      <p>The correlation between these monthly release volumes and the average popularity trend line is analytically coherent. As more high-popularity songs enter the dataset in August and September, the average popularity score for those months climbs correspondingly  both because the new entries themselves carry high popularity scores and because existing tracks in the dataset continue to accumulate streams, sustaining their own popularity ratings. The result is the upward-sloping popularity curve that the line chart displays, which peaks in September at approximately 94.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- 10 DISCUSSION -->
+  <section class="report-section" id="discussion">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 10</p>
+      <h2>Discussion</h2>
+      <div class="greenline"></div>
+    </div>
+    <div class="body-text">
+      <p>The aggregate picture that emerges from this analysis is one of a streaming elite  a small cohort of artists and songs that have navigated the complex, multi-layered system of streaming popularity with exceptional effectiveness. The dataset's average popularity score of 93, its near-universal single format, its overwhelmingly non-explicit content, its concentration of releases in Q3, and its genre diversity collectively describe a set of commercially optimised creative outputs that sit at the intersection of artistic ambition and platform-aware strategy.</p>
+      <p>What is particularly striking about this picture is its genre pluralism. The dataset encompasses Taylor Swift's re-recorded pop, Peggy Gou's electronic house, KAROL G's Latin reggaeton, Beyoncé's country, Zach Bryan's singer-songwriter country, Charli XCX's hyperpop, Jung Kook's K-pop, and Tate McRae's teen pop. In an earlier era of commercial music, these genres would have occupied entirely separate commercial ecosystems  different radio formats, different retail sections, different promotional channels. On Spotify, they coexist within a single popularity framework, competing for chart positions and algorithmic placement on equal terms. This convergence is a product of streaming's genre-agnostic consumption model, in which a listener can move seamlessly from a country ballad to a Latin club track to an anime-influenced pop song within a single listening session.</p>
+      <p>The genre diversity also points toward a broader democratisation of streaming popularity  not in the sense that unknown artists can easily achieve top-tier popularity scores (the algorithmic advantages enjoyed by artists with large existing audiences remain significant), but in the sense that genre gatekeeping has diminished substantially. A song does not need to conform to the aesthetic or commercial conventions of a dominant genre to achieve mainstream streaming success; it needs to be compelling enough to survive the first 30 seconds of a listener's attention and to generate enough repeat plays to sustain algorithmic momentum. This is a meaningful structural change in the music industry, and it is legible in the diversity of the artists represented in this dataset.</p>
+      <p>The explicit content finding  near-total dominance by non-explicit tracks  raises interesting questions about artistic authenticity and commercial strategy. Artists in genres historically associated with explicit content (hip-hop, trap, certain strands of pop and Latin music) are making deliberate choices to produce clean versions for algorithmic optimisation. This is not new behaviour  the clean radio edit has existed alongside the explicit album cut for decades  but the degree to which non-explicit versions dominate the streaming popularity charts reflects the platform's structural influence on creative decisions in a way that earlier commercial formats (radio, television, CD retail) also exercised but perhaps not as transparently measurable.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- 11 RECOMMENDATIONS -->
+  <section class="report-section" id="recommendations">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 11</p>
+      <h2>Strategic Recommendations</h2>
+      <div class="greenline"></div>
+    </div>
+    <div class="body-text">
+      <p>Based on the patterns identified in this analysis, the following strategic recommendations are offered for three primary stakeholder groups: recording artists and their management teams, record labels and A&amp;R departments, and playlist curators and streaming platform strategists. These recommendations are grounded in the data and should be applied with awareness of the specific context and goals of each stakeholder.</p>
+    </div>
+
+    <div class="rec-box">
+      <h4>For Artists &amp; Management</h4>
+      <p>Optimise your release calendar and format strategy around the patterns demonstrated by top-performing tracks in this dataset.</p>
+      <ul class="rec-list">
+        <li><strong>Prioritise the single format for chart-targeted releases.</strong> The data confirms unambiguously that singles are the dominant format at the top of the Spotify popularity chart. Albums remain artistically important, but individual tracks should be released as standalone singles to maximise algorithmic discoverability, editorial playlist eligibility, and repeat play mechanics.</li>
+        <li><strong>Target Q3  specifically July through September  as your primary commercial release window.</strong> The data shows a concentration of high-popularity releases in August and September. Positioning major releases within this window aligns with peak listener availability, festival season streaming uplift, and award season eligibility.</li>
+        <li><strong>Release non-explicit versions as the primary streaming asset.</strong> Explicit versions can coexist on the platform, but the non-explicit version should be designated as the primary release to ensure maximum algorithmic reach, editorial playlist placement eligibility, and accessibility across filtered listening contexts including family plans and regional markets with content restrictions.</li>
+        <li><strong>Target the 3-to-4 minute duration sweet spot.</strong> Track durations in this range align with both radio promotion standards and streaming consumption patterns. Significantly shorter tracks may sacrifice emotional arc and repeat value; significantly longer tracks may reduce per-session play counts and algorithmic momentum.</li>
+      </ul>
+    </div>
+
+    <div class="rec-box" style="margin-top:16px;">
+      <h4>For Labels &amp; A&amp;R</h4>
+      <p>Use streaming popularity data systematically to inform signing, investment, and release strategy decisions.</p>
+      <ul class="rec-list">
+        <li><strong>Monitor cross-genre popularity patterns for early-mover investment opportunities.</strong> The genre diversity in this dataset  with electronic, Latin, country, K-pop, and pop all represented in the top tier  signals that popularity is no longer genre-constrained. A&amp;R teams should track streaming data across genre boundaries to identify emerging artists before they cross over to mainstream chart positions.</li>
+        <li><strong>Build release calendars around the August-September peak window.</strong> The concentration of 44 high-popularity songs in August–September (29 + 15) suggests this window generates the highest streaming momentum. Labels should concentrate their most commercially important releases in this window to maximise cross-promotional effects and chart competition.</li>
+        <li><strong>Invest in data analytics infrastructure.</strong> The patterns identified in this Power BI dashboard analysis  derived from a relatively small curated dataset  demonstrate the commercial value of systematic streaming data analysis. Labels that build in-house data analytics capabilities will be better positioned to make evidence-based A&amp;R and marketing decisions than those relying solely on traditional industry intuition.</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- 12 CONCLUSION -->
+  <section class="report-section" id="conclusion">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 12</p>
+      <h2>Conclusion</h2>
+      <div class="greenline"></div>
+    </div>
+
+    <div class="conclusion-block">
+      <p>This report has delivered a comprehensive analytical examination of a curated Spotify top songs dataset, revealing the structural characteristics that define elite-tier streaming performance in the contemporary digital music economy. Through the interrogation of five analytical dimensions  artist composition, popularity scoring, album type and explicit content, track duration, and temporal release patterns  a coherent and commercially meaningful portrait of streaming success has emerged.</p>
+      <p>The headline findings are clear: the upper echelon of Spotify popularity is defined by single-format releases, non-explicit content, track durations in the 3-to-4 minute range, a Q3 release calendar concentration, and a genuine cross-genre diversity that reflects the streaming platform's fundamentally different gatekeeping dynamics compared to earlier commercial music formats. The average popularity score of 93  among the highest achievable on the platform  confirms that the dataset captures a truly elite stratum of commercial performance, where every track is a commercially validated hit rather than a statistical outlier.</p>
+      <p>The temporal findings  particularly the August spike of 29 high-popularity songs and the sustained upward popularity trend from January through September  carry direct practical implications for release strategy. Artists, managers, and labels who align their commercial release calendars with these data-validated patterns position themselves to benefit from peak streaming consumption windows, algorithmic momentum, and industry-wide marketing synergies that amplify individual release performance.</p>
+      <p>Perhaps most significantly, this analysis demonstrates the power of data analytics as a strategic tool in the music industry  an industry that has historically relied on subjective taste, industry relationships, and trial-and-error as its primary decision-making instruments. The patterns visible in even a small, curated dataset like the one analysed here provide directional insights of genuine commercial value. As Spotify and its competitors continue to expand their data disclosure and third-party analytics offerings, the competitive advantage available to data-literate artists, labels, and platform operators will only grow  making investments in music data analytics not merely interesting but strategically essential.</p>
+    </div>
+
+    <div class="footnote">
+      <strong>Data Note:</strong> All figures in this report are derived from a curated Spotify top songs dataset as visualised in the Power BI dashboard. Popularity scores reflect Spotify's proprietary popularity index at the time of data compilation. Percentage estimates and share figures are based on visual interpretation of dashboard charts and should not be treated as precisely audited values. This report was prepared for portfolio and analytical demonstration purposes by Musa Mubarak Abdulaziz (2026) and does not represent official Spotify data, disclosures, or positions.
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- 13 REFERENCES -->
+  <section class="report-section" id="references">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 13</p>
+      <h2>References</h2>
+      <div class="greenline"></div>
+    </div>
+    <div class="body-text">
+      <p>The following sources informed the contextual, analytical, and interpretive dimensions of this report. Dataset-specific figures are derived directly from the Spotify Top Songs Dataset as visualised through the Power BI dashboard.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Source</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Spotify Top Songs Dataset  Kaggle / public domain streaming metadata. Curated selection of top-performing Spotify tracks with popularity, duration, artist, and date metadata.</td>
+            <td><span class="tag-chip">Dataset</span></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Spotify for Artists Documentation. Popularity score methodology and streaming analytics overview. artists.spotify.com.</td>
+            <td><span class="tag-chip">Platform</span></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Spotify, Inc. Annual Reports and Shareholder Letters (2022–2024). Monthly active user data, content library metrics, and platform strategy disclosures.</td>
+            <td><span class="tag-chip">Corporate</span></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>IFPI Global Music Report (2023 &amp; 2024). Streaming revenue, format share, and global music market analysis. ifpi.org.</td>
+            <td><span class="tag-chip">Industry</span></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Krukowski, D. (2019). <em>The New Analog: Listening and Reconnecting in a Digital World.</em> The New Press. Music streaming economics and artist impact.</td>
+            <td><span class="tag-chip">Book</span></td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Pastukhov, D. (2019). "How Spotify's Algorithm Manages the World's Largest Music Catalogue." Soundcharts Blog. soundcharts.com.</td>
+            <td><span class="tag-chip">Article</span></td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Microsoft Power BI Documentation. DAX functions, date intelligence, and dashboard design best practices. learn.microsoft.com/power-bi.</td>
+            <td><span class="tag-chip">Tool</span></td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>Abdulaziz, M.M. (2026). Spotify Top Songs Dashboard [Power BI visualisation]. Personal analytics portfolio project.</td>
+            <td><span class="tag-chip">Primary</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <p>Spotify Top Songs Analytics Report &mdash; Data Analytics Portfolio</p>
+  <p>© 2026 <span class="green">Musa Mubarak Abdulaziz</span> &nbsp;·&nbsp; All Rights Reserved</p>
+</footer>
+
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Time Intelligence in DAX — The Power BI Dispatch</title>
+<title>Time Intelligence in DAX  The Power BI Dispatch</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -797,7 +797,7 @@
         Mastering <em>Time Intelligence</em> in DAX: A Developer's Field Notes
       </h1>
       <p class="article-deck">
-        After months of fighting with CALCULATE and date tables, here's everything I wish someone had told me about writing time-aware DAX measures — with a live sandbox so you can feel the logic for yourself.
+        After months of fighting with CALCULATE and date tables, here's everything I wish someone had told me about writing time-aware DAX measures  with a live sandbox so you can feel the logic for yourself.
       </p>
       <div class="article-byline">
         <div class="byline-avatar">MA</div>
@@ -818,16 +818,16 @@
     <article class="article-body">
 
       <p class="drop-cap" id="intro">
-        There's a moment every Power BI developer experiences — usually at 11pm before a board presentation — when a simple "sales this month vs last month" calculation refuses to behave. The numbers look wrong. The filter context is misbehaving. You're not sure if the problem is your date table, your measure logic, or a cosmic misalignment. I've been there. Many times.
+        There's a moment every Power BI developer experiences  usually at 11pm before a board presentation  when a simple "sales this month vs last month" calculation refuses to behave. The numbers look wrong. The filter context is misbehaving. You're not sure if the problem is your date table, your measure logic, or a cosmic misalignment. I've been there. Many times.
       </p>
 
       <p>
-        Time intelligence in DAX is one of those topics that <strong>looks simple on the surface</strong> — there are a handful of functions with intuitive names like <code>PREVIOUSMONTH</code> and <code>SAMEPERIODLASTYEAR</code> — but the moment you start composing them inside <code>CALCULATE</code>, the filter context starts doing things you didn't expect. This article is my attempt to document what actually happens under the hood.
+        Time intelligence in DAX is one of those topics that <strong>looks simple on the surface</strong>  there are a handful of functions with intuitive names like <code>PREVIOUSMONTH</code> and <code>SAMEPERIODLASTYEAR</code>  but the moment you start composing them inside <code>CALCULATE</code>, the filter context starts doing things you didn't expect. This article is my attempt to document what actually happens under the hood.
       </p>
 
       <div class="pull-quote">
-        <p>"DAX doesn't have time — it has filter context. Time intelligence functions are simply shortcuts for reshaping that context around dates."</p>
-        <cite>— A useful mental model I had to build the hard way</cite>
+        <p>"DAX doesn't have time  it has filter context. Time intelligence functions are simply shortcuts for reshaping that context around dates."</p>
+        <cite> A useful mental model I had to build the hard way</cite>
       </div>
 
       <h2 id="foundation">The Foundation: Why Your Date Table Matters More Than You Think</h2>
@@ -837,12 +837,12 @@
       </p>
 
       <p>
-        The requirements are strict: every date in your fact table's date column must exist in this calendar table, the date range must be complete with no missing days, and you must right-click the table in the model view and hit <em>Mark as date table</em>. Miss any of these, and functions like <code>TOTALYTD</code> will silently return wrong results with no error — which is somehow worse.
+        The requirements are strict: every date in your fact table's date column must exist in this calendar table, the date range must be complete with no missing days, and you must right-click the table in the model view and hit <em>Mark as date table</em>. Miss any of these, and functions like <code>TOTALYTD</code> will silently return wrong results with no error  which is somehow worse.
       </p>
 
       <div class="concept-box">
         <div class="concept-box-title">The Minimum Viable Date Table</div>
-        <p>Your date table must contain: one column of unique, contiguous dates — no gaps — covering the full range of your data plus a few years forward. Mark it via <em>Model view → Table tools → Mark as date table</em>. Everything else (Year, Month, Quarter columns) is enrichment on top of that core.</p>
+        <p>Your date table must contain: one column of unique, contiguous dates  no gaps  covering the full range of your data plus a few years forward. Mark it via <em>Model view → Table tools → Mark as date table</em>. Everything else (Year, Month, Quarter columns) is enrichment on top of that core.</p>
       </div>
 
       <div class="code-block">
@@ -870,7 +870,7 @@
       </p>
 
       <p>
-        When you write <code>CALCULATE(SUM(Sales[Revenue]), PREVIOUSMONTH(DateTable[Date]))</code>, what's actually happening is: <code>PREVIOUSMONTH</code> generates a table of dates (all dates in the previous month), and <code>CALCULATE</code> uses that table to replace the current date filter. The sales measure then evaluates against <em>that new context</em> — not the original one.
+        When you write <code>CALCULATE(SUM(Sales[Revenue]), PREVIOUSMONTH(DateTable[Date]))</code>, what's actually happening is: <code>PREVIOUSMONTH</code> generates a table of dates (all dates in the previous month), and <code>CALCULATE</code> uses that table to replace the current date filter. The sales measure then evaluates against <em>that new context</em>  not the original one.
       </p>
 
       <div class="code-block">
@@ -989,7 +989,7 @@
       <h2 id="playground">Try It Yourself: The Live DAX Playground</h2>
 
       <p>
-        The best way to learn DAX is by experimenting. Below is a working dataset of monthly sales figures. Copy any of the expressions from the code blocks above, or try writing your own — click <strong>Run</strong> to see the result instantly. The playground supports aggregations, arithmetic, and common DAX functions.
+        The best way to learn DAX is by experimenting. Below is a working dataset of monthly sales figures. Copy any of the expressions from the code blocks above, or try writing your own  click <strong>Run</strong> to see the result instantly. The playground supports aggregations, arithmetic, and common DAX functions.
       </p>
 
       <div class="playground">
@@ -1001,7 +1001,7 @@
 
           <!-- Dataset Preview -->
           <div class="dataset-preview">
-            <div class="dataset-label">Dataset: Sales[Monthly] — 12 rows</div>
+            <div class="dataset-label">Dataset: Sales[Monthly]  12 rows</div>
             <table class="dataset-table">
               <thead>
                 <tr>
@@ -1018,7 +1018,7 @@
 
           <!-- Quick Snippets -->
           <div>
-            <div class="snippet-label">Quick snippets — click to load:</div>
+            <div class="snippet-label">Quick snippets  click to load:</div>
             <div class="snippet-btns" id="snippet-btns"></div>
           </div>
 
@@ -1053,7 +1053,7 @@
       <h2 id="mistakes">Common Mistakes I Still See (Including My Own)</h2>
 
       <p>
-        <strong>Forgetting DIVIDE.</strong> Using a plain division operator (<code>Revenue / PrevRevenue</code>) will cause errors when the denominator is zero or blank — which happens constantly at the boundaries of your date range. Always use <code>DIVIDE(numerator, denominator, alternate_result)</code>.
+        <strong>Forgetting DIVIDE.</strong> Using a plain division operator (<code>Revenue / PrevRevenue</code>) will cause errors when the denominator is zero or blank  which happens constantly at the boundaries of your date range. Always use <code>DIVIDE(numerator, denominator, alternate_result)</code>.
       </p>
       <p>
         <strong>Using ALL instead of ALLSELECTED.</strong> If your report has slicers, <code>ALL</code> will ignore them when calculating totals, which breaks percentage-of-total calculations. <code>ALLSELECTED</code> respects user selections while still removing row context filters.
@@ -1065,7 +1065,7 @@
       <div class="ornamental-divider">&diams; &diams; &diams;</div>
 
       <p>
-        Time intelligence in DAX rewards patience. The logic is internally consistent once you see it as filter context manipulation rather than "magic date functions." Start with a solid date table, understand <code>CALCULATE</code> deeply, and the rest follows naturally. The playground above exists precisely for those 11pm moments — try something, see what happens, build the intuition.
+        Time intelligence in DAX rewards patience. The logic is internally consistent once you see it as filter context manipulation rather than "magic date functions." Start with a solid date table, understand <code>CALCULATE</code> deeply, and the rest follows naturally. The playground above exists precisely for those 11pm moments  try something, see what happens, build the intuition.
       </p>
 
       <p style="font-style:italic; color: var(--muted); font-size: 0.95rem;">

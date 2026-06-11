@@ -32,30 +32,30 @@ Contact
 
 About me
 
-I'm Creative Director and UI/UX Designer from Sydney, Australia, working in web development and print media. I enjoy turning complex problems into simple, beautiful and intuitive designs.
+B.Sc. Graduate in Physics and Electronics from the Air Force Institute of Technology (AFIT), Kaduna. Certified by Google (Data Analytics Professional) and Microsoft (Power BI Data Analyst & Full-Stack Developer).
 
-My job is to build your website so that it is functional and user-friendly but at the same time attractive. Moreover, I add personal touch to your product and make sure that is eye-catching and easy to use. My aim is to bring across your message and identity in the most creative way. I created web design for many famous brand companies.
+Results-driven Data Analyst & Full-Stack Developer with 2+ years of experience turning complex data into actionable insights through data analysis, interactive Power BI dashboards, and fully functional web and mobile applications. Specialized in Power BI, Python (Dash, Plotly), and React for building responsive, data-driven web applications and intuitive user interfaces. Delivered 68+ projects with a 98% client satisfaction rate across Education, Business, and Public Policy sectors. Published apps on Google Play Store with extensive experience designing and deploying client websites. Certified by Microsoft, Google, IBM, and NITDA.
 
 
 ## service
 
-What i'm doing
+My profession
 
-alt = design icon
-Web design
-The most modern and high-quality design made at a professional level.
+alt = analytics icon
+Data Analytics & Visualization
+My expertise involves extracting valuable insights from unstructured and sophisticated datasets via interactive dashboards, KPI reports, and story-telling, utilizing Power BI, Python (Plotly/Dash), and Tableau.
 
 alt = Web development icon
-Web development
-High-quality development of sites at the professional level.
+Web Development
+Involves designing and developing fully functional web applications that include a responsive front-end using React & vanilla JS and back-end via Node.js/Express & SQLite.
 
 alt = mobile app icon
-Mobile apps
-Professional development of applications for iOS and Android.
+Mobile App Development
+Develops multi-functional mobile apps for Android platforms using React with published apps available on Google Play store for practical usage.
 
-alt = camera icon
-Photography
-I make high-quality photos of any category at a professional level.
+alt = research icon
+Research & Reporting
+Structured data analytics and reporting in Education, Business, and Public Policy domains involving converting vague business questions into factual findings/reports.
 
 
 ## testimonials
@@ -79,11 +79,24 @@ Henry william
 Richard was hired to create a corporate identity. We were very pleased with the work done. She has a lot of experience and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt consectetur adipiscing elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
 
 
-## clients
+## certifications
 
-Clients
+Certifications
 
-alt = client logo
+Power BI Data Analyst Professional
+Microsoft
+June 2, 2026
+Verify: https://learn.microsoft.com/en-us/credentials/certifications/data-analyst-associate/
+
+Data Analytics Professional
+Google
+May 16, 2025
+Verify: https://www.coursera.org/account/accomplishments
+
+Full-Stack Developer
+Microsoft
+October 24, 2025
+Verify: https://learn.microsoft.com/en-us/credentials/
 
 
 
@@ -91,44 +104,44 @@ alt = client logo
 
 Resume
 
+Work Experience
+
+Data Analyst & Python Instructor
+Aptech Kaduna, Nigeria | Jan 2026 — Present
+Train students in Python programming, data analytics, and data visualization through hands-on, project-based learning using tools such as Excel, Power BI, Tableau, and Python libraries. Develop, clean, and analyze datasets to create interactive dashboards and automated reports.
+
+National Youth Service Corps (N.Y.S.C)
+NITDA, Abuja | Jan 2025 — Dec 2025
+Supported Nigeria's digital transformation initiatives through comprehensive data analysis of technology adoption metrics and implementation strategies. Analyzed government digitalization datasets to identify trends, patterns, and insights in public sector technology usage using statistical analysis and database management techniques.
+
+Data Analyst & Research Specialist (Freelance)
+Self-Employed, Abuja | Jul 2024 — Present
+Delivered 68+ data analysis and research projects across education, business, and public policy sectors with 98% client satisfaction rate. Built interactive dashboards and web applications using Python (Dash, Plotly) and frontend technologies for data visualization and reporting, enhancing business intelligence and supporting data-driven decision making.
+
 Education
 
-University school of the arts
-2007 — 2008
-Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et quas molestias exceptur.
+Air Force Institute of Technology
+Jan 2019 — Jan 2024
+B.Sc. in Physics and Electronics. A comprehensive program combining theoretical physics foundations with practical electronics engineering applications.
 
-New york academy of art
-2006 — 2007
-Ratione voluptatem sequi nesciunt, facere quisquams facere menda ossimus, omnis voluptas assumenda est omnis..
-
-High school of art and design
-2002 — 2004
-Duis aute irure dolor in reprehenderit in voluptate, quila voluptas mag odit aut fugit, sed consequuntur magni dolores eos.
-
-Experience
-
-Creative director
-2015 — Present
-Nemo enim ipsam voluptatem blanditiis praesentium voluptum delenit atque corrupti, quos dolores et qvuas molestias exceptur.
-
-Art director
-2013 — 2015
-Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et quas molestias exceptur.
-
-Web designer
-2010 — 2013
-Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et quas molestias exceptur.
+Federal Government College
+Oct 2012 — Jul 2018
+High School Diploma in Physical Science. Completed advanced coursework in Physics, Chemistry, and Mathematics, providing a strong foundation for undergraduate studies in STEM disciplines.
 
 My skills
 
-Web design
-80%
-Graphic design
-70%
-Branding
+Power BI
+95%
+Python
 90%
-WordPress
-50%
+Data Analytics
+95%
+React
+85%
+SQL
+88%
+Tableau
+90%
 
 
 
@@ -137,13 +150,13 @@ WordPress
 Portfolio
 
 All
-Web design
+Dashboard
 Applications
 Web development
 
 Select category
 All
-Web design
+Dashboard
 Applications
 Web development
 
@@ -157,19 +170,21 @@ Web development
 
 alt = fundo
 Fundo
-Web design
+Dashboard
 
-alt = brawlhalla
-Brawlhalla
-Applications
+alt = netflix-dashboard
+Netflix Analysis
+Dashboard
+View Dashboard
+View Report
 
 alt = dsm.
 DSM.
-Web design
+Dashboard
 
 alt = metaspark
 MetaSpark
-Web design
+Dashboard
 
 alt = summary
 Summary

@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Netflix Content Library Report  Musa Mubarak Abdulaziz</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+:root {
+  --bg:       #141414;
+  --surface:  #1c1c1c;
+  --surface2: #242424;
+  --border:   #2e2e2e;
+  --red:      #e50914;
+  --red-dim:  #b20710;
+  --red-glow: rgba(229,9,20,0.15);
+  --text:     #d9d9d9;
+  --muted:    #888;
+  --white:    #f0f0f0;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 15.5px;
+  line-height: 1.85;
+}
+
+/* ─── HEADER ─── */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 16px 52px;
+  background: #000;
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+}
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  letter-spacing: 4px;
+  color: var(--red);
+}
+.header-meta { text-align: right; }
+.header-meta p { font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; }
+.header-meta span { color: var(--red); }
+
+/* ─── COVER ─── */
+.cover {
+  background: linear-gradient(175deg, #1a0000 0%, #1a0000 40%, var(--bg) 100%);
+  padding: 80px 52px 60px;
+  border-bottom: 1px solid var(--border);
+}
+.cover-eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 16px;
+}
+.cover h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.6rem, 5.5vw, 4.8rem);
+  letter-spacing: 2px;
+  color: var(--white);
+  line-height: 1.0;
+  max-width: 860px;
+  margin-bottom: 28px;
+}
+.cover-subtitle {
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 720px;
+  font-style: italic;
+  margin-bottom: 40px;
+  text-align: justify;
+}
+.cover-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: 760px;
+}
+.cover-meta-item {
+  background: var(--surface);
+  padding: 16px 20px;
+}
+.cover-meta-item .label {
+  font-size: 0.65rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 4px;
+}
+.cover-meta-item .value {
+  font-size: 0.88rem;
+  color: var(--white);
+  font-weight: 500;
+}
+
+/* ─── TOC ─── */
+.toc-wrap {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 40px 52px;
+}
+.toc-wrap h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 3px;
+  color: var(--red);
+  margin-bottom: 20px;
+}
+.toc {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 6px 40px;
+}
+.toc li { border-bottom: 1px solid var(--border); }
+.toc a {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 8px 0;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.2s;
+}
+.toc a:hover { color: var(--white); }
+.toc a .num { color: var(--red); font-weight: 600; margin-right: 10px; font-size: 0.78rem; }
+
+/* ─── KPI BAR ─── */
+.kpi-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.kpi {
+  background: var(--bg);
+  padding: 28px 40px;
+  text-align: center;
+  transition: background 0.2s;
+}
+.kpi:hover { background: var(--surface); }
+.kpi-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  color: var(--red);
+  letter-spacing: 2px;
+  line-height: 1;
+}
+.kpi-lbl {
+  font-size: 0.68rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 5px;
+}
+.kpi-sub {
+  font-size: 0.78rem;
+  color: var(--text);
+  margin-top: 4px;
+}
+
+/* ─── MAIN LAYOUT ─── */
+.page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 60px 52px 100px;
+}
+
+/* ─── SECTION STRUCTURE ─── */
+.report-section { margin-bottom: 70px; }
+
+.section-header { margin-bottom: 28px; }
+.section-eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 8px;
+}
+.section-header h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 2px;
+  color: var(--white);
+  line-height: 1.05;
+}
+.redline {
+  width: 48px; height: 2px;
+  background: var(--red);
+  margin: 12px 0 0;
+}
+
+/* ─── BODY TEXT ─── */
+.body-text p {
+  text-align: justify;
+  hyphens: auto;
+  color: var(--text);
+  margin-bottom: 18px;
+  font-size: 0.95rem;
+  line-height: 1.9;
+}
+.body-text p:last-child { margin-bottom: 0; }
+
+/* ─── PULLQUOTE ─── */
+.pullquote {
+  border-left: 3px solid var(--red);
+  background: var(--surface);
+  padding: 22px 28px;
+  margin: 28px 0;
+  border-radius: 0 4px 4px 0;
+}
+.pullquote p {
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--white);
+  line-height: 1.7;
+  text-align: justify;
+}
+.pullquote cite {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--red);
+  font-style: normal;
+}
+
+/* ─── STAT CALLOUT ─── */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin: 28px 0;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 22px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.stat-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--red);
+}
+.stat-card:hover {
+  border-color: var(--red-dim);
+  transform: translateY(-2px);
+}
+.stat-card .s-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.4rem;
+  color: var(--red);
+  letter-spacing: 1px;
+  line-height: 1;
+}
+.stat-card .s-title {
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  margin: 6px 0 8px;
+  font-weight: 600;
+}
+.stat-card .s-body {
+  font-size: 0.83rem;
+  color: var(--muted);
+  line-height: 1.65;
+  text-align: justify;
+}
+
+/* ─── DATA TABLE ─── */
+.table-wrap {
+  margin: 28px 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+thead { background: #1a0000; }
+thead th {
+  padding: 13px 18px;
+  text-align: left;
+  font-size: 0.66rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--red);
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+}
+tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--surface2); }
+tbody td { padding: 12px 18px; color: var(--text); vertical-align: middle; }
+.bar-bg { background: var(--border); border-radius: 2px; height: 6px; overflow: hidden; width: 140px; }
+.bar-fill { height: 100%; background: var(--red); border-radius: 2px; }
+.pct { color: var(--muted); font-size: 0.78rem; }
+.tag-chip {
+  display: inline-block;
+  background: rgba(229,9,20,0.1);
+  border: 1px solid var(--red-dim);
+  border-radius: 2px;
+  padding: 2px 8px;
+  font-size: 0.72rem;
+  color: var(--red);
+  letter-spacing: 1px;
+}
+
+/* ─── GEO GRID ─── */
+.geo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin: 24px 0;
+}
+.geo-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: border-color 0.2s;
+}
+.geo-card:hover { border-color: var(--red-dim); }
+.geo-flag { font-size: 2rem; line-height: 1; }
+.geo-name { font-size: 0.82rem; font-weight: 600; color: var(--white); }
+.geo-sub { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+
+/* ─── RECOMMENDATION BOX ─── */
+.rec-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 28px 32px;
+  margin: 20px 0;
+}
+.rec-box h4 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+.rec-box p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  text-align: justify;
+  line-height: 1.8;
+}
+.rec-list {
+  list-style: none;
+  margin-top: 14px;
+}
+.rec-list li {
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.86rem;
+  color: var(--text);
+  display: flex;
+  gap: 12px;
+  text-align: justify;
+  line-height: 1.65;
+}
+.rec-list li:last-child { border-bottom: none; }
+.rec-list li::before {
+  content: '▸';
+  color: var(--red);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ─── CONCLUSION BLOCK ─── */
+.conclusion-block {
+  background: linear-gradient(135deg, #1a0000 0%, var(--surface) 100%);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 40px 44px;
+  margin-top: 20px;
+}
+.conclusion-block p {
+  text-align: justify;
+  font-size: 0.94rem;
+  color: var(--text);
+  line-height: 1.9;
+  margin-bottom: 16px;
+}
+.conclusion-block p:last-child { margin-bottom: 0; }
+
+/* ─── DIVIDER ─── */
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 60px 0;
+}
+
+/* ─── FOOTNOTE ─── */
+.footnote {
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+  margin-top: 32px;
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-align: justify;
+  line-height: 1.7;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: #000;
+  border-top: 1px solid var(--border);
+  padding: 24px 52px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+footer p { font-size: 0.72rem; color: var(--muted); }
+footer .red { color: var(--red); }
+
+/* ─── BACK BUTTON ─── */
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--red);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  margin: 20px 52px;
+  transition: opacity 0.2s;
+}
+.back-button:hover { opacity: 0.8; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  header, .cover, .toc-wrap, .page, footer, .back-button { padding-left: 20px; padding-right: 20px; }
+  .kpi-bar { grid-template-columns: 1fr; }
+  .cover { padding-top: 48px; }
+  .cover h1 { font-size: 2.4rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+
+<!-- ═══ BACK BUTTON ═══ -->
+<a href="index.html" class="back-button">← Back to Portfolio</a>
+
+<!-- ═══ HEADER ═══ -->
+<header>
+  <div class="logo">NETFLIX</div>
+  <div class="header-meta">
+    <p>Content Library Analysis Report</p>
+    <p>© 2026 <span>Musa Mubarak Abdulaziz</span></p>
+  </div>
+</header>
+
+<!-- ═══ COVER ═══ -->
+<div class="cover">
+  <p class="cover-eyebrow">Analytical Report &nbsp;·&nbsp; Data Visualisation Series</p>
+  <h1>Netflix Global Content Library: A Comprehensive Data Analysis</h1>
+  <p class="cover-subtitle">
+    An in-depth examination of the Netflix streaming catalogue, exploring 8,807 titles across movies and television shows. This report investigates content type composition, temporal growth trends, content rating distributions, and geographic spread  drawing insights relevant to media strategy, content investment, and platform positioning in a competitive global streaming landscape.
+  </p>
+  <div class="cover-meta-grid">
+    <div class="cover-meta-item">
+      <div class="label">Prepared By</div>
+      <div class="value">Musa Mubarak Abdulaziz</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="label">Report Type</div>
+      <div class="value">Dashboard Analytics Report</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="label">Dataset</div>
+      <div class="value">Netflix Titles Dataset</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="label">Year</div>
+      <div class="value">2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TABLE OF CONTENTS ═══ -->
+<div class="toc-wrap">
+  <h2>Table of Contents</h2>
+  <ul class="toc">
+    <li><a href="#abstract"><span class="num">01</span> Abstract</a></li>
+    <li><a href="#introduction"><span class="num">02</span> Introduction</a></li>
+    <li><a href="#background"><span class="num">03</span> Background & Context</a></li>
+    <li><a href="#methodology"><span class="num">04</span> Data & Methodology</a></li>
+    <li><a href="#content-type"><span class="num">05</span> Content Type Analysis</a></li>
+    <li><a href="#temporal"><span class="num">06</span> Temporal Growth Trends</a></li>
+    <li><a href="#ratings"><span class="num">07</span> Content Ratings Analysis</a></li>
+    <li><a href="#geography"><span class="num">08</span> Geographic Distribution</a></li>
+    <li><a href="#discussion"><span class="num">09</span> Discussion</a></li>
+    <li><a href="#recommendations"><span class="num">10</span> Recommendations</a></li>
+    <li><a href="#conclusion"><span class="num">11</span> Conclusion</a></li>
+    <li><a href="#references"><span class="num">12</span> References</a></li>
+  </ul>
+</div>
+
+<!-- ═══ KPI BAR ═══ -->
+<div class="kpi-bar">
+  <div class="kpi">
+    <div class="kpi-val">8,807</div>
+    <div class="kpi-lbl">Total Titles</div>
+    <div class="kpi-sub">Full catalogue snapshot</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-val">6,131</div>
+    <div class="kpi-lbl">Movies</div>
+    <div class="kpi-sub">69.62% of library</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-val">2,676</div>
+    <div class="kpi-lbl">TV Shows</div>
+    <div class="kpi-sub">30.38% of library</div>
+  </div>
+</div>
+
+<!-- ═══ MAIN PAGE ═══ -->
+<div class="page">
+
+  <!-- ── 01. ABSTRACT ── -->
+  <section class="report-section" id="abstract">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 01</p>
+      <h2>Abstract</h2>
+      <div class="redline"></div>
+    </div>
+    <div class="body-text">
+      <p>This report presents a structured analytical examination of Netflix's global content library, based on a publicly available dataset comprising 8,807 titles. Using a Power BI dashboard as the primary visualisation instrument, the analysis covers four principal dimensions: content type composition, release year distribution, content rating classification, and country of origin. The objective is to uncover patterns that reflect Netflix's strategic evolution from a DVD rental business into the world's most subscribed streaming platform, and to derive actionable insights applicable to media investment, content strategy, and audience targeting decisions.</p>
+      <p>Key findings reveal that movies constitute approximately 69.62% of the library  a ratio that reflects Netflix's early-stage licensing and acquisition approach. Content growth accelerated dramatically from 2015 onward, with peak catalogue additions occurring between 2017 and 2020. The dominant content rating is TV-MA, signalling a platform strategy oriented primarily toward adult audiences. Geographically, the United States is the overwhelming contributor, though India, Japan, South Korea, and the United Kingdom represent meaningful secondary markets. The report concludes with strategic recommendations for catalogue diversification, audience expansion, and content investment prioritisation.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- ── 02. INTRODUCTION ── -->
+  <section class="report-section" id="introduction">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 02</p>
+      <h2>Introduction</h2>
+      <div class="redline"></div>
+    </div>
+    <div class="body-text">
+      <p>The global streaming industry has undergone a profound transformation over the past two decades. What began as a niche digital distribution model has evolved into the dominant paradigm of media consumption worldwide. At the centre of this transformation stands Netflix a company that, since its pivot to streaming in 2007, has grown from a domestic US service into a platform operating in over 190 countries with more than 260 million paid subscribers as of 2024. This scale of operation, and the complexity of the catalogue that supports it, makes Netflix's content library a uniquely rich subject for data analysis.</p>
+      <p>The Netflix titles dataset a publicly available collection of metadata covering movies and TV shows available on the platform offers a snapshot of the catalogue at a point in time, encoding critical dimensions such as content type, country of origin, release year, and audience rating classification. By interrogating this dataset through the lens of data analytics, it becomes possible to answer meaningful questions about the platform's strategic content choices, audience targeting, global reach, and the historical trajectory of its library growth.</p>
+      <p>This report was prepared as part of a data analytics portfolio project, with the underlying data processed and visualised using Microsoft Power BI. The dashboard produced serves as the primary visual source from which this written report draws its observations, interpretations, and recommendations. The report is structured to follow the conventions of a formal analytical report progressing from background context through methodology, detailed findings, and discussion, to actionable conclusions.</p>
+      <p>It is important to note that while this dataset is derived from Netflix's publicly available catalogue information, the figures represent a static snapshot rather than real-time data. The analysis should therefore be interpreted as reflective of a specific period most likely between 2019 and 2021 based on the distribution of release years rather than the current state of the platform. Nevertheless, the patterns revealed are structurally stable and provide a sound basis for strategic inference.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- ── 03. BACKGROUND ── -->
+  <section class="report-section" id="background">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 03</p>
+      <h2>Background &amp; Context</h2>
+      <div class="redline"></div>
+    </div>
+    <div class="body-text">
+      <p>Netflix was founded in 1997 by Reed Hastings and Marc Randolph as a DVD rental service operating through postal delivery a model that distinguished it from brick-and-mortar rental stores through the elimination of late fees and the introduction of subscription-based access. The company launched its streaming service in 2007, initially as a complement to its DVD rental business, offering a relatively limited library of films and TV episodes for on-demand digital viewing. The decision to pivot aggressively toward streaming, and ultimately to phase out the DVD business entirely, proved to be one of the most consequential strategic choices in entertainment history.</p>
+      <p>The company's international expansion began in earnest in 2010 with the launch of its service in Canada, followed by Latin America in 2011 and Europe in 2012. By January 2016, Netflix had completed a global rollout that brought its service to over 130 new countries simultaneously a landmark moment in the globalisation of streaming media. This expansion came with a corresponding obligation to populate the catalogue with content that was relevant, legally licensed, and culturally resonant across diverse markets.</p>
+
+      <div class="pullquote">
+        <p>"Netflix's transition from content distributor to content creator fundamentally altered the competitive landscape of the global entertainment industry. By investing in original programming  from House of Cards in 2013 to a global slate of local-language originals by the early 2020s  the platform sought to reduce its dependence on licensed third-party content and build a proprietary library capable of sustaining long-term subscriber engagement."</p>
+        <cite> Contextual Analysis, Musa Mubarak Abdulaziz, 2026</cite>
+      </div>
+
+      <p>The dataset examined in this report captures the cumulative result of these strategic investments. The 8,807 titles in the library represent a blend of licensed content  films and television series acquired from studios, distributors, and broadcasters around the world  and Netflix Originals, content produced or co-produced by Netflix itself. Understanding the composition, growth, and distribution of this library is essential to evaluating Netflix's competitive positioning and identifying opportunities for strategic refinement.</p>
+      <p>The competitive context is also important. Netflix operates in an increasingly crowded streaming marketplace. Disney+, launched in 2019, quickly amassed over 100 million subscribers by leveraging the Marvel, Pixar, and Star Wars franchises. Amazon Prime Video, Apple TV+, HBO Max (now Max), Peacock, and a range of international competitors all compete for subscriber attention and content investment. Against this backdrop, the composition of Netflix's catalogue  what it prioritises, how it distributes across genres and ratings, and how it balances US-centric content with international offerings  carries significant strategic weight.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- ── 04. METHODOLOGY ── -->
+  <section class="report-section" id="methodology">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 04</p>
+      <h2>Data &amp; Methodology</h2>
+      <div class="redline"></div>
+    </div>
+    <div class="body-text">
+      <p>The dataset used in this analysis is the publicly available Netflix Movies and TV Shows dataset, widely circulated through data science platforms such as Kaggle. It contains metadata records for 8,807 distinct titles, each associated with a set of attributes including: content type (Movie or TV Show), title, director, cast, country of origin, date added to the platform, release year, content rating classification, duration, listed genre categories, and a text description. For the purposes of this report, the most analytically relevant attributes are content type, country, release year, and rating.</p>
+      <p>The data was imported into Microsoft Power BI Desktop for transformation, modelling, and visualisation. During the data preparation phase, records with missing or ambiguous country fields were retained in aggregate counts but excluded from geographic disaggregation. Rating fields containing non-standard values  such as duration strings incorrectly assigned to the rating column, which is a known data quality issue in this dataset  were isolated and treated as a separate "Unrated/Unknown" category rather than being discarded, in order to preserve overall record counts.</p>
+      <p>Visualisations were produced using Power BI's native chart types, including donut charts for compositional analysis, area line charts for temporal trend analysis, bar charts for rating distribution, and a filled map visual for geographic distribution. The dashboard was designed with a dark theme consistent with Netflix's brand identity, using the platform's signature red (#E50914) as the primary accent colour. Filters were applied at the report level to enable interactive segmentation by show type, release year, and country  though for the purposes of this written report, findings are presented in their unfiltered, full-catalogue state unless otherwise noted.</p>
+      <p>It is acknowledged that this dataset has several known limitations. The data represents a point-in-time snapshot and does not reflect current catalogue composition. Some metadata fields, particularly director, cast, and country, contain missing values at varying rates. The dataset does not include viewership metrics, engagement data, or subscriber acquisition attribution  dimensions that would be necessary for a complete assessment of content performance. The analysis presented here is therefore descriptive and inferential in character, drawing strategic conclusions from structural catalogue patterns rather than from behavioural engagement data.</p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="s-num">8,807</div>
+        <div class="s-title">Total Records</div>
+        <div class="s-body">Complete title count across all types, countries, and years represented in the dataset.</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-num">Power BI</div>
+        <div class="s-title">Analysis Tool</div>
+        <div class="s-body">Microsoft Power BI Desktop used for data transformation, DAX calculations, and dashboard visualisation.</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-num">~4</div>
+        <div class="s-title">Key Dimensions</div>
+        <div class="s-body">Content type, release year, rating classification, and country of origin form the four principal axes of analysis.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- ── 05. CONTENT TYPE ── -->
+  <section class="report-section" id="content-type">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 05</p>
+      <h2>Content Type Analysis</h2>
+      <div class="redline"></div>
+    </div>
+    <div class="body-text">
+      <p>The most fundamental structural characteristic of Netflix's content library is the pronounced dominance of movies over television shows. Of the 8,807 total titles in the dataset, 6,131  or 69.62%  are classified as movies. The remaining 2,676 titles, representing 30.38% of the catalogue, are TV shows. This two-to-one ratio in favour of movies is a defining feature of the library's architecture and carries important implications for how the platform positions itself to consumers.</p>
+      <p>At first glance, the movie-heavy composition may seem counterintuitive for a platform frequently associated with binge-worthy episodic television. Netflix's most culturally significant content milestones  Stranger Things, The Crown, Squid Game, Bridgerton, Ozark  are all television series. Yet when measured by catalogue volume, movies substantially outnumber TV shows. This disconnect between cultural visibility and catalogue proportion reflects the different economics of the two content formats. A single TV show, even one with multiple seasons, counts as a single title in this dataset, while each film is a discrete entry. A studio licensing deal that bundles hundreds of films contributes far more to catalogue count than a multi-season drama acquisition.</p>
+      <p>The movie-led catalogue also reflects Netflix's origins as a DVD rental service, where the film library was the primary commercial asset. When Netflix transitioned to streaming, it initially ported its existing film relationships into digital licensing agreements. The result was a catalogue that, in its foundational layer, was built on film rights rather than television rights. Television content, by contrast, was historically more fragmented  tied to broadcast networks, cable operators, and syndication windows  making bulk licensing of TV content more complex and expensive in the early streaming era.</p>
+
+      <div class="pullquote">
+        <p>Despite representing less than a third of the catalogue by title count, TV shows are widely recognised as the format most effective at driving subscriber retention and reducing churn. The extended time investment demanded by episodic television creates habitual viewing patterns and emotional investment that single films cannot replicate at scale.</p>
+        <cite> Content Strategy Insight</cite>
+      </div>
+
+      <p>It is also worth noting that the relative volume of movies does not necessarily reflect relative investment. Netflix's original film slate  encompassing prestige titles like The Irishman, Roma, Marriage Story, and The Power of the Dog  represents substantial production expenditure, and the platform has increasingly positioned itself as a destination for theatrical-calibre cinema, particularly for audiences outside major metropolitan areas with limited access to arthouse or independent cinema distribution. This dual role  as both a mass-market film library and a prestige film destination  adds nuance to the movie dominance figure.</p>
+      <p>The 4,403 figure visible on the dashboard's secondary donut chart represents a filtered or segmented subset  likely reflecting a specific country or year filter applied during a particular view of the data. This subset maintains the same approximate 70:30 movie-to-TV ratio, confirming that the compositional pattern is consistent across different segmentation lenses and is not an artefact of any particular data slice.</p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="s-num">6,131</div>
+        <div class="s-title">Total Movies</div>
+        <div class="s-body">Movies form the largest content category, accounting for nearly 70% of the entire library  a pattern rooted in Netflix's film licensing history.</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-num">2,676</div>
+        <div class="s-title">Total TV Shows</div>
+        <div class="s-body">Despite lower catalogue volume, TV shows generate disproportionate engagement and are central to Netflix's subscriber retention strategy.</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-num">2.29×</div>
+        <div class="s-title">Movie-to-TV Ratio</div>
+        <div class="s-body">For every TV show on the platform, Netflix carries 2.29 movies  a ratio that reflects acquisition patterns rather than audience preference data.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- ── 06. TEMPORAL ── -->
+  <section class="report-section" id="temporal">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 06</p>
+      <h2>Temporal Growth Trends</h2>
+      <div class="redline"></div>
+    </div>
+    <div class="body-text">
+      <p>The release-year distribution chart in the dashboard is one of the most revealing visualisations in the entire report. It depicts the number of titles in the Netflix catalogue by the year in which they were released  not the year they were added to the platform, a distinction that is analytically important. What the chart shows is a near-flat baseline from the 1920s through to approximately 1990, followed by a gradual uptick through the 1990s and 2000s, and then an explosive, near-vertical growth curve beginning around 2015 and peaking between 2017 and 2020.</p>
+      <p>The pre-2000 catalogue is thin but not insignificant. Classic films from Hollywood's golden age, mid-century television, and international cinema from the 1960s through the 1980s collectively represent a small but culturally important slice of the library. These titles serve multiple strategic purposes: they attract niche audiences interested in cinematic history, they fulfil licensing obligations in certain international markets, and they provide intellectual property that can be referenced or reimagined in Netflix's own original productions. However, they constitute a fraction of the total catalogue  perhaps two to three percent of the 8,807 titles.</p>
+      <p>The acceleration that begins around 2010 reflects Netflix's transition into a serious content acquisition and production operation. The company's first major international licensing deals  with studios like Sony, Universal, and Warner Bros.  began to take effect in this period, bringing large tranches of relatively recent film and television content onto the platform. Netflix's own original content programme launched with House of Cards in 2013, and by 2015 the originals slate had expanded significantly to include Orange Is the New Black, BoJack Horseman, Unbreakable Kimmy Schmidt, and the first season of Narcos.</p>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="s-num">2015</div>
+          <div class="s-title">Growth Inflection</div>
+          <div class="s-body">The year from which catalogue growth accelerated dramatically, corresponding to Netflix's global expansion and original content investment surge.</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-num">2017–2020</div>
+          <div class="s-title">Peak Catalogue Period</div>
+          <div class="s-body">The densest concentration of titles in the library falls within this four-year window, reflecting peak content spend of $12–15 billion annually.</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-num">$15B+</div>
+          <div class="s-title">Peak Content Spend</div>
+          <div class="s-body">Netflix's annual content budget reached over $15 billion by 2019, fuelling the catalogue explosion visible in the release-year chart.</div>
+        </div>
+      </div>
+
+      <p>The period between 2017 and 2020 represents the apex of Netflix's catalogue expansion strategy. During these years, the platform was simultaneously competing for subscribers against Amazon Prime Video, defending its market position against the looming threat of Disney+ (which launched in November 2019), and fulfilling commitments under hundreds of content partnership agreements signed in the preceding years. The result was an unprecedented volume of content additions  both licensed and original  that drove catalogue size to its recorded peak in this dataset.</p>
+      <p>The visible decline in title counts for the most recent years in the chart is most likely an artefact of dataset recency rather than a genuine slowdown in content production. Titles released in 2021 or later would be underrepresented in a dataset compiled in that year, as many would not yet have been added to the platform or captured in the data extraction. There is no credible evidence to suggest that Netflix reduced its content investment in 2020 or 2021; in fact, the company continued to increase its content budget throughout this period.</p>
+      <p>From a strategic perspective, the temporal distribution of content raises important questions about catalogue freshness and the management of older licensed titles. Licensing agreements are typically time-limited, meaning that a significant portion of the pre-2015 content may have cycled off the platform as agreements lapsed. The catalogue visible in this dataset may therefore be more skewed toward recent content in practice than the release-year chart alone suggests, as older titles may have been removed between the content's original release and the dataset's compilation date.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- ── 07. RATINGS ── -->
+  <section class="report-section" id="ratings">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 07</p>
+      <h2>Content Ratings Analysis</h2>
+      <div class="redline"></div>
+    </div>
+    <div class="body-text">
+      <p>The content rating distribution offers one of the sharpest windows into Netflix's audience targeting strategy. Content ratings  assigned by bodies such as the Motion Picture Association of America (MPAA) for films and the TV Parental Guidelines organisation for television  classify material according to the maturity and appropriateness of its content. The distribution of these ratings across a streaming library is therefore a direct expression of who the platform is primarily designed to serve.</p>
+      <p>The dashboard's bar chart reveals a pattern that is both clear and consequential: TV-MA (Mature Audiences, equivalent to an adult content designation, appropriate only for viewers 17 and above) is the dominant rating category by a wide margin. Preliminary visual estimation from the chart suggests TV-MA accounts for approximately 35 to 38 percent of all titles, making it nearly twice as prevalent as the second-largest category, TV-14 (content appropriate for viewers 14 and older, with parental discretion advised). Together, TV-MA and TV-14 content likely account for over half of the entire catalogue.</p>
+      <p>The third and fourth largest categories  TV-PG (parental guidance suggested) and the MPAA's R rating (restricted, requiring under-17 viewers to be accompanied by an adult)  further reinforce the adult-orientation of the platform. The PG-13 category represents a meaningful but secondary presence. Children's categories  TV-Y (appropriate for all children), TV-Y7 (appropriate for children seven and older), and TV-G (general audiences)  are present but constitute a comparatively small share of the overall library.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Rating</th>
+              <th>Audience Definition</th>
+              <th>Est. Share</th>
+              <th>Relative Volume</th>
+              <th>Category</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>TV-MA</strong></td>
+              <td>Mature Audiences  17+</td>
+              <td class="pct">~36%</td>
+              <td><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div></td>
+              <td><span class="tag-chip">Adult</span></td>
+            </tr>
+            <tr>
+              <td><strong>TV-14</strong></td>
+              <td>Teen Audiences  14+</td>
+              <td class="pct">~22%</td>
+              <td><div class="bar-bg"><div class="bar-fill" style="width:61%"></div></div></td>
+              <td><span class="tag-chip">Teen</span></td>
+            </tr>
+            <tr>
+              <td><strong>TV-PG</strong></td>
+              <td>Parental Guidance</td>
+              <td class="pct">~11%</td>
+              <td><div class="bar-bg"><div class="bar-fill" style="width:30%"></div></div></td>
+              <td><span class="tag-chip">Family</span></td>
+            </tr>
+            <tr>
+              <td><strong>R</strong></td>
+              <td>Restricted  17+ (MPAA)</td>
+              <td class="pct">~9%</td>
+              <td><div class="bar-bg"><div class="bar-fill" style="width:25%"></div></div></td>
+              <td><span class="tag-chip">Adult</span></td>
+            </tr>
+            <tr>
+              <td><strong>PG-13</strong></td>
+              <td>Parental Caution  13+</td>
+              <td class="pct">~7%</td>
+              <td><div class="bar-bg"><div class="bar-fill" style="width:19%"></div></div></td>
+              <td><span class="tag-chip">Teen</span></td>
+            </tr>
+            <tr>
+              <td><strong>TV-Y7</strong></td>
+              <td>Children 7 and Older</td>
+              <td class="pct">~5%</td>
+              <td><div class="bar-bg"><div class="bar-fill" style="width:14%"></div></div></td>
+              <td><span class="tag-chip">Children</span></td>
+            </tr>
+            <tr>
+              <td><strong>TV-G / TV-Y</strong></td>
+              <td>General / All Children</td>
+              <td class="pct">~4%</td>
+              <td><div class="bar-bg"><div class="bar-fill" style="width:11%"></div></div></td>
+              <td><span class="tag-chip">Children</span></td>
+            </tr>
+            <tr>
+              <td><strong>NR / UR</strong></td>
+              <td>Not Rated / Unrated</td>
+              <td class="pct">~6%</td>
+              <td><div class="bar-bg"><div class="bar-fill" style="width:17%"></div></div></td>
+              <td><span class="tag-chip">Unknown</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>The TV-MA dominance is not accidental. Netflix's brand has been built, to a significant degree, on its willingness to produce and distribute content that other platforms  particularly those tied to broadcast television standards  cannot or will not carry. The success of shows like House of Cards, Mindhunter, Ozark, and The Witcher, all of which carry TV-MA ratings due to graphic violence, adult language, or sexual content, established Netflix as the destination for viewers seeking mature, uncompromising storytelling. This positioning is reflected in the catalogue composition.</p>
+      <p>The relatively modest proportion of children's content  TV-Y, TV-Y7, and TV-G collectively representing perhaps 9 to 10 percent of the catalogue  stands in contrast to the approach of competitors such as Disney+, whose entire brand proposition is built around family-friendly and children's content. Netflix does offer a children's experience, including a dedicated Kids profile mode, but the catalogue data makes clear that this is a secondary rather than primary strategic focus.</p>
+      <p>The NR and UR categories  titles classified as Not Rated or Unrated  are worth separate consideration. These designations often apply to content produced outside the US rating system, including a significant volume of international films and television. As Netflix's international content library has grown, so too has the proportion of titles that do not carry standard MPAA or TV Parental Guidelines ratings. This category may therefore serve as a useful proxy for the internationalisation of the catalogue  a point that will be explored further in the geographic distribution section.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- ── 08. GEOGRAPHY ── -->
+  <section class="report-section" id="geography">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 08</p>
+      <h2>Geographic Distribution</h2>
+      <div class="redline"></div>
+    </div>
+    <div class="body-text">
+      <p>The filled world map in the dashboard provides a geographic representation of the Netflix content library, shaded by the volume of titles associated with each country of origin. The visual pattern is immediately legible: the United States is the dominant contributor, rendered in the deepest shade of the red gradient used in the visualisation. The concentration of US-origin content is so pronounced that it shapes the entire colour scale, with other countries appearing in progressively lighter shades that reflect their comparatively smaller contributions.</p>
+      <p>This US-centricity is a structural feature of the dataset that reflects several converging factors. The United States is the world's largest film and television production market by output value and title volume. Hollywood studios  the major six and their affiliated production companies  collectively produce hundreds of films and television series annually, and Netflix has historically sourced a large proportion of its licensed content from US studios. Additionally, Netflix's own original production infrastructure is headquartered in Los Angeles, meaning that US-based productions constitute the largest segment of the Netflix Originals catalogue as well.</p>
+      <p>India emerges as the second most significant contributor in the geographic data. This reflects both the extraordinary volume of Bollywood film production  India produces more films annually than any other country by title count  and Netflix's aggressive investment in the Indian market, which it has identified as a critical growth frontier. Hindi-language originals, regional-language productions (Tamil, Telugu, Malayalam, Bengali), and licensed Bollywood content collectively give India a substantial catalogue footprint. The success of Indian originals such as Sacred Games, Delhi Crime, and Scam 1992 further demonstrates the commercial and critical viability of this content investment.</p>
+    </div>
+
+    <div class="geo-grid">
+      <div class="geo-card">
+        <div class="geo-flag">🇺🇸</div>
+        <div>
+          <div class="geo-name">United States</div>
+          <div class="geo-sub">Dominant contributor  Hollywood + Netflix HQ originals</div>
+        </div>
+      </div>
+      <div class="geo-card">
+        <div class="geo-flag">🇮🇳</div>
+        <div>
+          <div class="geo-name">India</div>
+          <div class="geo-sub">2nd largest  Bollywood + regional originals</div>
+        </div>
+      </div>
+      <div class="geo-card">
+        <div class="geo-flag">🇬🇧</div>
+        <div>
+          <div class="geo-name">United Kingdom</div>
+          <div class="geo-sub">Strong European anchor  prestige drama and film</div>
+        </div>
+      </div>
+      <div class="geo-card">
+        <div class="geo-flag">🇯🇵</div>
+        <div>
+          <div class="geo-name">Japan</div>
+          <div class="geo-sub">Anime hub  growing original anime investment</div>
+        </div>
+      </div>
+      <div class="geo-card">
+        <div class="geo-flag">🇰🇷</div>
+        <div>
+          <div class="geo-name">South Korea</div>
+          <div class="geo-sub">K-Drama wave  Squid Game global phenomenon</div>
+        </div>
+      </div>
+      <div class="geo-card">
+        <div class="geo-flag">🇨🇦</div>
+        <div>
+          <div class="geo-name">Canada</div>
+          <div class="geo-sub">Co-productions and licensed content</div>
+        </div>
+      </div>
+      <div class="geo-card">
+        <div class="geo-flag">🇪🇸</div>
+        <div>
+          <div class="geo-name">Spain</div>
+          <div class="geo-sub">Money Heist (La Casa de Papel) and growing slate</div>
+        </div>
+      </div>
+      <div class="geo-card">
+        <div class="geo-flag">🇩🇪</div>
+        <div>
+          <div class="geo-name">Germany</div>
+          <div class="geo-sub">Dark and expanding German-language originals</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-text" style="margin-top: 24px;">
+      <p>The United Kingdom holds the third position among content-contributing countries. British film and television has a long and distinguished tradition, and the UK's creative industry produces content of consistently high production value and international appeal. Netflix has made significant investments in British productions  including The Crown, Sex Education, and a range of films produced through its UK studio partnerships  and has established production infrastructure in the country. The UK also benefits from its linguistic alignment with the US market, making British content easily accessible to English-speaking subscribers globally without the friction of subtitles or dubbing.</p>
+      <p>Japan and South Korea represent a particularly significant pair of Asian contributors. Japan's contribution is driven substantially by anime  a genre that has demonstrated extraordinary global appeal on Netflix, with titles such as Demon Slayer, Attack on Titan, and a growing slate of Netflix-commissioned anime originals attracting large subscriber bases across Asia, North America, and Europe. South Korea's presence in the catalogue, while numerically smaller than Japan's, has been amplified beyond its volume by the exceptional global impact of individual titles. The 2021 release of Squid Game  a South Korean dystopian thriller that became Netflix's most-watched series of all time  transformed the platform's relationship with Korean content and catalysed a substantial increase in investment in the K-Drama and K-film space.</p>
+      <p>The geographic distribution chart also reveals significant white spaces  regions of the world with minimal or no representation in the Netflix catalogue. Sub-Saharan Africa, excluding South Africa and to a lesser extent Nigeria, contributes very few titles. The Middle East and North Africa region is similarly thin, despite the enormous size of the Arabic-speaking audience. Southeast Asian countries such as Indonesia, Thailand, Vietnam, and the Philippines, collectively representing hundreds of millions of potential subscribers, are underrepresented relative to their population scale. These white spaces represent both a challenge  the complexity of entering new content markets with different regulatory, linguistic, and cultural frameworks  and an opportunity for catalogue expansion that could drive subscriber growth in the next phase of the platform's development.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- ── 09. DISCUSSION ── -->
+  <section class="report-section" id="discussion">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 09</p>
+      <h2>Discussion</h2>
+      <div class="redline"></div>
+    </div>
+    <div class="body-text">
+      <p>Taken together, the four dimensions of analysis  content type, temporal growth, ratings distribution, and geographic spread  converge on a coherent strategic portrait of Netflix as it existed at the time of this dataset's compilation. The platform had, by the late 2010s, successfully executed a transition from licensed content aggregator to original content producer and global media company. The data reflects the architectural decisions that underpinned this transition: a broad, movie-heavy catalogue designed to provide the depth of choice that justifies a subscription; a post-2015 growth pattern that mirrors the platform's peak expansion investment; an adult-oriented ratings profile that differentiates Netflix from family-first and broadcast-constrained competitors; and a geographic distribution that is US-dominant but increasingly global in reach.</p>
+      <p>One of the most strategically interesting tensions revealed by the data is the gap between what the catalogue contains and what drives subscriber value. Netflix's most commercially significant asset is arguably its TV show catalogue  the episodic, serialised, binge-worthy original programming that creates habitual engagement and reduces monthly churn. Yet by catalogue count, TV shows represent only 30 percent of the library. This suggests that catalogue breadth and subscriber value are not linearly correlated  a relatively small number of high-quality, high-engagement TV series may contribute more to the platform's commercial health than several thousand licensed film titles.</p>
+      <p>The ratings analysis raises a related strategic question about audience segmentation. The dominance of TV-MA content reflects a deliberate positioning decision, but it also implies a structural underservice of families with young children. Netflix does maintain a children's content offering, including acquisitions and originals produced specifically for younger audiences, but the proportion of the catalogue dedicated to this demographic is notably smaller than would be implied by a family-first strategy. Given that households with children represent a substantial and loyal subscriber segment  with higher average household sizes and lower price sensitivity  this is an area where a more aggressive content investment could deliver meaningful commercial returns.</p>
+      <p>The geographic analysis points to an internationalisation strategy that has made significant progress but remains meaningfully incomplete. Netflix has demonstrated, through the success of Money Heist, Squid Game, Sacred Games, Dark, and Lupin, that local-language content can achieve global cultural resonance when produced at sufficient quality and marketed effectively. The challenge is to extend this model systematically to the underrepresented markets identified in the geographic distribution  particularly Africa, Southeast Asia, and the Arab world  without diluting the quality standards that have made the international originals strategy credible.</p>
+      <p>Finally, the temporal distribution data invites reflection on the sustainability of the catalogue growth model. The 2017–2020 peak was the product of an era when subscriber growth was robust, capital was cheap, and competitive pressure from new entrants had not yet fully materialised. The subsequent era  marked by subscriber growth plateaus, increased competition, cost discipline, and the introduction of advertising-supported tiers  has required a recalibration of content investment strategy. The data in this report captures a snapshot of a specific, historically distinct phase of Netflix's development, and analysts should be cautious about projecting its patterns forward without accounting for the structural shifts that have followed.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- ── 10. RECOMMENDATIONS ── -->
+  <section class="report-section" id="recommendations">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 10</p>
+      <h2>Strategic Recommendations</h2>
+      <div class="redline"></div>
+    </div>
+    <div class="body-text">
+      <p>Based on the analytical findings presented in this report, the following strategic recommendations are offered. These recommendations are framed from the perspective of a content strategy advisor working with the insights available from this dataset, and should be interpreted as directional rather than prescriptive, given the analytical constraints noted in the methodology section.</p>
+    </div>
+
+    <div class="rec-box">
+      <h4>Content Strategy Recommendations</h4>
+      <p>The following recommendations address catalogue composition, investment prioritisation, and audience expansion opportunities identified through the data analysis.</p>
+      <ul class="rec-list">
+        <li><strong>Rebalance the movie-to-TV ratio through targeted TV originals investment.</strong> Given that TV shows drive disproportionate engagement relative to their catalogue volume, increasing the proportion of original TV content  particularly in underserved genre categories  would likely deliver higher return on content investment than continuing to prioritise film licensing volume.</li>
+        <li><strong>Expand the children's and family content catalogue materially.</strong> The current TV-MA dominance, while commercially defensible, leaves family households underserved. A dedicated push to increase TV-G, TV-Y, and PG-rated content  both licensed and original  would broaden the platform's household appeal and reduce vulnerability to Disney+ in the family segment.</li>
+        <li><strong>Accelerate local-language originals investment in underrepresented markets.</strong> Sub-Saharan Africa, Southeast Asia, and the Arab world represent substantial populations with low current catalogue representation. Commissioned local originals in these regions  following the Money Heist and Squid Game model  could drive subscriber acquisition in markets where penetration remains low.</li>
+        <li><strong>Leverage the pre-2010 catalogue for curated cinematic programming.</strong> The thin but culturally significant layer of classic and vintage content in the library could be activated more effectively through curated collections, editorial programming, and "Netflix Classics" brand treatments that elevate the visibility of older titles and attract cinephile subscribers who currently find the catalogue skewed too heavily toward recent content.</li>
+        <li><strong>Develop more granular content performance metrics linked to catalogue composition.</strong> The dataset used in this analysis does not include viewership or engagement data. A full strategic assessment of content investment efficiency would require linking catalogue metadata with viewing behaviour data to identify which title categories, ratings, countries, and release years generate the highest hours-per-title engagement  the metric Netflix publicly uses as its primary measure of content success.</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- ── 11. CONCLUSION ── -->
+  <section class="report-section" id="conclusion">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 11</p>
+      <h2>Conclusion</h2>
+      <div class="redline"></div>
+    </div>
+
+    <div class="conclusion-block">
+      <p>This report has presented a comprehensive analytical examination of the Netflix global content library as represented in a dataset of 8,807 titles. Through the application of Power BI visualisation techniques and structured analytical reasoning, four key dimensions of the catalogue have been interrogated: content type composition, temporal growth trajectory, audience rating distribution, and geographic spread. Each dimension has yielded findings that are individually meaningful and collectively coherent  painting a portrait of a platform that built its library through aggressive acquisition, expanded it through original production, and oriented it decisively toward adult audiences in a US-led but increasingly global content landscape.</p>
+      <p>The movie-heavy catalogue composition, the explosive growth curve of the 2015–2020 period, the TV-MA dominance of the ratings profile, and the pronounced US-centricity of the geographic distribution are not isolated data points  they are the visible signatures of a coherent and intentional strategy executed across a decade of aggressive platform growth. Understanding this strategy through the lens of catalogue data allows both appreciation of what Netflix has built and identification of the structural gaps that represent the next frontier of development.</p>
+      <p>The recommendations offered in this report  expanded TV originals, greater family content investment, accelerated emerging market localisation, and classic catalogue activation  are grounded in the data and framed within the strategic context of an increasingly competitive global streaming market. They represent directional opportunities rather than certainties, and would benefit from validation against proprietary viewership and engagement data not available in this public dataset.</p>
+      <p>Ultimately, this analysis demonstrates the power of structured data analytics to generate meaningful strategic insight from even a relatively simple catalogue metadata dataset. The discipline of asking the right questions, applying the appropriate visualisation tools, and interpreting findings within their full contextual and historical frame transforms raw data into actionable intelligence  a capability that sits at the heart of contemporary data analytics practice.</p>
+    </div>
+
+    <div class="footnote">
+      <strong>Data Note:</strong> All figures in this report are derived from the publicly available Netflix Movies and TV Shows dataset. Percentage estimates and rating share approximations are based on visual interpretation of the Power BI dashboard visualisations and should not be treated as precisely audited figures. This report was prepared for portfolio and analytical demonstration purposes by Musa Mubarak Abdulaziz (2026) and does not represent official Netflix data, disclosures, or positions.
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- ── 12. REFERENCES ── -->
+  <section class="report-section" id="references">
+    <div class="section-header">
+      <p class="section-eyebrow">Section 12</p>
+      <h2>References</h2>
+      <div class="redline"></div>
+    </div>
+    <div class="body-text">
+      <p>The following sources informed the contextual and analytical dimensions of this report. Dataset-specific figures are derived directly from the Netflix Titles Dataset as visualised in the Power BI dashboard.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Source</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Netflix Movies and TV Shows Dataset  Kaggle / Shivam Bansal (2021). Public domain catalogue metadata dataset.</td>
+            <td><span class="tag-chip">Dataset</span></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Netflix, Inc. Annual Reports and Investor Relations disclosures (2015–2023). Subscriber growth, content spend, and global expansion data.</td>
+            <td><span class="tag-chip">Corporate</span></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Motion Picture Association of America (MPAA). Film Rating System documentation. mpaa.org.</td>
+            <td><span class="tag-chip">Regulatory</span></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>TV Parental Guidelines. TV Rating System  tvguidelines.org. Classification standards for television content.</td>
+            <td><span class="tag-chip">Regulatory</span></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Hastings, R. & Meyer, E. (2020). <em>No Rules Rules: Netflix and the Culture of Reinvention.</em> Penguin Press.</td>
+            <td><span class="tag-chip">Book</span></td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Lotz, A.D. (2022). <em>Netflix and Streaming Video: The Business of Subscriber-Funded Video on Demand.</em> Polity Press.</td>
+            <td><span class="tag-chip">Book</span></td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Microsoft Power BI Documentation. Data modelling and visualisation best practices. learn.microsoft.com/power-bi.</td>
+            <td><span class="tag-chip">Tool</span></td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>Abdulaziz, M.M. (2026). Netflix Content Dashboard [Power BI visualisation]. Personal portfolio project.</td>
+            <td><span class="tag-chip">Primary</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div><!-- end .page -->
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <p>Netflix Content Library Analysis Report  Data Analytics Portfolio</p>
+  <p>© 2026 <span class="red">Musa Mubarak Abdulaziz</span> &nbsp;·&nbsp; All Rights Reserved</p>
+</footer>
+
+</body>
+</html>
