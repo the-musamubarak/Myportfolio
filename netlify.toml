@@ -2,8 +2,11 @@
 
 [build]
   # No build command needed - publish files directly
-  command = ""
+  command = "echo 'Static site - no build needed'"
   publish = "."
+
+[context.production]
+  command = "echo 'Static site - no build needed'"
 
 # Redirect rules for SPA navigation with hash routing
 [[redirects]]
