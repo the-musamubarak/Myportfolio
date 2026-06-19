@@ -1173,6 +1173,40 @@ main {
   transform: scale(1.05);
 }
 
+/* UK Accident Dashboard Teal Theme */
+.project-item.uk-accident .project-item-icon-box {
+  color: #2DF6F6;
+}
+
+.project-item.uk-accident-dashboard-actions {
+  position: relative;
+}
+
+.project-item.uk-accident-dashboard-actions > a {
+  display: flex;
+  flex-direction: column;
+}
+
+/* UK Accident hover effects */
+.project-item.uk-accident:hover .project-img::before {
+  background: hsla(0, 0%, 0%, 0.5);
+}
+
+.project-item.uk-accident:hover .project-item-icon-box {
+  --scale: 1;
+  opacity: 1;
+}
+
+.project-item.uk-accident .netflix-dashboard-buttons button {
+  background: #2DF6F6;
+  color: #1a1d29;
+}
+
+.project-item.uk-accident .netflix-dashboard-buttons button:hover {
+  background: #1FC9D0;
+  transform: scale(1.05);
+}
+
 .project-img img {
   width: 100%;
   height: 100%;

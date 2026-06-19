@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>UK Road Accident Analysis Report  Musa Mubarak Abdulaziz</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Rajdhani:wght@600;700&display=swap');
+
+:root {
+  --bg:        #1a1d29;
+  --surface:   #232735;
+  --surface2:  #2b3042;
+  --border:    #383d52;
+  --blue:      #2DF6F6;
+  --blue-dim:  #1FC9D0;
+  --amber:     #f2b33d;
+  --red-alert: #e3553f;
+  --text:      #cdd2e0;
+  --muted:     #8a90a6;
+  --white:     #f3f5fa;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 15.5px;
+  line-height: 1.85;
+}
+
+/* ─── HEADER ─── */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 16px 52px;
+  background: #11131c;
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+}
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand-icon {
+  width: 34px; height: 34px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--blue), var(--blue-dim));
+  display: flex; align-items: center; justify-content: center;
+}
+.brand-icon svg { width: 19px; height: 19px; stroke: #fff; fill: none; stroke-width: 2; }
+.logo-text {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 1px;
+  color: var(--white);
+}
+.logo-text span { color: var(--blue); }
+.header-meta { text-align: right; }
+.header-meta p { font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; }
+.header-meta span { color: var(--blue); }
+
+/* ─── COVER ─── */
+.cover {
+  background: linear-gradient(170deg, #0e2438 0%, #14182a 45%, var(--bg) 100%);
+  padding: 80px 52px 60px;
+  border-bottom: 1px solid var(--border);
+}
+.cover-eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+.cover h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.3rem, 5vw, 4rem);
+  color: var(--white);
+  line-height: 1.08;
+  max-width: 880px;
+  margin-bottom: 28px;
+  letter-spacing: 0.5px;
+}
+.cover-subtitle {
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 740px;
+  font-style: italic;
+  margin-bottom: 40px;
+  text-align: justify;
+}
+.cover-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: 780px;
+}
+.cover-meta-item { background: var(--surface); padding: 16px 20px; }
+.cover-meta-item .label {
+  font-size: 0.65rem; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 4px; font-weight: 600;
+}
+.cover-meta-item .value { font-size: 0.88rem; color: var(--white); font-weight: 500; }
+
+/* ─── TOC ─── */
+.toc-wrap { background: var(--surface); border-bottom: 1px solid var(--border); padding: 40px 52px; }
+.toc-wrap h2 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.15rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 20px;
+}
+.toc { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 4px 40px; }
+.toc li { border-bottom: 1px solid var(--border); }
+.toc a {
+  display: flex; justify-content: space-between; padding: 8px 0;
+  color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s;
+}
+.toc a:hover { color: var(--white); }
+.toc a .num { color: var(--blue); font-weight: 700; margin-right: 10px; font-size: 0.75rem; }
+
+/* ─── KPI BAR ─── */
+.kpi-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--border); border-bottom: 1px solid var(--border); }
+.kpi { background: var(--bg); padding: 24px 20px; text-align: center; transition: background 0.2s; }
+.kpi:hover { background: var(--surface); }
+.kpi-val { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 2.1rem; color: var(--blue); line-height: 1; }
+.kpi.alert .kpi-val { color: var(--red-alert); }
+.kpi-lbl { font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 5px; }
+.kpi-sub { font-size: 0.72rem; color: var(--text); margin-top: 4px; }
+
+/* ─── MAIN ─── */
+.page { max-width: 980px; margin: 0 auto; padding: 60px 52px 100px; }
+.report-section { margin-bottom: 70px; }
+.section-header { margin-bottom: 28px; }
+.section-eyebrow { font-size: 0.65rem; letter-spacing: 4px; text-transform: uppercase; color: var(--blue); margin-bottom: 8px; font-weight: 600; }
+.section-header h2 { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.85rem; color: var(--white); line-height: 1.05; letter-spacing: 0.5px; }
+.blueline { width: 48px; height: 2px; background: var(--blue); margin: 12px 0 0; }
+
+.body-text p {
+  text-align: justify; hyphens: auto; color: var(--text);
+  margin-bottom: 18px; font-size: 0.95rem; line-height: 1.9;
+}
+.body-text p:last-child { margin-bottom: 0; }
+
+.pullquote {
+  border-left: 3px solid var(--blue); background: var(--surface);
+  padding: 22px 28px; margin: 28px 0; border-radius: 0 4px 4px 0;
+}
+.pullquote p { font-style: italic; font-size: 1.03rem; color: var(--white); line-height: 1.7; text-align: justify; }
+.pullquote cite {
+  display: block; margin-top: 10px; font-size: 0.7rem; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--blue); font-style: normal;
+}
+.pullquote.warn { border-left-color: var(--red-alert); }
+.pullquote.warn cite { color: var(--red-alert); }
+
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin: 28px 0; }
+.stat-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+  padding: 22px 24px; position: relative; overflow: hidden; transition: border-color 0.2s, transform 0.2s;
+}
+.stat-card::after { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--blue); }
+.stat-card.danger::after { background: var(--red-alert); }
+.stat-card:hover { border-color: var(--blue-dim); transform: translateY(-2px); }
+.stat-card .s-num { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 2.1rem; color: var(--blue); line-height: 1; }
+.stat-card.danger .s-num { color: var(--red-alert); }
+.stat-card .s-title { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--white); margin: 6px 0 8px; font-weight: 600; }
+.stat-card .s-body { font-size: 0.83rem; color: var(--muted); line-height: 1.65; text-align: justify; }
+
+.table-wrap { margin: 28px 0; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+thead { background: #11131c; }
+thead th {
+  padding: 13px 18px; text-align: left; font-size: 0.65rem; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--blue); font-weight: 700; border-bottom: 1px solid var(--border);
+}
+tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--surface2); }
+tbody td { padding: 12px 18px; color: var(--text); vertical-align: middle; }
+.bar-bg { background: var(--border); border-radius: 2px; height: 6px; overflow: hidden; width: 130px; }
+.bar-fill { height: 100%; background: var(--blue); border-radius: 2px; }
+.bar-fill.danger { background: var(--red-alert); }
+.bar-fill.warn { background: var(--amber); }
+.pct { color: var(--muted); font-size: 0.78rem; }
+.tag-chip {
+  display: inline-block; background: rgba(45,246,246,0.12); border: 1px solid var(--blue-dim);
+  border-radius: 3px; padding: 2px 9px; font-size: 0.7rem; color: var(--blue); letter-spacing: 1px;
+}
+.tag-chip.danger { background: rgba(227,85,63,0.12); border-color: var(--red-alert); color: var(--red-alert); }
+.tag-chip.warn { background: rgba(242,179,61,0.12); border-color: var(--amber); color: var(--amber); }
+
+.day-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 24px 0; }
+.day-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+  padding: 16px 18px; text-align: center; transition: border-color 0.2s, transform 0.2s;
+}
+.day-card:hover { border-color: var(--blue-dim); transform: translateY(-2px); }
+.day-card .d-num { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.7rem; color: var(--blue); }
+.day-card.peak .d-num { color: var(--red-alert); }
+.day-card .d-name { font-size: 0.74rem; color: var(--white); margin-top: 4px; font-weight: 600; }
+.day-card .d-sub { font-size: 0.65rem; color: var(--muted); margin-top: 2px; letter-spacing: 0.5px; }
+
+.rec-box { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 28px 32px; margin: 20px 0; }
+.rec-box h4 { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.05rem; letter-spacing: 1px; text-transform: uppercase; color: var(--white); margin-bottom: 10px; }
+.rec-box p { font-size: 0.88rem; color: var(--muted); text-align: justify; line-height: 1.8; }
+.rec-list { list-style: none; margin-top: 14px; }
+.rec-list li {
+  padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.86rem; color: var(--text);
+  display: flex; gap: 12px; text-align: justify; line-height: 1.7;
+}
+.rec-list li:last-child { border-bottom: none; }
+.rec-list li::before { content: '▸'; color: var(--blue); flex-shrink: 0; margin-top: 2px; }
+
+.conclusion-block {
+  background: linear-gradient(135deg, #0e2438 0%, var(--surface) 100%);
+  border: 1px solid var(--border); border-radius: 6px; padding: 40px 44px; margin-top: 20px;
+}
+.conclusion-block p { text-align: justify; font-size: 0.94rem; color: var(--text); line-height: 1.9; margin-bottom: 16px; }
+.conclusion-block p:last-child { margin-bottom: 0; }
+
+.section-divider { border: none; border-top: 1px solid var(--border); margin: 60px 0; }
+.footnote {
+  border-top: 1px solid var(--border); padding-top: 16px; margin-top: 32px;
+  font-size: 0.75rem; color: var(--muted); text-align: justify; line-height: 1.7;
+}
+
+footer {
+  background: #11131c; border-top: 1px solid var(--border); padding: 24px 52px;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+}
+footer p { font-size: 0.72rem; color: var(--muted); }
+footer .blue { color: var(--blue); }
+
+@media (max-width: 768px) {
+  header, .cover, .toc-wrap, .page, footer { padding-left: 20px; padding-right: 20px; }
+  .kpi-bar { grid-template-columns: repeat(2, 1fr); }
+  .cover h1 { font-size: 2.1rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+    </div>
+    <span class="logo-text">UK ROAD <span>ACCIDENT</span> ANALYSIS</span>
+  </div>
+  <div class="header-meta">
+    <p>Road Safety Analytics Report</p>
+    <p>© 2026 <span>Musa Mubarak Abdulaziz</span></p>
+  </div>
+</header>
+
+<div class="cover">
+  <p class="cover-eyebrow">Analytical Report &nbsp;·&nbsp; Road Safety Data Series</p>
+  <h1>UK Road Accident Analysis: A Comprehensive Casualty Data Report (2021–2022)</h1>
+  <p class="cover-subtitle">
+    An in-depth statistical examination of 418,000 recorded road traffic casualties across the United Kingdom between 2021 and 2022, segmented by severity, weather conditions, day of week, and temporal accident date. This report translates dashboard-level visual analytics into structured findings relevant to road safety policy, traffic enforcement planning, infrastructure investment, and public awareness strategy.
+  </p>
+  <div class="cover-meta-grid">
+    <div class="cover-meta-item"><div class="label">Prepared By</div><div class="value">Musa Mubarak Abdulaziz</div></div>
+    <div class="cover-meta-item"><div class="label">Report Type</div><div class="value">Dashboard Analytics Report</div></div>
+    <div class="cover-meta-item"><div class="label">Dataset</div><div class="value">UK Road Accident Dataset</div></div>
+    <div class="cover-meta-item"><div class="label">Period</div><div class="value">2021 – 2022</div></div>
+  </div>
+</div>
+
+<div class="toc-wrap">
+  <h2>Table of Contents</h2>
+  <ul class="toc">
+    <li><a href="#abstract"><span class="num">01</span> Abstract</a></li>
+    <li><a href="#introduction"><span class="num">02</span> Introduction</a></li>
+    <li><a href="#background"><span class="num">03</span> Background &amp; Context</a></li>
+    <li><a href="#methodology"><span class="num">04</span> Data &amp; Methodology</a></li>
+    <li><a href="#severity"><span class="num">05</span> Casualty Severity Analysis</a></li>
+    <li><a href="#temporal"><span class="num">06</span> Temporal Accident Trends</a></li>
+    <li><a href="#weather"><span class="num">07</span> Weather Condition Analysis</a></li>
+    <li><a href="#weekday"><span class="num">08</span> Day-of-Week Patterns</a></li>
+    <li><a href="#discussion"><span class="num">09</span> Discussion</a></li>
+    <li><a href="#recommendations"><span class="num">10</span> Recommendations</a></li>
+    <li><a href="#conclusion"><span class="num">11</span> Conclusion</a></li>
+    <li><a href="#references"><span class="num">12</span> References</a></li>
+  </ul>
+</div>
+
+<div class="kpi-bar">
+  <div class="kpi"><div class="kpi-val">418K</div><div class="kpi-lbl">Total Casualties</div><div class="kpi-sub">2021–2022 combined</div></div>
+  <div class="kpi alert"><div class="kpi-val">7,135</div><div class="kpi-lbl">Fatal Casualties</div><div class="kpi-sub">1.71% of total</div></div>
+  <div class="kpi"><div class="kpi-val">59K</div><div class="kpi-lbl">Serious Casualties</div><div class="kpi-sub">14.19% of total</div></div>
+  <div class="kpi"><div class="kpi-val">351K</div><div class="kpi-lbl">Slight Casualties</div><div class="kpi-sub">84.1% of total</div></div>
+  <div class="kpi"><div class="kpi-val">39</div><div class="kpi-lbl">Avg Speed Limit</div><div class="kpi-sub">mph, across all records</div></div>
+</div>
+
+<div class="page">
+
+  <section class="report-section" id="abstract">
+    <div class="section-header"><p class="section-eyebrow">Section 01</p><h2>Abstract</h2><div class="blueline"></div></div>
+    <div class="body-text">
+      <p>This report presents a structured statistical analysis of road traffic casualty data recorded across the United Kingdom during 2021 and 2022, sourced from a publicly available Kaggle dataset and visualised through a Power BI dashboard. The dataset captures a total of 418,000 individual casualties, classified by severity, associated with prevailing weather conditions at the time of the incident, distributed across the days of the week, and tracked chronologically across a 24-month accident date timeline. The objective of this report is to translate the dashboard's visual analytics into a structured narrative capable of informing road safety policy, enforcement resource allocation, and public safety communication strategy.</p>
+      <p>The headline findings reveal that fatal casualties, while numerically smaller than other severity categories at 7,135 incidents, represent the most consequential subset of the data from a public health and policy perspective, accounting for 1.71% of all recorded casualties. Serious casualties account for 14.19% of the total, while the overwhelming majority  84.1%  are classified as slight. Weather analysis shows that fine conditions without high winds account for the largest share of casualties by a substantial margin, a finding that initially appears counterintuitive but is explained by exposure volume rather than per-journey risk. Day-of-week analysis identifies Friday as the peak casualty day, with a gradual decline through the week toward a Sunday minimum. The report concludes with policy-relevant recommendations targeting enforcement timing, weather-adjusted risk communication, and severity-specific intervention strategies.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <section class="report-section" id="introduction">
+    <div class="section-header"><p class="section-eyebrow">Section 02</p><h2>Introduction</h2><div class="blueline"></div></div>
+    <div class="body-text">
+      <p>Road traffic accidents remain one of the most persistent and quantifiable public safety challenges faced by modern transport systems. In the United Kingdom, the collection and publication of detailed road casualty statistics has long served as a foundational input to national road safety strategy, informing decisions ranging from speed limit policy and road design standards to seasonal public awareness campaigns and police enforcement deployment. The dataset examined in this report, drawn from official-style casualty records covering the 2021–2022 period, provides a granular view into the circumstances, severity, and temporal distribution of road traffic casualties across the country.</p>
+      <p>The period under examination is analytically significant for reasons beyond its intrinsic road safety value. 2021 and 2022 represent a transitional phase in the United Kingdom's post-pandemic recovery, during which traffic volumes, commuting patterns, and travel behaviour were in a state of flux as lockdown restrictions eased and working patterns shifted toward greater flexibility and hybrid arrangements. Road casualty data from this period therefore captures not only the underlying structural risk factors associated with road travel  weather, time of week, road type, and speed environment  but also the residual effects of a uniquely disrupted travel landscape.</p>
+      <p>This report was prepared as part of a data analytics portfolio project, using Microsoft Power BI as the primary tool for data transformation, modelling, and visualisation. The accompanying dashboard presents an interactive, filterable view of the casualty dataset, allowing users to segment the data by accident severity, road type, urban or rural classification, lighting conditions, and weather conditions. This written report draws directly from the dashboard's visual findings, providing narrative depth, contextual framing, and policy-oriented interpretation that complements the dashboard's interactive exploration capability.</p>
+      <p>It should be noted that road casualty statistics, by their nature, describe outcomes that are deeply consequential to the individuals and families involved. While this report adopts an analytical and statistical lens consistent with formal data reporting conventions, the underlying subject matter concerns real incidents of injury and loss of life. The analysis is conducted in the spirit of contributing to road safety understanding and prevention, and all interpretations should be read with appropriate sensitivity to the human dimension of the data.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <section class="report-section" id="background">
+    <div class="section-header"><p class="section-eyebrow">Section 03</p><h2>Background &amp; Context</h2><div class="blueline"></div></div>
+    <div class="body-text">
+      <p>The United Kingdom has one of the most extensively documented road safety data ecosystems in the world. The Department for Transport (DfT) has published detailed road casualty statistics  historically under the STATS19 reporting framework  for several decades, providing researchers, policymakers, and road safety organisations with a consistent longitudinal dataset against which to measure the effectiveness of interventions. This data infrastructure has supported the UK's broader road safety strategy, which has pursued a long-term goal of reducing road deaths and serious injuries through a combination of engineering improvements, enforcement, vehicle safety regulation, and behavioural change campaigns.</p>
+      <p>The UK's road safety record, viewed in international comparative context, is generally regarded as strong. The country consistently ranks among the safer nations in Europe by fatalities per capita and per vehicle distance travelled, a position attributed to decades of sustained investment in road engineering, a mature vehicle safety inspection regime (the MOT test), and comparatively strict drink-driving and seatbelt enforcement relative to many international peers. Nevertheless, the absolute casualty figures remain substantial  the 418,000 casualties recorded in this two-year dataset represent a continuing and significant public health burden, even against a backdrop of long-term improvement trends.</p>
+
+      <div class="pullquote warn">
+        <p>Within the casualty severity hierarchy, the 7,135 fatal casualties recorded in this dataset represent the irreducible human cost at the centre of all road safety analysis. While slight casualties vastly outnumber fatalities in raw count, fatal and serious casualties carry disproportionate weight in policy evaluation because they represent outcomes that road safety interventions are specifically designed to prevent.</p>
+        <cite> Contextual Analysis, Musa Mubarak Abdulaziz, 2026</cite>
+      </div>
+
+      <p>The classification framework used in UK road casualty reporting  Fatal, Serious, and Slight  follows a standardised severity taxonomy that has remained broadly consistent across decades of data collection, enabling reliable year-on-year and period-on-period comparison. A casualty is classified based on clinical outcome assessment at the time of police reporting or subsequent medical confirmation, with Fatal referring to death within 30 days of the collision as a result of the incident, Serious referring to injuries requiring hospital admission or involving conditions such as fractures or severe lacerations, and Slight covering minor injuries such as bruising or shock not requiring hospital admission.</p>
+      <p>The 2021–2022 period also coincides with notable shifts in UK transport policy discourse, including expanded investment in active travel infrastructure (cycling and walking), the rollout of additional 20mph speed limit zones in urban areas across parts of Wales and various English local authorities, and continued debate over the role of average speed cameras and automated enforcement technology. These policy developments form an important backdrop against which the casualty patterns identified in this dataset should be interpreted.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <section class="report-section" id="methodology">
+    <div class="section-header"><p class="section-eyebrow">Section 04</p><h2>Data &amp; Methodology</h2><div class="blueline"></div></div>
+    <div class="body-text">
+      <p>The dataset analysed in this report is the publicly available UK Road Accident dataset covering the 2021–2022 period, sourced from Kaggle and structured around individual casualty-level records. Each record is associated with a range of attributes including accident date, accident severity classification (Fatal, Serious, Slight), road type, urban or rural area designation, prevailing light conditions at the time of the incident, weather conditions, and posted speed limit. The dataset was imported into Microsoft Power BI Desktop, where it was modelled, transformed, and visualised using a series of interactive charts and key performance indicator cards.</p>
+      <p>The dashboard design follows Power BI's standard dark theme, employing a charcoal-navy background palette with teal as the primary data visualisation accent colour  a neutral, high-contrast scheme well suited to the serious and policy-relevant nature of road safety data. Five interactive filter controls are provided across the top of the dashboard, enabling users to slice the data by Year, Accident_Severity, Road_Type, Urban_or_Rural_Area, and Light_Conditions, alongside Weather_Conditions. This filtering architecture allows the dashboard to support both high-level overview analysis and granular investigation of specific casualty subsets  for example, isolating fatal casualties occurring on rural roads during darkness, a combination of factors commonly associated with elevated risk in road safety literature.</p>
+      <p>Core KPI measures were calculated using DAX formulas within Power BI, including Total Casualties, Fatal Casualties, Serious Casualties, Slight Casualties, and Average Speed Limit. The temporal trend chart employs a continuous date-axis line visualisation, plotting total casualties against accident date across the full 24-month period from January 2021 through to the end of 2022. The severity breakdown is visualised through a donut chart displaying percentage shares, while weather conditions and day-of-week patterns are presented through horizontal and vertical bar charts respectively, ranked by casualty volume.</p>
+      <p>As with any large-scale administrative or crowd-sourced casualty dataset, several methodological caveats apply. Road casualty data is dependent on police-reported incidents, and reporting completeness can vary by severity category  fatal and serious casualties are reported with near-complete consistency due to mandatory medical and police involvement, whereas minor slight-injury incidents may be subject to some degree of underreporting, particularly where injuries are minor and no police attendance is requested. The weather and light condition fields reflect the prevailing conditions recorded at the scene and should be interpreted as contextual factors rather than definitively established causal contributors to each incident.</p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="s-num">418K</div>
+        <div class="s-title">Total Records</div>
+        <div class="s-body">Complete casualty count across the full 24-month 2021–2022 reporting period.</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-num">Power BI</div>
+        <div class="s-title">Analysis Tool</div>
+        <div class="s-body">Microsoft Power BI Desktop used for data modelling, DAX measures, and interactive dashboard design.</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-num">6</div>
+        <div class="s-title">Filter Dimensions</div>
+        <div class="s-body">Year, Severity, Road Type, Urban/Rural, Light Conditions, and Weather Conditions enable granular cross-segmentation.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <section class="report-section" id="severity">
+    <div class="section-header"><p class="section-eyebrow">Section 05</p><h2>Casualty Severity Analysis</h2><div class="blueline"></div></div>
+    <div class="body-text">
+      <p>The severity distribution presented in the dashboard's donut chart is the single most consequential analytical lens applied to this dataset. Of the 418,000 total casualties recorded across 2021 and 2022, 84.1% are classified as Slight, 14.19% as Serious, and 1.71% as Fatal. In absolute terms, this translates to approximately 351,000 slight casualties, 59,000 serious casualties, and 7,135 fatal casualties. This distribution follows a pattern that is broadly consistent with established road safety statistical norms internationally  the overwhelming majority of road traffic incidents result in outcomes that, while disruptive and often painful for those involved, do not result in life-threatening injury.</p>
+      <p>However, the analytical and policy significance of casualty data cannot be assessed by raw proportion alone. The 7,135 fatal casualties recorded in this dataset, while representing less than two percent of the total casualty count, constitute the most severe and irreversible category of outcome that road safety policy seeks to prevent. Each fatal casualty represents the loss of a human life, with consequences extending far beyond the statistical record to affect families, communities, and the broader social fabric. Road safety researchers and policymakers therefore typically apply severity-weighted analytical frameworks  sometimes formalised through metrics such as Killed or Seriously Injured (KSI) counts  that elevate the analytical priority of fatal and serious outcomes above their raw proportional share of the dataset.</p>
+
+      <div class="pullquote">
+        <p>A casualty severity distribution skewed heavily toward slight injuries is not, in itself, evidence of acceptable road safety performance. It reflects the underlying physics of most low-speed collisions, but the persistent presence of over 7,000 fatal casualties and nearly 59,000 serious casualties across just two years signals that meaningful opportunities for further harm reduction remain.</p>
+        <cite> Severity Analysis, Musa Mubarak Abdulaziz, 2026</cite>
+      </div>
+
+      <p>The combined Fatal and Serious casualty count  sometimes referred to in UK road safety terminology as KSI (Killed or Seriously Injured)  totals approximately 66,135 across the two-year period, representing 15.9% of all casualties. This KSI metric is frequently used by UK local authorities and national transport bodies as the primary performance indicator against which road safety strategy targets are set, given its closer correlation with the genuine human and economic cost of road traffic collisions compared to the total casualty figure alone.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Severity</th><th>Est. Count</th><th>Share</th><th>Relative Volume</th><th>Classification</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Slight</strong></td><td>~351,000</td><td class="pct">84.10%</td><td><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div></td><td><span class="tag-chip">Majority</span></td></tr>
+          <tr><td><strong>Serious</strong></td><td>~59,000</td><td class="pct">14.19%</td><td><div class="bar-bg"><div class="bar-fill warn" style="width:17%"></div></div></td><td><span class="tag-chip warn">Significant</span></td></tr>
+          <tr><td><strong>Fatal</strong></td><td>7,135</td><td class="pct">1.71%</td><td><div class="bar-bg"><div class="bar-fill danger" style="width:2%"></div></div></td><td><span class="tag-chip danger">Critical</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card danger">
+        <div class="s-num">7,135</div>
+        <div class="s-title">Fatal Casualties</div>
+        <div class="s-body">Equivalent to roughly 9.8 lives lost per day across the UK over the two-year period  the most urgent priority for intervention.</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-num">66.1K</div>
+        <div class="s-title">KSI (Killed/Serious)</div>
+        <div class="s-body">Combined Fatal and Serious casualties  the standard UK road safety policy performance metric.</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-num">15.9%</div>
+        <div class="s-title">KSI Share</div>
+        <div class="s-body">Nearly one in six casualties results in a life-threatening or life-altering outcome.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <section class="report-section" id="conclusion">
+    <div class="section-header"><p class="section-eyebrow">Section 11</p><h2>Conclusion</h2><div class="blueline"></div></div>
+    <div class="conclusion-block">
+      <p>This report has presented a comprehensive statistical analysis of UK road traffic casualty data spanning the 2021–2022 period, drawing on a dataset of 418,000 recorded casualties visualised through an interactive Power BI dashboard. Through structured examination of casualty severity, temporal trends, and day-of-week patterns, this analysis has surfaced findings of direct relevance to road safety policy and enforcement planning.</p>
+      <p>The severity analysis confirms that while the majority of casualties are classified as slight, the continuing presence of over 7,000 fatal and nearly 59,000 serious casualties across just two years represents a substantial ongoing public safety challenge that merits sustained and severity-weighted policy attention. The persistent identification of temporal and geographic patterns demonstrates the value of data-driven road safety strategy.</p>
+      <p>Ultimately, behind every statistic presented in this report lies a real human experience  a collision, an injury, in the most serious cases a life lost. The purpose of rigorous data analysis in this domain is action: translating patterns in the data into targeted, evidence-based interventions that can meaningfully reduce the human cost of road travel in the years ahead.</p>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>UK Road Accident Analysis Report &mdash; Data Analytics Portfolio</p>
+  <p>© 2026 <span class="blue">Musa Mubarak Abdulaziz</span> &nbsp;·&nbsp; All Rights Reserved</p>
+</footer>
+
+</body>
+</html>
