@@ -107,25 +107,25 @@ Resume
 Work Experience
 
 Data Analyst & Python Instructor
-Aptech Kaduna, Nigeria | Jan 2026 — Present
+Aptech Kaduna, Nigeria | Jan 2026  Present
 Train students in Python programming, data analytics, and data visualization through hands-on, project-based learning using tools such as Excel, Power BI, Tableau, and Python libraries. Develop, clean, and analyze datasets to create interactive dashboards and automated reports.
 
 National Youth Service Corps (N.Y.S.C)
-NITDA, Abuja | Jan 2025 — Dec 2025
+NITDA, Abuja | Jan 2025 - Dec 2025
 Supported Nigeria's digital transformation initiatives through comprehensive data analysis of technology adoption metrics and implementation strategies. Analyzed government digitalization datasets to identify trends, patterns, and insights in public sector technology usage using statistical analysis and database management techniques.
 
 Data Analyst & Research Specialist (Freelance)
-Self-Employed, Abuja | Jul 2024 — Present
+Self-Employed, Abuja | Jul 2024  Present
 Delivered 68+ data analysis and research projects across education, business, and public policy sectors with 98% client satisfaction rate. Built interactive dashboards and web applications using Python (Dash, Plotly) and frontend technologies for data visualization and reporting, enhancing business intelligence and supporting data-driven decision making.
 
 Education
 
 Air Force Institute of Technology
-Jan 2019 — Jan 2024
+Jan 2019 - Jan 2024
 B.Sc. in Physics and Electronics. A comprehensive program combining theoretical physics foundations with practical electronics engineering applications.
 
 Federal Government College
-Oct 2012 — Jul 2018
+Oct 2012 - Jul 2018
 High School Diploma in Physical Science. Completed advanced coursework in Physics, Chemistry, and Mathematics, providing a strong foundation for undergraduate studies in STEM disciplines.
 
 My skills

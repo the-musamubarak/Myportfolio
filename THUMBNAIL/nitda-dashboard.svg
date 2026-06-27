@@ -1,0 +1,15 @@
+<svg width="800" height="450" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="450" rx="24" fill="#0F172A"/>
+  <rect x="34" y="34" width="732" height="382" rx="18" fill="#111827" stroke="#F5B041" stroke-width="2"/>
+  <rect x="70" y="78" width="200" height="120" rx="14" fill="#F5B041"/>
+  <rect x="300" y="78" width="180" height="120" rx="14" fill="#5B6CFF"/>
+  <rect x="500" y="78" width="230" height="120" rx="14" fill="#1F2937" stroke="#E5E7EB" stroke-width="2"/>
+  <rect x="70" y="230" width="660" height="120" rx="14" fill="#0B1220" stroke="#334155" stroke-width="2"/>
+  <path d="M120 170C145 145 174 130 210 130C240 130 269 142 299 175" stroke="#0F172A" stroke-width="16" stroke-linecap="round"/>
+  <path d="M330 170C354 150 385 138 421 138C456 138 486 150 518 176" stroke="#E5E7EB" stroke-width="16" stroke-linecap="round"/>
+  <rect x="122" y="252" width="120" height="16" rx="8" fill="#F5B041"/>
+  <rect x="122" y="280" width="180" height="12" rx="6" fill="#64748B"/>
+  <rect x="122" y="302" width="160" height="12" rx="6" fill="#64748B"/>
+  <text x="70" y="380" fill="#F8FAFC" font-family="Poppins, Arial, sans-serif" font-size="28" font-weight="600">NITDA</text>
+  <text x="70" y="410" fill="#94A3B8" font-family="Poppins, Arial, sans-serif" font-size="16">Power BI Dashboard Preview</text>
+</svg>

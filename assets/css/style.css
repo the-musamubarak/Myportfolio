@@ -1140,6 +1140,40 @@ main {
   transform: scale(1.05);
 }
 
+/* NITDA Dashboard Theme */
+.project-item.nitda .project-item-icon-box {
+  color: #ffffff;
+  background: rgba(21, 128, 61, 0.95);
+  box-shadow: 0 10px 24px rgba(21, 128, 61, 0.25);
+}
+
+.project-item.nitda-dashboard-actions {
+  position: relative;
+}
+
+.project-item.nitda-dashboard-actions > a {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-item.nitda:hover .project-img::before {
+  background: hsla(0, 0%, 0%, 0.5);
+}
+
+.project-item.nitda:hover .project-item-icon-box {
+  --scale: 1;
+  opacity: 1;
+}
+
+.project-item.nitda .netflix-dashboard-buttons button {
+  background: #15803D;
+}
+
+.project-item.nitda .netflix-dashboard-buttons button:hover {
+  background: #166534;
+  transform: scale(1.05);
+}
+
 /* Spotify Dashboard Green Theme */
 .project-item.spotify .project-item-icon-box {
   color: #1DB954;

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NITDA Project Management Unit File Tracking System Report Musa Mubarak Abdulaziz</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Rajdhani:wght@600;700&display=swap');
+
+:root {
+  --bg:        #f4f7f5;
+  --surface:   #ffffff;
+  --surface2:  #eef3f0;
+  --border:    #d8e2dc;
+  --green:     #0f5132;
+  --green2:    #14532d;
+  --green-lt:  #1a7a4c;
+  --gold:      #c8a13a;
+  --red-alert: #c0392b;
+  --blue-info: #2c5f8a;
+  --text:      #2b342f;
+  --muted:     #677469;
+  --white:     #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 15.5px;
+  line-height: 1.85;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 14px 52px;
+  background: var(--green);
+  border-bottom: 4px solid var(--gold);
+  position: sticky; top: 0; z-index: 100;
+}
+.brand { display: flex; align-items: center; gap: 14px; }
+.brand-mark {
+  width: 40px; height: 40px;
+  background: var(--white);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--green);
+}
+.brand-text { line-height: 1.25; }
+.brand-text .agency { font-size: 1.05rem; font-weight: 700; color: var(--white); letter-spacing: 1px; }
+.brand-text .unit { font-size: 0.7rem; color: #cfe8da; letter-spacing: 0.5px; }
+.header-meta { text-align: right; }
+.header-meta p { font-size: 0.7rem; color: #cfe8da; letter-spacing: 1px; }
+.header-meta span { color: var(--gold); font-weight: 600; }
+
+.cover {
+  background: linear-gradient(170deg, #0f5132 0%, #0c3d26 60%, var(--bg) 130%);
+  padding: 80px 52px 60px;
+  border-bottom: 1px solid var(--border);
+}
+.cover-eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+.cover h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.2rem, 4.8vw, 3.8rem);
+  color: var(--white);
+  line-height: 1.1;
+  max-width: 880px;
+  margin-bottom: 28px;
+  letter-spacing: 0.3px;
+}
+.cover-subtitle {
+  font-size: 1rem;
+  color: #d9e8de;
+  max-width: 740px;
+  font-style: italic;
+  margin-bottom: 40px;
+  text-align: justify;
+}
+.cover-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: 780px;
+}
+.cover-meta-item { background: rgba(255,255,255,0.06); padding: 16px 20px; }
+.cover-meta-item .label {
+  font-size: 0.65rem; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 4px; font-weight: 600;
+}
+.cover-meta-item .value { font-size: 0.88rem; color: var(--white); font-weight: 500; }
+
+.toc-wrap { background: var(--surface); border-bottom: 1px solid var(--border); padding: 40px 52px; }
+.toc-wrap h2 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.15rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--green); margin-bottom: 20px;
+}
+.toc { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 4px 40px; }
+.toc li { border-bottom: 1px solid var(--border); }
+.toc a {
+  display: flex; justify-content: space-between; padding: 8px 0;
+  color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s;
+}
+.toc a:hover { color: var(--green); }
+.toc a .num { color: var(--green-lt); font-weight: 700; margin-right: 10px; font-size: 0.75rem; }
+
+.kpi-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--border); border-bottom: 1px solid var(--border); }
+.kpi { background: var(--surface); padding: 22px 18px; text-align: center; transition: background 0.2s; }
+.kpi:hover { background: var(--surface2); }
+.kpi-val { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.9rem; color: var(--green); line-height: 1; }
+.kpi.alert .kpi-val { color: var(--red-alert); }
+.kpi.gold .kpi-val { color: var(--gold); }
+.kpi-lbl { font-size: 0.6rem; letter-spacing: 1.6px; text-transform: uppercase; color: var(--muted); margin-top: 5px; }
+.kpi-sub { font-size: 0.7rem; color: var(--text); margin-top: 4px; }
+
+.page { max-width: 980px; margin: 0 auto; padding: 60px 52px 100px; }
+.report-section { margin-bottom: 70px; }
+.section-header { margin-bottom: 28px; }
+.section-eyebrow { font-size: 0.65rem; letter-spacing: 4px; text-transform: uppercase; color: var(--green-lt); margin-bottom: 8px; font-weight: 600; }
+.section-header h2 { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--green); line-height: 1.05; letter-spacing: 0.3px; }
+.goldline { width: 48px; height: 3px; background: var(--gold); margin: 12px 0 0; }
+
+.body-text p {
+  text-align: justify; hyphens: auto; color: var(--text);
+  margin-bottom: 18px; font-size: 0.95rem; line-height: 1.9;
+}
+.body-text p:last-child { margin-bottom: 0; }
+
+.pullquote {
+  border-left: 3px solid var(--green); background: var(--surface2);
+  padding: 22px 28px; margin: 28px 0; border-radius: 0 4px 4px 0;
+}
+.pullquote p { font-style: italic; font-size: 1.02rem; color: var(--green2); line-height: 1.7; text-align: justify; }
+.pullquote cite {
+  display: block; margin-top: 10px; font-size: 0.7rem; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--green-lt); font-style: normal;
+}
+.pullquote.warn { border-left-color: var(--red-alert); }
+.pullquote.warn p { color: var(--red-alert); }
+.pullquote.warn cite { color: var(--red-alert); }
+
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin: 28px 0; }
+.stat-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+  padding: 22px 24px; position: relative; overflow: hidden; transition: border-color 0.2s, transform 0.2s;
+  box-shadow: 0 1px 3px rgba(15,81,50,0.06);
+}
+.stat-card::after { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--green); }
+.stat-card.danger::after { background: var(--red-alert); }
+.stat-card.gold::after { background: var(--gold); }
+.stat-card:hover { border-color: var(--green-lt); transform: translateY(-2px); }
+.stat-card .s-num { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 2rem; color: var(--green); line-height: 1; }
+.stat-card.danger .s-num { color: var(--red-alert); }
+.stat-card.gold .s-num { color: var(--gold); }
+.stat-card .s-title { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--green2); margin: 6px 0 8px; font-weight: 600; }
+.stat-card .s-body { font-size: 0.83rem; color: var(--muted); line-height: 1.65; text-align: justify; }
+
+.table-wrap { margin: 28px 0; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; box-shadow: 0 1px 3px rgba(15,81,50,0.06); }
+table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+thead { background: var(--green); }
+thead th {
+  padding: 13px 18px; text-align: left; font-size: 0.65rem; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--white); font-weight: 700; border-bottom: 1px solid var(--border);
+}
+tbody tr { border-bottom: 1px solid var(--border); background: var(--surface); transition: background 0.15s; }
+tbody tr:nth-child(even) { background: var(--surface2); }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: #e1ede5; }
+tbody td { padding: 12px 18px; color: var(--text); vertical-align: middle; }
+.bar-bg { background: var(--border); border-radius: 2px; height: 6px; overflow: hidden; width: 130px; }
+.bar-fill { height: 100%; background: var(--green); border-radius: 2px; }
+.bar-fill.danger { background: var(--red-alert); }
+.bar-fill.gold { background: var(--gold); }
+.bar-fill.blue { background: var(--blue-info); }
+.pct { color: var(--muted); font-size: 0.78rem; }
+.tag-chip {
+  display: inline-block; background: #e1ede5; border: 1px solid var(--green-lt);
+  border-radius: 3px; padding: 2px 9px; font-size: 0.7rem; color: var(--green); letter-spacing: 1px; font-weight: 600;
+}
+.tag-chip.danger { background: #fbe4e1; border-color: var(--red-alert); color: var(--red-alert); }
+.tag-chip.gold { background: #f7eed7; border-color: var(--gold); color: #8a6d1f; }
+.tag-chip.blue { background: #e0eaf2; border-color: var(--blue-info); color: var(--blue-info); }
+
+.dept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 24px 0; }
+.dept-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+  padding: 16px 18px; text-align: center; transition: border-color 0.2s, transform 0.2s;
+  box-shadow: 0 1px 3px rgba(15,81,50,0.05);
+}
+.dept-card:hover { border-color: var(--green-lt); transform: translateY(-2px); }
+.dept-card .d-num { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.6rem; color: var(--green); }
+.dept-card.peak .d-num { color: var(--red-alert); }
+.dept-card .d-name { font-size: 0.74rem; color: var(--green2); margin-top: 4px; font-weight: 600; }
+.dept-card .d-sub { font-size: 0.63rem; color: var(--muted); margin-top: 2px; letter-spacing: 0.5px; }
+
+.rec-box { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 28px 32px; margin: 20px 0; box-shadow: 0 1px 3px rgba(15,81,50,0.06); }
+.rec-box h4 { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+.rec-box p { font-size: 0.88rem; color: var(--muted); text-align: justify; line-height: 1.8; }
+.rec-list { list-style: none; margin-top: 14px; }
+.rec-list li {
+  padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.86rem; color: var(--text);
+  display: flex; gap: 12px; text-align: justify; line-height: 1.7;
+}
+.rec-list li:last-child { border-bottom: none; }
+.rec-list li::before { content: '▸'; color: var(--green); flex-shrink: 0; margin-top: 2px; font-weight: 700; }
+
+.conclusion-block {
+  background: linear-gradient(135deg, #0f5132 0%, #14532d 100%);
+  border-radius: 6px; padding: 40px 44px; margin-top: 20px;
+}
+.conclusion-block p { text-align: justify; font-size: 0.94rem; color: #e3f0e8; line-height: 1.9; margin-bottom: 16px; }
+.conclusion-block p:last-child { margin-bottom: 0; }
+
+.section-divider { border: none; border-top: 1px solid var(--border); margin: 60px 0; }
+.footnote {
+  border-top: 1px solid var(--border); padding-top: 16px; margin-top: 32px;
+  font-size: 0.75rem; color: var(--muted); text-align: justify; line-height: 1.7;
+}
+
+footer {
+  background: var(--green); border-top: 4px solid var(--gold); padding: 24px 52px;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+}
+footer p { font-size: 0.72rem; color: #cfe8da; }
+footer .gold { color: var(--gold); font-weight: 600; }
+
+@media (max-width: 768px) {
+  header, .cover, .toc-wrap, .page, footer { padding-left: 20px; padding-right: 20px; }
+  .kpi-bar { grid-template-columns: repeat(2, 1fr); }
+  .cover h1 { font-size: 2rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-mark">N</div>
+    <div class="brand-text">
+      <div class="agency">NITDA</div>
+      <div class="unit">Project Management Unit · File Tracking System</div>
+    </div>
+  </div>
+  <div class="header-meta">
+    <p>Department &amp; Director Dashboard Report</p>
+    <p>© 2026 <span>Musa Mubarak Abdulaziz</span></p>
+  </div>
+</header>
+
+<div class="cover">
+  <p class="cover-eyebrow">Analytical Report · Public Sector Project Management Series</p>
+  <h1>NITDA File Tracking System: A Comprehensive Project Management Unit Report</h1>
+  <p class="cover-subtitle">
+    A detailed analytical examination of the National Information Technology Development Agency's (NITDA) internal File Tracking System, covering contract file lifecycle management, inter-departmental dispatch flow, approval and rejection patterns, and contract value distribution across states and companies. This report translates the Director, Department, and File Tracking dashboard views into a structured narrative relevant to public sector project governance, process efficiency, and accountability reporting.
+  </p>
+  <div class="cover-meta-grid">
+    <div class="cover-meta-item"><div class="label">Prepared By</div><div class="value">Musa Mubarak Abdulaziz</div></div>
+    <div class="cover-meta-item"><div class="label">Report Type</div><div class="value">Dashboard Analytics Report</div></div>
+    <div class="cover-meta-item"><div class="label">System</div><div class="value">NITDA File Tracking System</div></div>
+    <div class="cover-meta-item"><div class="label">Year</div><div class="value">2020 – 2025</div></div>
+  </div>
+</div>
+
+<div class="toc-wrap">
+  <h2>Table of Contents</h2>
+  <ul class="toc">
+    <li><a href="#abstract"><span class="num">01</span> Abstract</a></li>
+    <li><a href="#introduction"><span class="num">02</span> Introduction</a></li>
+    <li><a href="#background"><span class="num">03</span> Background &amp; Context</a></li>
+    <li><a href="#methodology"><span class="num">04</span> Data &amp; Methodology</a></li>
+    <li><a href="#director-view"><span class="num">05</span> Director Dashboard Overview</a></li>
+    <li><a href="#approval"><span class="num">06</span> File Status &amp; Approval Analysis</a></li>
+    <li><a href="#department"><span class="num">07</span> Department Dashboard Analysis</a></li>
+    <li><a href="#dispatch"><span class="num">08</span> Dispatch &amp; Routing Patterns</a></li>
+    <li><a href="#company-state"><span class="num">09</span> Company &amp; State Distribution</a></li>
+    <li><a href="#discussion"><span class="num">10</span> Discussion</a></li>
+    <li><a href="#recommendations"><span class="num">11</span> Recommendations</a></li>
+    <li><a href="#conclusion"><span class="num">12</span> Conclusion</a></li>
+    <li><a href="#references"><span class="num">13</span> References</a></li>
+  </ul>
+</div>
+
+<div class="kpi-bar">
+  <div class="kpi"><div class="kpi-val">3,000</div><div class="kpi-lbl">Total Files</div><div class="kpi-sub">Across all departments</div></div>
+  <div class="kpi gold"><div class="kpi-val">₦4.47B</div><div class="kpi-lbl">Total Contract Value</div><div class="kpi-sub">Cumulative file value</div></div>
+  <div class="kpi alert"><div class="kpi-val">734</div><div class="kpi-lbl">Pending Files</div><div class="kpi-sub">24.5% of total files</div></div>
+  <div class="kpi"><div class="kpi-val">737</div><div class="kpi-lbl">Approved Files</div><div class="kpi-sub">24.6% of total files</div></div>
+  <div class="kpi alert"><div class="kpi-val">302</div><div class="kpi-lbl">Rejected Files</div><div class="kpi-sub">10.1% of total files</div></div>
+</div>
+
+<div class="page">
+  <section class="report-section" id="abstract">
+    <div class="section-header"><p class="section-eyebrow">Section 01</p><h2>Abstract</h2><div class="goldline"></div></div>
+    <div class="body-text">
+      <p>This report presents a structured analytical examination of the National Information Technology Development Agency's (NITDA) Project Management Unit File Tracking System, based on three integrated Power BI dashboard views: the Director Dashboard, the Department Dashboard, and the File Tracking interface. Collectively, these views provide end-to-end visibility into the lifecycle of contract-related files as they move through NITDA's internal departments from initial receipt, through review and approval stages, to dispatch and eventual return to the Project Management Unit (PMU).</p>
+      <p>The dataset under examination comprises 3,000 total files with a cumulative contract value of ₦4,474,621,470,401 (approximately ₦4.47 trillion), distributed across multiple departments including Finance, ICT, HR, Procurement, Legal, Audit, Directors Office, and Front Desk. Of these files, 737 (24.6%) have achieved Approved status, 734 (24.5%) remain Pending, and 302 (10.1%) have been Rejected, with the remainder distributed across other statuses including Returned, Sent, Acknowledged, and Processing. The analysis further examines file dispatch volume by department, average dispatches per file, contract value distribution by state and company, and a five-year trend (2020–2025) in total files and dispatches. The report concludes with targeted recommendations for improving file throughput, reducing pending file backlogs, and strengthening inter-departmental routing efficiency.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <section class="report-section" id="introduction">
+    <div class="section-header"><p class="section-eyebrow">Section 02</p><h2>Introduction</h2><div class="goldline"></div></div>
+    <div class="body-text">
+      <p>Public sector agencies in Nigeria, much like comparable institutions globally, depend heavily on robust internal file and document management systems to track the progress of contracts, procurement processes, and inter-departmental approvals. The National Information Technology Development Agency (NITDA), established under the NITDA Act of 2007 as the principal Information Technology policy implementation arm of the Federal Government of Nigeria, manages a substantial volume of contractual and project-related documentation as part of its broader mandate to drive Nigeria's digital economy agenda, including initiatives such as broadband connectivity expansion, IT infrastructure development, and digital literacy programmes.</p>
+      <p>The File Tracking System examined in this report is the digital backbone supporting NITDA's Project Management Unit (PMU) the internal body responsible for coordinating the agency's portfolio of active projects and contracts. As contract files move through the organisation, they pass through a defined sequence of departmental touchpoints: initial receipt, often by Finance, ICT, HR, Procurement, or Legal; substantive review and processing; a decision point resulting in Approval, Rejection, or Return for further action; and where applicable, dispatch to additional departments such as Accounts, Audit, or the Directors Office for further clearance, verification, or sign-off.</p>
+      <p>This report was prepared as part of a data analytics portfolio project, with the underlying File Tracking System data visualised using Microsoft Power BI. Three distinct dashboard perspectives inform this analysis: a Director Dashboard offering an executive-level, high-altitude view of total files, contract value, approval rates, and geographic/company distribution of contract value; a Department Dashboard providing departmental-level visibility into dispatch volumes, statuses, and purposes; and a File Tracking interface presenting granular, record-level detail on individual files including received-by personnel, originating departments, project titles, and contract sums.</p>
+      <p>The structure of this report follows established analytical and public sector reporting conventions, progressing from contextual background and methodological clarity through detailed dashboard-by-dashboard findings to a synthesised discussion, actionable recommendations, and a concluding assessment. The intention is for this report to function as a companion narrative to the interactive Power BI dashboards, providing the kind of structured explanation and justification that supports internal governance review, audit preparation, or executive briefing within NITDA or similar public sector contexts.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <section class="report-section" id="background">
+    <div class="section-header"><p class="section-eyebrow">Section 03</p><h2>Background &amp; Context</h2><div class="goldline"></div></div>
+    <div class="body-text">
+      <p>NITDA occupies a central position within Nigeria's digital governance architecture. Created in April 2001 and formally established under the NITDA Act of 2007, the agency's mandate spans the planning, research, development, standardisation, application, coordination, monitoring, evaluation, and regulation of Information Technology practices across Nigeria. In recent years, this mandate has expanded substantially under the National Digital Economy Policy, encompassing flagship national initiatives such as broadband connectivity rollout, digital literacy training, startup ecosystem support, and the regulation of emerging technology areas including data protection and artificial intelligence governance.</p>
+      <p>Delivering on this mandate requires the agency to manage a large and continuously growing portfolio of contracts with private sector partners IT infrastructure firms, connectivity providers, training organisations, and technology vendors across all 36 states of the federation plus the Federal Capital Territory. The scale of contract value visible in this dataset ₦4,474,621,470,401 in cumulative contract value across 3,000 files reflects the financial magnitude of public sector digital infrastructure investment in Nigeria. Individual contract sums visible in the File Tracking detail view range from approximately ₦24 million to over ₦4.98 billion per file, illustrating the wide range of project scales the PMU is required to manage simultaneously, from modest service contracts to major infrastructure deployments. Effective tracking of these files through their full lifecycle receipt, review, approval or rejection, dispatch, and return is therefore essential not only for operational efficiency but for the financial accountability that public sector contract management demands.</p>
+
+      <div class="pullquote">
+        <p>A file tracking system within a public sector agency such as NITDA is not merely an administrative convenience it is a governance instrument. Every file represents a contractual commitment, often involving significant public expenditure, and the integrity of the approval, dispatch, and return process directly affects the agency's ability to deliver on its national digital economy obligations transparently and on schedule.</p>
+        <cite>— Contextual Analysis, Musa Mubarak Abdulaziz, 2026</cite>
+      </div>
+
+      <p>The five-year span captured in the Director Dashboard's "Total Files and Total Dispatches by Year" chart, covering 2020 through 2025, situates this dataset within a period of substantial digital transformation policy activity in Nigeria, including the National Digital Economy Policy and Strategy (2020–2030), continued broadband penetration targets under the National Broadband Plan, and an intensifying focus on local content development and indigenous technology capacity building. The consistency of file and dispatch volume across this period, as will be discussed in Section 05, suggests a stable and sustained pace of contract activity throughout this transformation period.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <section class="report-section" id="methodology">
+    <div class="section-header"><p class="section-eyebrow">Section 04</p><h2>Data &amp; Methodology</h2><div class="goldline"></div></div>
+    <div class="body-text">
+      <p>The data underlying this report was extracted from NITDA's internal Project Management Unit File Tracking System and visualised using Microsoft Power BI Desktop across three interconnected dashboard views. The File Tracking dataset records, at the individual file level, attributes including: the staff member who received the file (Received By), the originating department (From Department), the date received, the project title, the associated company name, a unique file number following the format NITDA/HQ/PMU/[Year]/[Sequence], and the contract sum in Naira associated with each file.</p>
+      <p>The Director Dashboard aggregates this granular data into executive-level key performance indicators Total Files, Total Contract Value, Pending Files, Approved Files, Urgent Files, and Approval Rate alongside visualisations including a "Files Same Period Last Year and Total Files by Month" trend line, a "Files Status" donut chart breaking down status into Approved, Pending, Under Review, Completed, Rejected, and Not Started categories, horizontal bar charts showing "Total Files by From Department" and "Sum of File Count by Department," and a filled map of Nigeria displaying "Total Contract Value by State and Company Name" using a treemap-style colour-coded visualisation across states including Sokoto, Borno, Plateau, Bauchi, Yobe, Katsina, Adamawa, Kogi, Delta, Kano, Kwara, Kaduna, Oyo, and others.</p>
+      <p>The Department Dashboard provides a departmentally-filtered operational view, with controls for Status, Year, To Department, Priority, and Quarter, supporting KPIs including Total Dispatches, Files Currently Out, Files Returned to PMU, Files Pending Return, and Average Dispatches Per File. Visualisations include "Total Dispatches by To Department," a "Total Dispatches by Status" donut chart breaking dispatches into Acknowledged, Returned, Sent, Pending, and Processing categories, "Total Dispatches by Purpose" (covering purposes such as Procurement Processing, Audit Verification, Completion Certification, Financial Clearance, MOU Signing, Legal Review, Site Verification, and Contract Execution), and a detailed record-level table showing company name, destination department, purpose, year, quarter, month, day, and current status for individual dispatch records.</p>
+      <p>Data transformation and DAX measure creation were performed within Power BI to compute derived metrics such as Average Dispatches Per File and Approval Rate. The dashboard's colour theme employs NITDA's institutional dark green as the dominant brand colour, consistent with the agency's visual identity, against a white and light-grey background, with selective use of colour-coded status indicators (green for positive/approved states, amber and orange for pending/in-progress states, and red for rejected or urgent states) to support rapid visual interpretation of file and dispatch status across the organisation.</p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="s-num">3,000</div>
+        <div class="s-title">Total File Records</div>
+        <div class="s-body">Complete file count tracked across the Director, Department, and File Tracking dashboard views.</div>
+      </div>
+      <div class="stat-card gold">
+        <div class="s-num">Power BI</div>
+        <div class="s-title">Analysis Platform</div>
+        <div class="s-body">Microsoft Power BI Desktop used for data modelling, DAX measures, and the three integrated dashboard views.</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-num">8</div>
+        <div class="s-title">Departments Tracked</div>
+        <div class="s-body">Finance, ICT, HR, Procurement, Legal, Audit, Directors Office, and Front Desk all appear as file touchpoints.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <section class="report-section" id="director-view">
+    <div class="section-header"><p class="section-eyebrow">Section 05</p><h2>Director Dashboard Overview</h2><div class="goldline"></div></div>
+    <div class="body-text">
+      <p>The Director Dashboard serves as the executive summary layer of the File Tracking System, designed to give senior leadership most directly the Director-General's office and PMU leadership immediate visibility into the overall health and scale of the agency's contract file portfolio without requiring engagement with department-level operational detail. The headline figures are striking in their scale: 3,000 total files under management, representing a cumulative contract value of ₦4,474,621,470,401, alongside an Approval Rate metric displayed as 0.25 (25%) and an Urgent files count of 601.</p>
+      <p>The "Files Same Period Last Year and Total Files by Month" line chart provides year-on-year comparative trend analysis, plotting two series across the calendar months almost certainly the current reporting year against the prior year allowing director-level users to immediately identify whether file volume is trending upward, downward, or holding steady relative to the same period twelve months prior. This kind of year-on-year framing is a standard and valuable executive dashboard convention, as it controls for seasonal variation in file volume (for instance, end-of-fiscal-year contract activity surges) that a simple month-to-month trend line would not adequately contextualise.</p>
+      <p>The "Files Status" donut chart breaks the full file population into six distinct status categories: Approved, Pending, Under Review, Completed, Rejected, and Not Started, with the chart's legend indicating relative proportions including the prominent figures of 21% and 19.9% visible for two of the dominant status categories. This granular status breakdown more detailed than the simpler Approved/Pending/Rejected framing used in the top-line KPI cards gives the director-level view additional nuance, distinguishing files that have not yet entered the review pipeline (Not Started) from those actively being reviewed (Under Review) and from completed but not formally closed files (Completed).</p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="s-num">25%</div>
+        <div class="s-title">Approval Rate</div>
+        <div class="s-body">Approximately one in four files in the system has achieved formal approval status at the time of reporting.</div>
+      </div>
+      <div class="stat-card danger">
+        <div class="s-num">601</div>
+        <div class="s-title">Urgent Files</div>
+        <div class="s-body">A substantial subset of files flagged as urgent, representing 20% of the total file population requiring expedited attention.</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-num">6</div>
+        <div class="s-title">Status Categories</div>
+        <div class="s-body">Approved, Pending, Under Review, Completed, Rejected, and Not Started provide granular lifecycle visibility.</div>
+      </div>
+    </div>
+
+    <div class="body-text" style="margin-top:20px;">
+      <p>The "Total Files by From Department" and "Sum of File Count by Department" horizontal bar charts together reveal which departments serve as the primary originating points for files entering the PMU system. Audit, HR, Accounts, Directors Office, Front Desk, and Finance all appear as significant originating departments, with the relative bar lengths suggesting Audit and HR as particularly high-volume sources of file origination. This pattern is consistent with the operational reality of a contract management lifecycle in which financial and human-resource-adjacent departments responsible for budget verification, vendor compliance checks, and contractual personnel matters generate a disproportionate share of file traffic relative to more specialised departments.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <section class="report-section" id="approval">
+    <div class="section-header"><p class="section-eyebrow">Section 06</p><h2>File Status &amp; Approval Analysis</h2><div class="goldline"></div></div>
+    <div class="body-text">
+      <p>The approval pipeline represented across the Director Dashboard's top-line KPIs 734 Pending, 737 Approved, and 302 Rejected, against a total of 3,000 files merits close examination, as it speaks directly to the operational efficiency and decision-making throughput of NITDA's contract review process. Taken together, these three categories account for 1,773 files, or approximately 59.1% of the total file population, with the remaining 40.9% distributed across other lifecycle stages such as Under Review, Completed, Not Started, Returned, and in-transit dispatch states.</p>
+      <p>The near-parity between Pending (734) and Approved (737) files is analytically significant. It suggests that for every file that successfully completes the review process and achieves approval, there is an almost equally sized file currently awaiting a decision within the pipeline. This pattern can be interpreted in two distinct ways, each carrying different implications. On one hand, it may simply reflect the natural throughput dynamics of a high-volume, continuously replenished file system, where a roughly equal "stock" of pending files relative to "flow" of approved files indicates a stable, functioning pipeline rather than a backlog crisis. On the other hand, if pending files are accumulating faster than they are being cleared a dynamic not fully visible from a single point-in-time snapshot the near-equal figures could equally signal an emerging bottleneck requiring closer operational attention.</p>
+
+      <div class="pullquote warn">
+        <p>A Rejected file count of 302 representing just over ten percent of the total file population warrants dedicated root-cause investigation. While some level of rejection is a healthy indicator of a functioning quality-control process, a double-digit percentage rejection rate across a public sector contract pipeline of this scale represents a meaningful volume of wasted administrative effort, vendor relationship friction, and potential project delivery delay that merits systematic analysis of underlying causes.</p>
+        <cite>— Approval Pipeline Analysis, Musa Mubarak Abdulaziz, 2026</cite>
+      </div>
+
+      <p>The Urgent Files metric of 601 visible on the Director Dashboard adds a further layer of risk context to the approval analysis. If a meaningful proportion of the 734 currently Pending files are also flagged as Urgent, this would represent a critical operational priority requiring immediate escalation, as urgent contract files are, by definition, those whose delayed processing carries heightened consequence whether due to contractual deadline exposure, vendor payment obligations, or project delivery timeline risk. Cross-referencing the Urgent flag against the Pending status a filtering capability natively available within the interactive dashboard would allow PMU leadership to immediately identify and prioritise the highest-risk subset of the pending file backlog.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>File Status</th><th>Count</th><th>Share of Total</th><th>Relative Volume</th><th>Risk Level</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Approved</strong></td><td>737</td><td class="pct">24.6%</td><td><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div></td><td><span class="tag-chip">Healthy</span></td></tr>
+          <tr><td><strong>Pending</strong></td><td>734</td><td class="pct">24.5%</td><td><div class="bar-bg"><div class="bar-fill gold" style="width:99%"></div></div></td><td><span class="tag-chip gold">Monitor</span></td></tr>
+          <tr><td><strong>Rejected</strong></td><td>302</td><td class="pct">10.1%</td><td><div class="bar-bg"><div class="bar-fill danger" style="width:41%"></div></div></td><td><span class="tag-chip danger">Investigate</span></td></tr>
+          <tr><td><strong>Urgent (flag)</strong></td><td>601</td><td class="pct">20.0%</td><td><div class="bar-bg"><div class="bar-fill danger" style="width:82%"></div></div></td><td><span class="tag-chip danger">Priority</span></td></tr>
+          <tr><td><strong>Other Statuses</strong></td><td>~1,227</td><td class="pct">40.9%</td><td><div class="bar-bg"><div class="bar-fill blue" style="width:100%"></div></div></td><td><span class="tag-chip blue">In Pipeline</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <section class="report-section" id="department">
+    <div class="section-header"><p class="section-eyebrow">Section 07</p><h2>Department Dashboard Analysis</h2><div class="goldline"></div></div>
+    <div class="body-text">
+      <p>The Department Dashboard shifts the analytical lens from organisation-wide oversight to operational, dispatch-level detail, presenting a 2020 Q1 filtered view that records 3,000 Total Dispatches, 3,000 Files Currently Out, 448 Files Returned to PMU, 703 Files Pending Return, and an Average Dispatches Per File of 24.6. Alongside these headline metrics, a secondary KPI row breaks down the current location of files actively in circulation: 518 Files Currently at Directors Office, 313 at Procurement, 232 at Audit, and 703 at Legal.</p>
+      <p>The Average Dispatches Per File figure of 24.6 is one of the most operationally revealing metrics on the entire dashboard. It indicates that, on average, each file in the system is dispatched that is, physically or digitally routed between departments nearly 25 times before reaching final resolution. This is a notably high figure for a single-file routing process and suggests that NITDA's contract files pass through a complex, multi-stage approval chain involving repeated back-and-forth movement between departments such as Legal, Procurement, Audit, Accounts, and the Directors Office, rather than a more streamlined linear approval path.</p>
+
+      <div class="pullquote">
+        <p>An average of nearly 25 dispatches per file is a meaningful operational signal. While some degree of inter-departmental routing is an inherent and necessary feature of multi-stakeholder contract review, a figure this high suggests the presence of process inefficiencies potentially including redundant sign-off loops, files being returned for incomplete documentation, or routing logic that sends files through departments unnecessarily each of which represents an opportunity for targeted process redesign.</p>
+        <cite>— Dispatch Efficiency Analysis, Musa Mubarak Abdulaziz, 2026</cite>
+      </div>
+
+      <p>The "Total Dispatches by Status" donut chart provides further insight into where files sit within this complex routing cycle, breaking the 3,000 dispatches into Acknowledged (919), Sent (619), Pending (703), Returned (448), and Processing (311) categories. The Acknowledged category, at 919 dispatches, represents the largest single status, indicating that the majority of dispatch actions do successfully reach their intended recipient department and receive confirmation. However, the combined Pending (703) and Processing (311) categories together accounting for 1,014 dispatches, or approximately 33.8% of total dispatch volume represent a substantial proportion of dispatch activity that has not yet reached resolution at the point of this data snapshot.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Dispatch Status</th><th>Count</th><th>Share</th><th>Relative Volume</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Acknowledged</strong></td><td>919</td><td class="pct">30.6%</td><td><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div></td></tr>
+          <tr><td><strong>Sent</strong></td><td>619</td><td class="pct">20.6%</td><td><div class="bar-bg"><div class="bar-fill blue" style="width:67%"></div></div></td></tr>
+          <tr><td><strong>Pending</strong></td><td>703</td><td class="pct">23.4%</td><td><div class="bar-bg"><div class="bar-fill gold" style="width:76%"></div></div></td></tr>
+          <tr><td><strong>Returned</strong></td><td>448</td><td class="pct">14.9%</td><td><div class="bar-bg"><div class="bar-fill danger" style="width:49%"></div></div></td></tr>
+          <tr><td><strong>Processing</strong></td><td>311</td><td class="pct">10.4%</td><td><div class="bar-bg"><div class="bar-fill blue" style="width:34%"></div></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <section class="report-section" id="dispatch">
+    <div class="section-header"><p class="section-eyebrow">Section 08</p><h2>Dispatch &amp; Routing Patterns</h2><div class="goldline"></div></div>
+    <div class="body-text">
+      <p>The "Total Dispatches by To Department" horizontal bar chart identifies Accounts and Legal as the two departments receiving the highest volume of dispatched files, with Directors Office, Procurement, Audit, HR, PMU, and Front Desk receiving progressively smaller shares. This distribution pattern is consistent with the structural role these departments play in the contract approval lifecycle: Legal review is a near-universal requirement for any contractual document prior to execution, while Accounts involvement is similarly close to universal given the financial clearance and payment processing requirements attached to virtually every contract file, regardless of project type or originating department.</p>
+      <p>The "Total Dispatches by Purpose" bar chart provides perhaps the most operationally specific insight into why files move between departments, breaking dispatch purpose into categories including Procurement Processing, Audit Verification, Completion Certification, Financial Clearance, MOU Signing, Legal Review, Site Verification, and Contract Execution. The relative bar lengths suggest Procurement Processing and Audit Verification as the two most common dispatch purposes, indicating that a substantial share of the system's dispatch volume is driven by the procurement compliance and audit verification stages of the contract lifecycle, rather than by legal or financial clearance alone.</p>
+      <p>The detailed record-level table within the Department Dashboard, showing individual dispatch entries by company, destination department, purpose, and date down to the day level, demonstrates the granularity available within the underlying system. Example records visible in the dashboard such as ValueNet Solutions Ltd's dispatch to Legal "For Site Verification" with Acknowledged status, or RapidTech Services Ltd's dispatch to Legal "For Audit Verification" marked Returned illustrate the kind of company-specific, purpose-specific tracking that allows PMU staff to follow the precise journey of any individual file or vendor relationship through the system.</p>
+      <p>The interactive tooltip visible in the dashboard screenshot, displaying "To Department: HR, Total Dispatches: 216" for a specific data point, demonstrates the dashboard's drill-down interactivity a feature that allows PMU staff and department heads to hover over any bar or chart element to retrieve precise underlying figures without needing to navigate to a separate detail view. This kind of interactive exploration capability is a key advantage of the Power BI platform over static reporting formats, and supports the kind of ad-hoc, exploratory analysis that operational staff frequently require when investigating specific departmental routing questions.</p>
+    </div>
+
+    <div class="dept-grid">
+      <div class="dept-card peak"><div class="d-num">High</div><div class="d-name">Accounts</div><div class="d-sub">Top Recipient</div></div>
+      <div class="dept-card peak"><div class="d-num">High</div><div class="d-name">Legal</div><div class="d-sub">Top Recipient</div></div>
+      <div class="dept-card"><div class="d-num">Mid</div><div class="d-name">Directors Office</div><div class="d-sub">Significant</div></div>
+      <div class="dept-card"><div class="d-num">Mid</div><div class="d-name">Procurement</div><div class="d-sub">Significant</div></div>
+      <div class="dept-card"><div class="d-num">Mid</div><div class="d-name">Audit</div><div class="d-sub">Significant</div></div>
+      <div class="dept-card"><div class="d-num">216</div><div class="d-name">HR</div><div class="d-sub">Confirmed Count</div></div>
+      <div class="dept-card"><div class="d-num">Low</div><div class="d-name">PMU</div><div class="d-sub">Return Point</div></div>
+      <div class="dept-card"><div class="d-num">Low</div><div class="d-name">Front Desk</div><div class="d-sub">Entry Point</div></div>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <section class="report-section" id="company-state">
+    <div class="section-header"><p class="section-eyebrow">Section 09</p><h2>Company &amp; State Distribution</h2><div class="goldline"></div></div>
+    <div class="body-text">
+      <p>The "Total Files by Company Name" horizontal bar chart on the Director Dashboard ranks vendor companies by file volume, with ShieldNet Nigeria Ltd, TowerTech Solutions Ltd, ApexSolutions Nigeria Ltd, ClearPath Systems Ltd, QuantumNig Technologies Ltd, GlobeTech Nigeria Ltd, MegaServe Digital Ltd, YieldTech Solutions Ltd, ZonalIT Nigeria Ltd, and KingdomTech Nigeria Ltd appearing as the most frequently represented vendors, each contributing in the range of approximately 80 to 100 files to the total dataset. This relatively even distribution across the top ten vendors rather than a small number of dominant vendors accounting for a disproportionate share of file volume suggests that NITDA maintains a genuinely diversified vendor base for its broadband connectivity and technology development contracts, reducing single-vendor concentration risk across the agency's contract portfolio.</p>
+      <p>The treemap-style "Total Contract Value by State and Company Name" visualisation presents one of the dashboard's most visually distinctive elements, using a colour-coded grid to represent contract value distribution across Nigerian states including Sokoto, Borno, Plateau, Bauchi, Yobe, Katsina, Adamawa, Kogi, Delta, Kano, Kwara, Kaduna, Oyo, and additional states extending beyond the visible chart area. This geographic breakdown is directly relevant to NITDA's broadband connectivity expansion mandate, as the Centre for Technology Development project titles visible throughout the File Tracking detail records are explicitly tied to specific states, indicating that contract value distribution by state serves as a proxy for tracking the geographic equity of NITDA's digital infrastructure investment across the federation.</p>
+
+      <div class="pullquote">
+        <p>Geographic distribution of contract value carries particular significance for a federal agency such as NITDA, given the constitutional and political expectation that public infrastructure investment be distributed equitably across Nigeria's states and the Federal Capital Territory, in line with the principle of federal character that underpins much of Nigerian public administration.</p>
+        <cite>— Geographic Equity Analysis, Musa Mubarak Abdulaziz, 2026</cite>
+      </div>
+
+      <p>The "Total Files and Total Dispatches by Year" bar chart, spanning 2020 through 2025, shows a pattern of relative consistency in both total files and total dispatches across the six-year period, with total dispatches consistently outpacing total files in each year a pattern fully consistent with the earlier finding of an average of 24.6 dispatches per file, since each file naturally generates multiple dispatch events as it circulates through the approval chain. The relative year-on-year stability visible in this chart suggests that NITDA's PMU file intake and processing volume has remained broadly steady throughout this period, without dramatic spikes or contractions that might otherwise warrant separate investigation.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <section class="report-section" id="discussion">
+    <div class="section-header"><p class="section-eyebrow">Section 10</p><h2>Discussion</h2><div class="goldline"></div></div>
+    <div class="body-text">
+      <p>Synthesising the findings across the Director, Department, and File Tracking dashboard views produces a layered understanding of NITDA's Project Management Unit operations that no single dashboard view could convey in isolation. The Director Dashboard establishes the macro-level stakes: a ₦4.47 trillion contract value portfolio spread across 3,000 files, with a 25% approval rate and a meaningful 601-file urgent backlog. The Department Dashboard reveals the granular operational mechanics underlying these macro figures, most notably the striking 24.6 average dispatches per file a metric that, on its own, justifies dedicated process efficiency review. The File Tracking detail view grounds both of these higher-level perspectives in concrete, auditable record-level data, demonstrating that the system's aggregate statistics are built on a foundation of genuinely traceable individual file histories.</p>
+      <p>The near-equal volumes of Pending (734) and Approved (737) files, combined with a Rejected count of 302 representing just over ten percent of the total file population, paints a picture of an active but not fully optimised approval pipeline. The system is clearly processing a significant volume of contract files relative to its overall stock Files Currently Out, Acknowledged, Sent but the substantial volume sitting in Pending and Processing status (a combined 33.8% of dispatch volume) indicates room for improved throughput, particularly if any meaningful share of this in-process volume overlaps with the 601 files flagged as Urgent.</p>
+      <p>The 24.6 average dispatches per file finding deserves particular emphasis in any holistic discussion of this dataset, as it represents the single most actionable operational efficiency signal available in the data. A file that must be routed nearly 25 times before reaching resolution is, almost by definition, moving through a more complex and time-consuming process than would be optimal for routine contract administration. While certain categories of high-value or legally complex contracts may genuinely warrant extensive multi-departmental review, it would be analytically valuable for NITDA's PMU leadership to segment this average by file value, project category, or department of origin, to determine whether the high average dispatch count is concentrated in specific file categories that could benefit from streamlined, fast-track approval pathways for lower-risk or lower-value contracts.</p>
+      <p>Finally, the company and state distribution analysis suggests that NITDA has, at least at the level of file volume and vendor count, achieved a reasonably diversified vendor base and broad geographic contract distribution consistent with its national infrastructure mandate. This is a positive structural finding from a governance and federal-character perspective, though a more complete equity assessment would require normalising contract value by state population, existing digital infrastructure baseline, or other need-based metrics not directly visible within the dashboards examined in this report.</p>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <section class="report-section" id="recommendations">
+    <div class="section-header"><p class="section-eyebrow">Section 11</p><h2>Strategic Recommendations</h2><div class="goldline"></div></div>
+    <div class="body-text">
+      <p>Based on the findings detailed above, the following recommendations are offered to support continued improvement of NITDA's Project Management Unit File Tracking System and the underlying business processes it supports.</p>
+    </div>
+
+    <div class="rec-box">
+      <h4>For PMU Process Efficiency</h4>
+      <p>Address the high average dispatch count and pending file volume through targeted process redesign.</p>
+      <ul class="rec-list">
+        <li><strong>Conduct a root-cause review of the 24.6 average dispatches per file metric.</strong> Segment this figure by department, project category, and contract value to identify whether specific file types are disproportionately responsible for the high routing count, and design fast-track approval pathways for lower-complexity, lower-value contract categories.</li>
+        <li><strong>Establish a dedicated escalation protocol for the intersection of Urgent and Pending files.</strong> Given 601 Urgent files and 734 Pending files exist as separate flags, cross-tabulating these categories within the dashboard and creating a standing weekly review process for files appearing in both categories would materially reduce the risk of critical contract delays.</li>
+        <li><strong>Investigate the 302 Rejected files for systemic, addressable rejection causes.</strong> A structured root-cause categorisation of rejection reasons (incomplete documentation, budget non-compliance, legal non-conformity, vendor eligibility issues) would allow the PMU to identify whether targeted vendor guidance or pre-submission checklists could reduce the current 10.1% rejection rate.</li>
+        <li><strong>Reduce the Returned dispatch category through improved first-pass documentation quality.</strong> The 448 Returned dispatches (14.9% of total dispatch volume) likely reflect files sent back due to incomplete or incorrect documentation; a standardised file submission checklist distributed to originating departments could reduce this category significantly.</li>
+      </ul>
+    </div>
+
+    <div class="rec-box" style="margin-top:16px;">
+      <h4>For Governance &amp; Oversight</h4>
+      <p>Strengthen the strategic and accountability value of the dashboard system for executive and external reporting purposes.</p>
+      <ul class="rec-list">
+        <li><strong>Develop a normalised state-level equity index for contract value distribution.</strong> Layering population, existing broadband penetration, and prior-year investment data onto the existing state/company treemap would allow NITDA leadership to assess and publicly demonstrate the equity of its digital infrastructure investment across Nigeria's states.</li>
+        <li><strong>Introduce a year-on-year approval rate trend metric alongside the current point-in-time 25% figure.</strong> A trended approval rate view would allow leadership to determine whether process improvements implemented over time are translating into measurably improved approval throughput.</li>
+        <li><strong>Formalise the File Tracking System as a standing input to quarterly PMU governance reporting.</strong> Given the granularity and auditability of the underlying data, regular extraction of dashboard-derived KPIs into a standing quarterly governance report would strengthen NITDA's internal accountability processes and provide a robust evidentiary basis for any external audit or oversight engagement.</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <section class="report-section" id="conclusion">
+    <div class="section-header"><p class="section-eyebrow">Section 12</p><h2>Conclusion</h2><div class="goldline"></div></div>
+
+    <div class="conclusion-block">
+      <p>This report has presented a comprehensive analytical examination of NITDA's Project Management Unit File Tracking System, drawing on three integrated Power BI dashboard views to construct a layered understanding of contract file lifecycle management across the agency. The analysis has traversed executive-level oversight metrics, departmental dispatch operations, and record-level file detail, surfacing findings of direct relevance to process efficiency, governance accountability, and strategic resource allocation within NITDA's contract management function.</p>
+      <p>The headline findings a ₦4.47 trillion contract value portfolio across 3,000 files, a 25% approval rate, a 24.6 average dispatches per file, and a 10.1% rejection rate collectively describe an active, high-volume public sector contract management operation that is functioning but carries clear, identifiable opportunities for efficiency improvement. The unusually high average dispatch count per file stands out as the single most actionable finding in this report, representing a concrete, addressable target for process redesign that could materially reduce file processing time across the organisation.</p>
+      <p>The company and state distribution analysis offers a more reassuring picture, suggesting that NITDA has achieved a reasonably diversified vendor base and broad geographic distribution of contract value consistent with its national digital infrastructure mandate and the broader principle of federal character that guides Nigerian public sector resource allocation. This finding supports the conclusion that, at the structural level, NITDA's PMU is operating in a manner broadly aligned with good public sector contract governance practice, even as specific operational efficiency improvements remain available.</p>
+      <p>Ultimately, this analysis demonstrates the substantial value of structured dashboard analytics as a governance tool within public sector institutions. The File Tracking System's three-tiered dashboard architecture Director, Department, and File Tracking views provides exactly the kind of multi-level visibility that effective public sector project management requires: strategic oversight for leadership, operational detail for department heads, and granular auditability for compliance and accountability purposes. Continued investment in refining this system, informed by the recommendations presented in this report, would further strengthen NITDA's capacity to deliver its national digital economy mandate efficiently and transparently.</p>
+    </div>
+
+    <div class="footnote"></div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <section class="report-section" id="references">
+    <div class="section-header"><p class="section-eyebrow">Section 13</p><h2>References</h2><div class="goldline"></div></div>
+    <div class="body-text">
+      <p>The following sources informed the contextual, regulatory, and interpretive dimensions of this report. Dashboard-specific figures are derived directly from NITDA's internal File Tracking System as visualised through the Power BI dashboard views examined.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Source</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>National Information Technology Development Agency (NITDA) Act, 2007. Establishing legislation and statutory mandate. nitda.gov.ng.</td><td><span class="tag-chip">Regulatory</span></td></tr>
+          <tr><td>2</td><td>NITDA. National Digital Economy Policy and Strategy (NDEPS) 2020–2030. Federal Ministry of Communications, Innovation and Digital Economy.</td><td><span class="tag-chip">Policy</span></td></tr>
+          <tr><td>3</td><td>NITDA. National Broadband Plan and Centre for Technology Development initiative documentation. nitda.gov.ng.</td><td><span class="tag-chip">Policy</span></td></tr>
+          <tr><td>4</td><td>NITDA Project Management Unit. Internal File Tracking System dashboards (Director View, Department View, File Tracking View). Power BI visualisation.</td><td><span class="tag-chip">Primary</span></td></tr>
+          <tr><td>5</td><td>Bureau of Public Procurement (BPP) Act, 2007. Public sector procurement and contract governance framework, Federal Republic of Nigeria.</td><td><span class="tag-chip">Regulatory</span></td></tr>
+          <tr><td>6</td><td>Public Procurement Act compliance guidance vendor eligibility, contract execution, and audit verification standards for federal agencies.</td><td><span class="tag-chip">Regulatory</span></td></tr>
+          <tr><td>7</td><td>Microsoft Power BI Documentation. Data modelling, DAX measures, treemap and donut chart visualisation guidance. learn.microsoft.com/power-bi.</td><td><span class="tag-chip">Tool</span></td></tr>
+          <tr><td>8</td><td>Abdulaziz, M.M. (2026). NITDA PMU File Tracking System Dashboard Analysis [Power BI visualisation]. Personal analytics portfolio project.</td><td><span class="tag-chip">Primary</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>NITDA Project Management Unit File Tracking Report Data Analytics Portfolio</p>
+  <p>© 2026 <span class="gold">Musa Mubarak Abdulaziz</span> · All Rights Reserved</p>
+</footer>
+
+</body>
+</html>
