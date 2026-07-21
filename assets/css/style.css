@@ -1241,6 +1241,78 @@ main {
   transform: scale(1.05);
 }
 
+/* Fitness Dashboard Theme */
+.project-item.fitness .project-item-icon-box {
+  color: #ffffff;
+  background: linear-gradient(135deg, #0f766e 0%, #f59e0b 100%);
+  box-shadow: 0 10px 24px rgba(15, 118, 110, 0.25);
+}
+
+.project-item.fitness-dashboard-actions {
+  position: relative;
+}
+
+.project-item.fitness-dashboard-actions > a {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-item.fitness:hover .project-img::before {
+  background: hsla(0, 0%, 0%, 0.5);
+}
+
+.project-item.fitness:hover .project-item-icon-box {
+  --scale: 1;
+  opacity: 1;
+}
+
+.project-item.fitness .netflix-dashboard-buttons button {
+  background: linear-gradient(135deg, #0f766e 0%, #f59e0b 100%);
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(15, 118, 110, 0.2);
+}
+
+.project-item.fitness .netflix-dashboard-buttons button:hover {
+  background: linear-gradient(135deg, #115e59 0%, #d97706 100%);
+  transform: scale(1.05);
+}
+
+/* Supermarket Dashboard Theme */
+.project-item.supermarket .project-item-icon-box {
+  color: #ffffff;
+  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.25);
+}
+
+.project-item.supermarket-dashboard-actions {
+  position: relative;
+}
+
+.project-item.supermarket-dashboard-actions > a {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-item.supermarket:hover .project-img::before {
+  background: hsla(0, 0%, 0%, 0.5);
+}
+
+.project-item.supermarket:hover .project-item-icon-box {
+  --scale: 1;
+  opacity: 1;
+}
+
+.project-item.supermarket .netflix-dashboard-buttons button {
+  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.2);
+}
+
+.project-item.supermarket .netflix-dashboard-buttons button:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #6d28d9 100%);
+  transform: scale(1.05);
+}
+
 .project-img img {
   width: 100%;
   height: 100%;
