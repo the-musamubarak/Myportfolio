@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Study: A Security Doors Business Moves From Paper to an Offline Inventory System | Musa Mubarak</title>
+  <meta name="description" content="How Alhaji Usman's security doors and wallpaper shop in Panteka, Kaduna replaced paper records with an offline inventory and sales system. Built by Musa Mubarak Abdulaziz, Zorbit Technology.">
+  <link rel="icon" href="./assets/images/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon-16.png">
+  <link rel="apple-touch-icon" href="./assets/images/apple-touch-icon.png">
+  <meta name="theme-color" content="#010717">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Case Study: Paper to an Offline Inventory System | Musa Mubarak">
+  <meta property="og:image" content="https://themusamubarak.name.ng/assets/images/logo-banner.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: hsl(0, 0%, 7%);
+      --card: hsl(240, 2%, 12%);
+      --card-2: hsl(240, 1%, 17%);
+      --line: hsl(0, 0%, 22%);
+      --gold: hsl(45, 100%, 72%);
+      --gold-dim: hsl(45, 54%, 58%);
+      --text: hsl(0, 0%, 98%);
+      --muted: hsl(0, 0%, 84%);
+      --muted-70: hsla(0, 0%, 84%, 0.7);
+      --red: hsl(0, 43%, 51%);
+      --red-soft: #e08c8c;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Poppins', Arial, sans-serif; line-height: 1.7; }
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+
+    .topbar { border-bottom: 1px solid var(--line); background: var(--card); position: sticky; top: 0; z-index: 10; }
+    .topbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+    .back { text-decoration: none; color: var(--gold); font-size: 14px; font-weight: 500; }
+    .back:hover { text-decoration: underline; }
+    .brand { font-size: 14px; color: var(--muted-70); }
+
+    .hero { padding: 64px 0 36px; }
+    .eyebrow { display: inline-block; color: var(--gold); font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; }
+    h1 { font-size: clamp(28px, 5vw, 44px); line-height: 1.2; font-weight: 600; margin-bottom: 18px; }
+    .lead { color: var(--muted); font-size: 17px; font-weight: 300; max-width: 760px; }
+
+    .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-top: 34px; }
+    .fact { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
+    .fact span { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--gold-dim); margin-bottom: 4px; }
+    .fact strong { font-size: 14px; font-weight: 500; }
+
+    .toc { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .toc a { text-decoration: none; font-size: 13px; padding: 6px 14px; border-radius: 20px; background: var(--card-2); color: var(--muted); transition: color .2s, background .2s; }
+    .toc a:hover { color: #111; background: var(--gold); }
+
+    section { padding: 48px 0; border-top: 1px solid var(--line); scroll-margin-top: 60px; }
+    h2 { font-size: 26px; font-weight: 600; margin-bottom: 8px; }
+    h2 + .sub { color: var(--muted-70); font-weight: 300; margin-bottom: 26px; }
+    p { color: var(--muted); font-weight: 300; margin-bottom: 14px; }
+
+    .context { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; align-items: start; }
+    .aside { background: var(--card); border: 1px solid hsla(45, 100%, 72%, 0.35); border-radius: 16px; padding: 22px; }
+    .aside h3 { color: var(--gold); font-size: 14px; font-weight: 600; margin-bottom: 10px; text-transform: uppercase; letter-spacing: .8px; }
+    .aside ul { list-style: none; }
+    .aside li { font-size: 14px; color: var(--muted); font-weight: 300; margin-bottom: 8px; padding-left: 18px; position: relative; }
+    .aside li::before { content: ""; position: absolute; left: 0; top: 10px; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); }
+
+    .pains { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; margin-top: 8px; }
+    .pain { background: var(--card); border: 1px solid var(--line); border-left: 3px solid var(--red); border-radius: 14px; padding: 20px; }
+    .pain h3 { font-size: 15px; font-weight: 600; color: var(--red-soft); margin-bottom: 6px; }
+    .pain p { font-size: 14px; margin: 0; }
+
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 16px; }
+    table { width: 100%; border-collapse: collapse; min-width: 720px; background: var(--card); }
+    th, td { text-align: left; padding: 14px 18px; vertical-align: top; font-size: 14px; border-bottom: 1px solid var(--line); }
+    thead th { background: var(--card-2); font-size: 12px; text-transform: uppercase; letter-spacing: .8px; }
+    thead th.bad { color: var(--red-soft); }
+    thead th.good { color: var(--gold); }
+    tbody th { font-weight: 500; color: var(--text); width: 22%; }
+    td.bad { color: var(--muted); font-weight: 300; width: 36%; }
+    td.good { color: var(--text); font-weight: 400; background: hsla(45, 100%, 72%, 0.05); }
+    tr:last-child th, tr:last-child td { border-bottom: none; }
+
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px; }
+    .feature { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+    .feature h3 { font-size: 15px; font-weight: 600; color: var(--gold); margin-bottom: 6px; }
+    .feature p { font-size: 14px; margin: 0; }
+
+    .shots { display: grid; gap: 40px; }
+    .shot figure { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+    .shot img { width: 100%; height: auto; }
+    .shot-placeholder { display: grid; place-items: center; min-height: 280px; padding: 24px; text-align: center; color: var(--muted-70); font-size: 14px; background: repeating-linear-gradient(45deg, var(--card), var(--card) 14px, var(--card-2) 14px, var(--card-2) 28px); }
+    .shot-placeholder code { color: var(--gold); font-size: 13px; }
+    .shot-body { padding: 18px 22px 22px; }
+    .shot-num { color: var(--gold-dim); font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; }
+    .shot h3 { font-size: 18px; font-weight: 600; margin: 2px 0 6px; }
+    .shot p { margin: 0; font-size: 14.5px; }
+
+    .steps { counter-reset: step; display: grid; gap: 14px; }
+    .step { display: flex; gap: 16px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+    .step::before { counter-increment: step; content: counter(step); flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--gold); color: #111; font-weight: 600; font-size: 14px; }
+    .step h3 { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+    .step p { margin: 0; font-size: 14px; }
+
+    .peace { background: linear-gradient(135deg, hsla(45, 100%, 72%, 0.10), hsla(45, 100%, 72%, 0.02)); border: 1px solid hsla(45, 100%, 72%, 0.35); border-radius: 20px; padding: 32px; }
+    .peace h2 { color: var(--gold); }
+    .peace-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 22px; }
+    .peace-card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+    .peace-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .peace-card p { margin: 0; font-size: 14px; }
+    .pullquote { margin-top: 24px; font-size: 18px; font-weight: 300; color: var(--text); border-left: 3px solid var(--gold); padding-left: 18px; }
+
+    .decisions { display: grid; gap: 14px; }
+    .decision { display: flex; gap: 16px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+    .decision b { flex-shrink: 0; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: hsla(45, 100%, 72%, 0.12); color: var(--gold); font-weight: 600; }
+    .decision h3 { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+    .decision p { margin: 0; font-size: 14px; }
+    .stack { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .stack span { padding: 7px 16px; border-radius: 20px; background: var(--card-2); font-size: 13px; }
+
+    .cta { text-align: center; padding: 56px 0 70px; }
+    .cta h2 { margin-bottom: 10px; }
+    .btn { display: inline-block; margin-top: 18px; padding: 13px 28px; border-radius: 12px; background: var(--gold); color: #111; font-weight: 600; font-size: 14px; text-decoration: none; }
+    .btn:hover { filter: brightness(1.08); }
+    .btn.ghost { background: transparent; color: var(--gold); border: 1px solid var(--gold-dim); margin-left: 10px; }
+    footer { border-top: 1px solid var(--line); padding: 22px 0; text-align: center; font-size: 13px; color: var(--muted-70); }
+
+    @media (max-width: 760px) {
+      .context { grid-template-columns: 1fr; }
+      .hero { padding-top: 40px; }
+      .peace { padding: 22px; }
+      .btn.ghost { margin: 12px 0 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div class="wrap">
+      <a class="back" href="./index.html">&larr; Back to portfolio</a>
+      <span class="brand">Musa Mubarak Abdulaziz</span>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Case study &middot; Inventory &amp; sales software</span>
+      <h1>From paper ledgers to peace of mind: an offline inventory system for a Kaduna security doors business</h1>
+      <p class="lead">
+        Alhaji Usman runs a security doors and wallpaper shop in Panteka, Kaduna. Stock, sales and customer debts were kept on paper. Today he opens one desktop app and sees what is in the shop, what sold, what profit was made and who still owes him money, with no internet needed.
+      </p>
+
+      <div class="facts">
+        <div class="fact"><span>Client</span><strong>Alhaji Usman, SUMC Security Doors</strong></div>
+        <div class="fact"><span>Location</span><strong>Panteka, Kaduna, Nigeria</strong></div>
+        <div class="fact"><span>Trade</span><strong>Security doors and wallpaper</strong></div>
+        <div class="fact"><span>My role</span><strong>Design &amp; development, end to end</strong></div>
+        <div class="fact"><span>Platform</span><strong>Windows desktop app, fully offline</strong></div>
+        <div class="fact"><span>Built with</span><strong>Electron, React, TypeScript, SQLite</strong></div>
+      </div>
+
+      <nav class="toc" aria-label="On this page">
+        <a href="#context">The client</a>
+        <a href="#problem">The problem</a>
+        <a href="#paper-vs-system">Paper vs system</a>
+        <a href="#solution">The solution</a>
+        <a href="#screens">The screens</a>
+        <a href="#day">A day with the system</a>
+        <a href="#peace">Peace of mind</a>
+        <a href="#decisions">Design decisions</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===================== CLIENT / CONTEXT ===================== -->
+  <section id="context">
+    <div class="wrap">
+      <h2>The client</h2>
+      <p class="sub">A busy shop with high-value stock.</p>
+      <div class="context">
+        <div>
+          <p>
+            Alhaji Usman's shop in Panteka, Kaduna sells security doors and wallpaper. Doors are not small purchases: in the system's catalogue, prices run from ₦58,000 for a steel door up to ₦250,000 for a double door. Every unit that is miscounted, mispriced or sold on credit and forgotten is real money.
+          </p>
+          <p>
+            Until now the business ran on manual paper records for stock, sales and what customers owed. Paper depends on memory and on every entry being written correctly, and the more products, customers and staff are involved, the harder that becomes to guarantee.
+          </p>
+          <p>
+            I set the design goals from the start: a tool the team can learn in a day, that works without internet or a monthly subscription, and that lets the owner see the whole business on one screen instead of piecing it together from paper.
+          </p>
+        </div>
+        <aside class="aside">
+          <h3>Design goals</h3>
+          <ul>
+            <li>Know exactly what is in stock</li>
+            <li>Stop losing track of who owes money</li>
+            <li>See profit, not just sales</li>
+            <li>Keep staff accountable</li>
+            <li>Work with no internet</li>
+            <li>Simple enough for everyday use</li>
+          </ul>
+        </aside>
+      </div>
+      <!-- TODO (Musa): confirm Alhaji Usman is happy to be named on a public page. Add 1-2 sentences about
+           how long the shop has operated and roughly how many products and staff it has, if he agrees. -->
+    </div>
+  </section>
+
+  <!-- ===================== THE PROBLEM ===================== -->
+  <section id="problem">
+    <div class="wrap">
+      <h2>The problem with paper</h2>
+      <p class="sub">Paper records fail quietly, and the owner pays for it.</p>
+      <p>
+        Paper is cheap and familiar, which is exactly why businesses stay with it long after it has stopped working. The trouble is that its failures are silent. A wrong total, a missing line or an unrecorded debt does not announce itself. It shows up weeks later as money that cannot be explained.
+      </p>
+
+      <div class="pains">
+        <div class="pain">
+          <h3>Stock you cannot trust</h3>
+          <p>To know how many of a particular door are left, someone has to count or add up pages of entries. Deliveries and sales written late or not at all mean the book and the shelf slowly stop matching.</p>
+        </div>
+        <div class="pain">
+          <h3>Arithmetic errors</h3>
+          <p>Totals worked out by hand on every sale invite small mistakes. On items costing tens or hundreds of thousands of naira, one slip can cost more than a day's profit.</p>
+        </div>
+        <div class="pain">
+          <h3>Debts that live in memory</h3>
+          <p>Credit sales are the lifeblood of building supplies and also the easiest money to lose. A debt book makes it hard to see the total owed, how old each balance is, or what has been part-paid.</p>
+        </div>
+        <div class="pain">
+          <h3>Profit is a guess</h3>
+          <p>Sales are easy to see on paper. Profit needs the cost of every item compared with its selling price. Few paper systems do this, so the owner knows how much came in but not how much he actually made.</p>
+        </div>
+        <div class="pain">
+          <h3>No accountability</h3>
+          <p>Anyone can write in a book, in any handwriting, and entries can be changed. The cost price of every product is visible to whoever holds the book, and it is hard to tell which staff member made which sale.</p>
+        </div>
+        <div class="pain">
+          <h3>Slow, unreliable reports</h3>
+          <p>A monthly summary means hours of adding up. Best sellers, slow movers and trends stay hidden, so restocking is done by habit instead of by evidence.</p>
+        </div>
+        <div class="pain">
+          <h3>One fragile book</h3>
+          <p>A single physical book can be damaged by water, lost, misplaced or altered. If it goes missing, so does the memory of the business.</p>
+        </div>
+        <div class="pain">
+          <h3>Constant background worry</h3>
+          <p>The hardest cost is not on any page: the owner cannot step away without wondering what is being written, what is being missed and what is being forgotten.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PAPER VS SYSTEM ===================== -->
+  <section id="paper-vs-system">
+    <div class="wrap">
+      <h2>Paper versus the system</h2>
+      <p class="sub">The same daily jobs, done two ways.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Everyday job</th><th class="bad">On paper</th><th class="good">With the inventory system</th></tr>
+          </thead>
+          <tbody>
+<tr><th scope="row">Knowing what is in stock</th><td class="bad">Count by hand or flip through pages and trust the last tally</td><td class="good">Live quantity on every product, with an alert when an item reaches its reorder level</td></tr>
+<tr><th scope="row">Working out a sale</th><td class="bad">Totals added up by hand on every sale</td><td class="good">Totals and balances calculated automatically; price adjustable per sale</td></tr>
+<tr><th scope="row">Money owed by customers</th><td class="bad">Debts in a notebook and in the owner's memory</td><td class="good">A debtor list showing amount paid, amount outstanding and who made the sale</td></tr>
+<tr><th scope="row">Knowing the profit</th><td class="bad">Needs cost and selling price compared by hand, so it is rarely known</td><td class="good">Estimated profit or loss on the dashboard, and profit by product in reports</td></tr>
+<tr><th scope="row">Staff accountability</th><td class="bad">Entries in anyone's handwriting, hard to check, and cost prices visible to whoever holds the book</td><td class="good">Every sale tied to a staff account; sales by staff; cost prices hidden from staff</td></tr>
+<tr><th scope="row">Finding a record</th><td class="bad">Turning pages and hoping the entry was written</td><td class="good">Search products by name, brand or SKU and customers by name, phone or email</td></tr>
+<tr><th scope="row">Reports</th><td class="bad">Hours of adding up at month end, if done at all</td><td class="good">Reports for any date range, daily or monthly trends, exports to CSV</td></tr>
+<tr><th scope="row">Returns and corrections</th><td class="bad">Crossed-out lines and notes in the margin</td><td class="good">Returns recorded with reasons, and net revenue and profit shown after returns</td></tr>
+<tr><th scope="row">Risk to the records</th><td class="bad">One physical book that can be damaged, lost or altered</td><td class="good">Typed, searchable records inside the system instead of a single fragile book</td></tr>
+<tr><th scope="row">Deciding what to reorder</th><td class="bad">Guesswork and habit</td><td class="good">Best sellers and the low-stock list show what to buy next</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== THE SOLUTION ===================== -->
+  <section id="solution">
+    <div class="wrap">
+      <h2>The solution</h2>
+      <p class="sub">Everything the business did on paper, in one place.</p>
+      <p>
+        I designed and built a desktop application that installs on the shop's own Windows computer and keeps all of its data in a local database. There is no subscription, no cloud account to manage and no internet needed to make a sale. The screens follow the way the shop actually works: record a sale, receive stock, check what a customer owes, read the day's numbers.
+      </p>
+
+      <div class="features">
+        <div class="feature">
+          <h3>Live dashboard</h3>
+          <p>Sales, receivables, low-stock items, stock value and estimated profit or loss for the day on one screen.</p>
+        </div>
+        <div class="feature">
+          <h3>Products with photos</h3>
+          <p>A visual catalogue with price, cost (admin only), category and stock for every door, searchable by name, brand or SKU.</p>
+        </div>
+        <div class="feature">
+          <h3>Fast sales entry</h3>
+          <p>Pick a product, set the price, record the amount paid. The system works out the balance due and updates stock instantly.</p>
+        </div>
+        <div class="feature">
+          <h3>Categories per product line</h3>
+          <p>Each category collects the right details for that type of product, and new lines such as wallpaper can be added.</p>
+        </div>
+        <div class="feature">
+          <h3>Supplier purchases</h3>
+          <p>Stock arriving from suppliers is recorded and added to inventory automatically, with a full history.</p>
+        </div>
+        <div class="feature">
+          <h3>Customers &amp; debtors</h3>
+          <p>See who owes what, how much has been paid, and mark balances paid as customers settle them.</p>
+        </div>
+        <div class="feature">
+          <h3>Returns &amp; receipts</h3>
+          <p>Returns are recorded with reasons and reflected in net revenue and profit, and sales keep a receipt trail.</p>
+        </div>
+        <div class="feature">
+          <h3>Reports &amp; exports</h3>
+          <p>Any date range, daily or monthly trends, revenue by category, profit by product and receivables aging, exportable to CSV.</p>
+        </div>
+        <div class="feature">
+          <h3>Owner &amp; staff roles</h3>
+          <p>The owner controls accounts. Staff can sell and look up stock without seeing cost prices.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCREENS ===================== -->
+  <section id="screens">
+    <div class="wrap">
+      <h2>The system in use</h2>
+      <p class="sub">A walk through the main screens.</p>
+
+      <div class="shots">
+
+        <article class="shot">
+          <figure>
+            <img data-shot src="./assets/case-studies/sumc/01-login.png" alt="SUMC login screen" loading="lazy">
+            <div class="shot-body">
+              <span class="shot-num">Screen 1 of 9</span>
+              <h3>Secure sign-in</h3>
+              <p>Every person signs in with their own account. Accounts are created by the owner from Manage Users, so only people he approves can open the system, and every action is tied to a name.</p>
+            </div>
+          </figure>
+        </article>
+
+        <article class="shot">
+          <figure>
+            <img data-shot src="./assets/case-studies/sumc/02-dashboard.png" alt="SUMC dashboard with sales, receivables, stock alerts and profit" loading="lazy">
+            <div class="shot-body">
+              <span class="shot-num">Screen 2 of 9</span>
+              <h3>Dashboard: the whole shop in one glance</h3>
+              <p>Today's sales, outstanding receivables, low-stock items, the value of the stock on the shelf and estimated profit or loss for the day, with recent sales, best sellers this week and sales by staff member underneath. This is the screen the owner opens first.</p>
+            </div>
+          </figure>
+        </article>
+
+        <article class="shot">
+          <figure>
+            <img data-shot src="./assets/case-studies/sumc/03-new-sale.png" alt="SUMC new sale screen with product search and cart" loading="lazy">
+            <div class="shot-body">
+              <span class="shot-num">Screen 3 of 9</span>
+              <h3>Recording a sale</h3>
+              <p>Search the catalogue, build the cart, choose the customer and payment method and enter the amount paid. The total and the balance due are worked out automatically, and stock drops the moment the sale is completed.</p>
+            </div>
+          </figure>
+        </article>
+
+        <article class="shot">
+          <figure>
+            <img data-shot src="./assets/case-studies/sumc/04-products.png" alt="SUMC products catalogue with photos, prices and stock levels" loading="lazy">
+            <div class="shot-body">
+              <span class="shot-num">Screen 4 of 9</span>
+              <h3>Product catalogue with photos</h3>
+              <p>Each door has its photo, selling price, cost price (visible to the admin only), category and quantity in stock. Search by name, brand or SKU, or filter to show only items running low.</p>
+            </div>
+          </figure>
+        </article>
+
+        <article class="shot">
+          <figure>
+            <img data-shot src="./assets/case-studies/sumc/05-categories.png" alt="SUMC category management screen" loading="lazy">
+            <div class="shot-body">
+              <span class="shot-num">Screen 5 of 9</span>
+              <h3>Categories that match the trade</h3>
+              <p>Fire, glass, interior, kitchen, security, sliding and steel doors, each collecting the details that matter for that type, such as size, height or style. New categories can be added for other product lines, so wallpaper can be tracked beside the doors.</p>
+            </div>
+          </figure>
+        </article>
+
+        <article class="shot">
+          <figure>
+            <img data-shot src="./assets/case-studies/sumc/06-purchases.png" alt="SUMC purchases screen with supplier purchase history" loading="lazy">
+            <div class="shot-body">
+              <span class="shot-num">Screen 6 of 9</span>
+              <h3>Purchases from suppliers</h3>
+              <p>When stock arrives, the purchase is recorded against the supplier and the quantities are added to inventory in the same step. A full purchase history and a supplier list are kept.</p>
+            </div>
+          </figure>
+        </article>
+
+        <article class="shot">
+          <figure>
+            <img data-shot src="./assets/case-studies/sumc/07-customers.png" alt="SUMC customers screen listing debtors and unpaid balances" loading="lazy">
+            <div class="shot-body">
+              <span class="shot-num">Screen 7 of 9</span>
+              <h3>Customers and debtors</h3>
+              <p>The handwritten debt book became a live list: who owes what, how much has been paid, who made the sale and when, with one click to mark a balance fully paid once the customer settles it.</p>
+            </div>
+          </figure>
+        </article>
+
+        <article class="shot">
+          <figure>
+            <img data-shot src="./assets/case-studies/sumc/08-reports.png" alt="SUMC reports with revenue by category, best sellers, profit by product and receivables aging" loading="lazy">
+            <div class="shot-body">
+              <span class="shot-num">Screen 8 of 9</span>
+              <h3>Reports that answer real questions</h3>
+              <p>Revenue by category, best sellers, profit by product and receivables aging for any date range, plus returns and the reasons for them. Sales, returns and aging can be exported to CSV for Excel.</p>
+            </div>
+          </figure>
+        </article>
+
+        <article class="shot">
+          <figure>
+            <img data-shot src="./assets/case-studies/sumc/09-users.png" alt="SUMC manage users screen" loading="lazy">
+            <div class="shot-body">
+              <span class="shot-num">Screen 9 of 9</span>
+              <h3>Owner and staff access</h3>
+              <p>The admin adds staff accounts, promotes or deactivates users and controls who can administer the store.</p>
+            </div>
+          </figure>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== A DAY WITH THE SYSTEM ===================== -->
+  <section id="day">
+    <div class="wrap">
+      <h2>A day with the system</h2>
+      <p class="sub">How the daily routine changed.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div>
+            <h3>Open the shop, open the dashboard</h3>
+            <p>Before the first customer arrives, the owner sees yesterday's activity, what is outstanding and which doors are running low. No books are opened.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Make a sale</h3>
+            <p>Staff search the product, add it to the cart, choose the customer and payment method and enter the amount paid. The total and any balance are calculated and stock reduces automatically.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Sell on credit without losing track</h3>
+            <p>If the customer pays part now, the rest is recorded as an unpaid balance against their name, ready to be collected and marked paid later.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Receive new stock</h3>
+            <p>When a delivery arrives, it is recorded as a purchase from the supplier and the quantities go straight into inventory.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Close the day with certainty</h3>
+            <p>The dashboard shows the day's sales, estimated profit and sales by staff member. The owner knows how the day went in seconds, not after an evening of adding up.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Plan the week with real numbers</h3>
+            <p>Reports show best sellers, profit by product and ageing debts, so reordering and collections are based on evidence.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PEACE OF MIND ===================== -->
+  <section id="peace">
+    <div class="wrap">
+      <div class="peace">
+        <h2>What it gives the owner: peace of mind</h2>
+        <p class="sub" style="margin-bottom:0">Features matter, but the real change is how it feels to own the business.</p>
+
+        <div class="peace-grid">
+          <div class="peace-card">
+            <h3>I know what is in my shop</h3>
+            <p>Stock is a number on the screen that moves with every sale and delivery, not a figure someone remembers or a count that takes a day.</p>
+          </div>
+          <div class="peace-card">
+            <h3>I know who owes me</h3>
+            <p>Every unpaid balance has a name, an amount and a date. Money owed stops being a worry at the back of the mind.</p>
+          </div>
+          <div class="peace-card">
+            <h3>I know what I really made</h3>
+            <p>Estimated profit and loss are shown for the day, and profit by product shows which doors actually earn their place on the shelf.</p>
+          </div>
+          <div class="peace-card">
+            <h3>I know what my staff are doing</h3>
+            <p>Each sale is linked to the person who made it. Staff sign in with their own accounts and do not see cost prices.</p>
+          </div>
+          <div class="peace-card">
+            <h3>No internet, no problem</h3>
+            <p>The system runs on the shop's own computer. No network, no data bundle, no waiting for a website to load and no sale lost to a bad connection.</p>
+          </div>
+          <div class="peace-card">
+            <h3>My records belong to me</h3>
+            <p>There is no cloud subscription and no outside company holding the shop's numbers. The data stays in the shop.</p>
+          </div>
+        </div>
+
+        <!-- TODO (Musa): if Alhaji Usman agrees, replace this line with a real quote from him
+             about how the system changed his day, and credit it to him. -->
+        <p class="pullquote">The goal was simple: the owner can leave the counter and still know exactly how the business is doing.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DESIGN DECISIONS ===================== -->
+  <section id="decisions">
+    <div class="wrap">
+      <h2>Design decisions that mattered</h2>
+      <p class="sub">Built around the realities of a small business in Nigeria.</p>
+
+      <div class="decisions">
+        <div class="decision">
+          <b>1</b>
+          <div>
+            <h3>Offline first</h3>
+            <p>Unreliable internet is part of everyday life, so the app never depends on it. Everything is stored in a local database on the shop's computer.</p>
+          </div>
+        </div>
+        <div class="decision">
+          <b>2</b>
+          <div>
+            <h3>Roles for owner and staff</h3>
+            <p>The first account created becomes the admin. The admin adds staff accounts and controls who can administer the store. Sensitive information such as cost prices is hidden from staff, and checks are enforced in the application's back end, not just hidden on screen.</p>
+          </div>
+        </div>
+        <div class="decision">
+          <b>3</b>
+          <div>
+            <h3>Secure sign-in</h3>
+            <p>Passwords are stored only as hashes and never as readable text. The owner can deactivate an account instantly.</p>
+          </div>
+        </div>
+        <div class="decision">
+          <b>4</b>
+          <div>
+            <h3>Stock that updates itself</h3>
+            <p>Sales reduce stock and purchases increase it automatically, so the numbers on screen match the shelf without anyone counting.</p>
+          </div>
+        </div>
+        <div class="decision">
+          <b>5</b>
+          <div>
+            <h3>Flexible categories</h3>
+            <p>Doors, wallpaper and any future product line need different details. Categories define what is collected for each, so data stays consistent without forcing every product into one form.</p>
+          </div>
+        </div>
+        <div class="decision">
+          <b>6</b>
+          <div>
+            <h3>Simple enough to learn in a day</h3>
+            <p>A clear sidebar, large buttons and plain language follow the shop's routine, so staff do not need training in software.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="stack">
+        <span>Electron</span><span>React</span><span>TypeScript</span><span>SQLite</span><span>Windows installer</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CTA ===================== -->
+  <section class="cta">
+    <div class="wrap">
+      <h2>Still running your business on paper or spreadsheets?</h2>
+      <p>I build inventory, sales and reporting tools that fit how your business really works.</p>
+      <a class="btn" href="mailto:musamubarak350@gmail.com?subject=Inventory%20system%20enquiry">Start a conversation</a>
+      <a class="btn ghost" href="./index.html">See more projects</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">&copy; Musa Mubarak Abdulaziz &middot; CEO, <a href="https://zorbittechnology.com.ng" target="_blank" rel="noopener" style="color: var(--gold)">Zorbit Technology</a></div>
+  </footer>
+
+  <script>
+    // If a screenshot file is missing, show a labelled placeholder instead of a broken image.
+    document.querySelectorAll('img[data-shot]').forEach(function (img) {
+      function showPlaceholder() {
+        var box = document.createElement('div');
+        box.className = 'shot-placeholder';
+        var file = img.getAttribute('src').split('/').pop();
+        box.innerHTML = '<div>Screenshot coming soon<br><code>' + file + '</code></div>';
+        img.replaceWith(box);
+      }
+      img.addEventListener('error', showPlaceholder);
+      if (img.complete && img.naturalWidth === 0) showPlaceholder();
+    });
+  </script>
+
+</body>
+
+</html>

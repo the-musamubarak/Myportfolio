@@ -1,4 +1,4 @@
-# vCard - Personal Portfolio
+# Musa Mubarak Abdulaziz - Portfolio
 
 **My Personal Portfolio Website** - A fully responsive vCard portfolio built with HTML, CSS, and JavaScript.
 
@@ -20,7 +20,7 @@ Before you begin, ensure you have met the following requirements:
 To clone this repository:
 
 ```bash
-git clone https://github.com/the-musamubarak/My-Portfolio.git
+git clone https://github.com/the-musamubarak/Myportfolio.git
 ```
 
 ## Contact
